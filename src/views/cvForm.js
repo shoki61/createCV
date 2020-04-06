@@ -1,6 +1,7 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, Image, ScrollView } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, TextInput, Image, ScrollView, Button } from 'react-native';
 import SImage from 'react-native-scalable-image';
+import DatePicker from 'react-native-datepicker'
 
 import styles from '../styles/cvFormStyle';
 
@@ -59,7 +60,11 @@ class CVForm extends React.Component {
 
             hidden: true,
             showPersonalInformation: true,
-            showExperiences: false
+            showExperiences: false,
+
+            date: '01-01-1950',
+
+            maxDate: '01-01-2016'
         }
     }
 
@@ -177,11 +182,32 @@ class CVForm extends React.Component {
                         this.state.hidden === false &&
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <Text style={styles.inputTitle}>Doğum tarihi</Text>
-                            <TextInput
-                                value={this.state.userBirthDay}
-                                onChangeText={(text) => this.setState({ userBirthDay: text })}
-                                placeholder='...'
-                                style={[styles.inputStyle, { width: '90%' }]} />
+                            <DatePicker
+                                style={[styles.inputStyle, { width: '90%' }]}
+                                date={this.state.date}
+                                mode="date"
+                                placeholder="select date"
+                                format="DD-MM-YYYY"
+                                maxDate={this.state.maxDate}
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                customStyles={{
+                                    dateIcon: {
+                                        display: 'none'
+                                    },
+                                    dateInput: {
+                                        borderWidth: 0,
+                                    },
+                                    dateText: {
+                                        fontSize: 1,
+                                        color: '#737373',
+                                        width: '100%'
+                                    }
+                                    // ... You can check the source to find the other keys.
+                                }}
+                                onDateChange={(date) => { this.setState({ date: date }) }}
+                            />
+
 
 
                             <Text style={styles.inputTitle}>Cinsiyet</Text>
@@ -212,8 +238,6 @@ class CVForm extends React.Component {
                                     <Text numberOfLines={1} style={styles.linkNameStyle} >sohratjumadurdyyew</Text>
                                     <TouchableOpacity style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
                                 </View>
-
-
                                 <View style={styles.linkInputContainer}>
                                     <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
                                     <TextInput
@@ -612,6 +636,9 @@ class CVForm extends React.Component {
     }
 
 
+
+
+
     render() {
         return (
             <ScrollView>
@@ -632,4 +659,40 @@ class CVForm extends React.Component {
     }
 }
 
+
+class MyDatePicker extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = { date: "2016-05-15" }
+    }
+
+    render() {
+        return (
+            <DatePicker
+                style={{ width: 200 }}
+                date={this.state.date}
+                mode="date"
+                placeholder="select date"
+                format="YYYY-MM-DD"
+                minDate="2016-05-01"
+                maxDate="2016-06-01"
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                customStyles={{
+                    dateIcon: {
+                        position: 'absolute',
+                        left: 0,
+                        top: 4,
+                        marginLeft: 0
+                    },
+                    dateInput: {
+                        marginLeft: 36
+                    }
+                    // ... You can check the source to find the other keys.
+                }}
+                onDateChange={(date) => { this.setState({ date: date }) }}
+            />
+        )
+    }
+}
 export default CVForm;
