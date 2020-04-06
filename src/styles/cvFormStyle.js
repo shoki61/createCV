@@ -150,8 +150,8 @@ const styles = StyleSheet.create({
     /*renderExperiences styles*/
     infoContainer: {
         width: '90%',
-        borderRadius: 5,
-        elevation: 3,
+        borderRadius: 10,
+        elevation: 8,
         backgroundColor: '#fff',
         alignItems: 'center',
         padding: 15,
@@ -282,6 +282,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 5
+    },
+    referansText: {
+        width: '100%',
+        borderRadius: 3,
+        borderWidth: 1,
+        borderColor: '#DADADA',
+        height: 35,
+        fontSize: 15,
+        color: '#6E6E6E',
+        paddingLeft: 10,
+        textAlignVertical: 'center',
+        overflow: 'hidden',
+        marginTop: 7
     }
 
 
