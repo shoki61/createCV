@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, Image, ScrollView, Button } from 'react-native';
+import React from 'react';
+import { View, Text, TouchableOpacity, TextInput, Image, ScrollView, Button, Picker } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker'
+import RNPickerSelect from 'react-native-picker-select';
 
 import styles from '../styles/cvFormStyle';
 
@@ -59,12 +60,13 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: true,
-            showExperiences: false,
+            showPersonalInformation: false,
+            showExperiences: true,
 
-            date: '01-01-1950',
+            minDate: '01-01-1950',
+            date: '01-01-1990',
+            maxDate: '01-01-2016',
 
-            maxDate: '01-01-2016'
         }
     }
 
@@ -110,7 +112,9 @@ class CVForm extends React.Component {
     }
 
     renderPersonalInformation() {
+        console.log('şatır')
         return (
+
             <View style={{ width: '100%', marginTop: 100, }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View >
@@ -129,65 +133,110 @@ class CVForm extends React.Component {
 
 
 
+
+
+
+
                     <View style={{ width: '60%' }}>
                         <Text style={styles.inputTitle}>İsim soy isim</Text>
-                        <TextInput
-                            value={this.state.userName}
-                            onChangeText={(text) => this.setState({ userName: text })}
-                            placeholder='...'
-                            style={styles.inputStyle} />
+                        <View style={styles.inputView}>
+                            <SImage width={20} source={require('../images/userForm.png')} />
+                            <TextInput
+                                value={this.state.userName}
+                                onChangeText={(text) => this.setState({ userName: text })}
+                                placeholder='...'
+                                style={styles.inputStyle} />
+                        </View>
+
+
 
                         <Text style={styles.inputTitle}>Telefon numarası</Text>
-                        <TextInput
-                            value={this.state.userNumber}
-                            onChangeText={(text) => this.setState({ userNumber: text })}
-                            placeholder='...'
-                            style={styles.inputStyle} />
+                        <View style={styles.inputView}>
+                            <SImage width={20} source={require('../images/phone.png')} />
+                            <TextInput
+                                value={this.state.userNumber}
+                                onChangeText={(text) => this.setState({ userNumber: text })}
+                                placeholder='...'
+                                keyboardType='numeric'
+                                style={styles.inputStyle} />
+                        </View>
+
 
                         <Text style={styles.inputTitle}>E-posta</Text>
-                        <TextInput
-                            value={this.state.userEmail}
-                            onChangeText={(text) => this.setState({ userEmail: text })}
-                            placeholder='...'
-                            style={styles.inputStyle} />
+                        <View style={styles.inputView}>
+                            <SImage width={20} source={require('../images/mail.png')} />
+                            <TextInput
+                                value={this.state.userEmail}
+                                onChangeText={(text) => this.setState({ userEmail: text })}
+                                placeholder='...'
+                                keyboardType='email-address'
+                                style={styles.inputStyle} />
+                        </View>
                     </View>
                 </View>
 
+
+
+
+
                 <View style={{ width: '100%', alignItems: 'center' }}>
+
+                    <Text style={styles.inputTitle}>Meslek</Text>
+                    <View style={[styles.inputView, { width: '90%' }]}>
+                        <SImage width={20} source={require('../images/manager.png')} />
+                        <TextInput
+                            value={this.state.userJob}
+                            onChangeText={(text) => this.setState({ userJob: text })}
+                            placeholder='...'
+                            style={[styles.inputStyle, { width: '90%', paddingLeft: 10 }]} />
+                    </View>
+
+
                     <Text style={styles.inputTitle}>Adress</Text>
-                    <TextInput
-                        value={this.state.userAddress}
-                        onChangeText={(text) => this.setState({ userAddress: text })}
-                        placeholder='...'
-                        style={[styles.inputStyle, { width: '90%' }]} />
+                    <View style={[styles.inputView, { width: '90%' }]}>
+                        <SImage width={20} source={require('../images/adress.png')} />
+                        <TextInput
+                            value={this.state.userAddress}
+                            onChangeText={(text) => this.setState({ userAddress: text })}
+                            placeholder='...'
+                            style={[styles.inputStyle, { width: '90%' }]} />
+                    </View>
 
 
                     <Text style={styles.inputTitle}>Şehir/ilçe</Text>
-                    <TextInput
-                        value={this.state.userCity}
-                        onChangeText={(text) => this.setState({ userCity: text })}
-                        placeholder='...'
-                        style={[styles.inputStyle, { width: '90%' }]} />
+                    <View style={[styles.inputView, { width: '90%' }]}>
+                        <SImage width={20} source={require('../images/pin.png')} />
+                        <TextInput
+                            value={this.state.userCity}
+                            onChangeText={(text) => this.setState({ userCity: text })}
+                            placeholder='...'
+                            style={[styles.inputStyle, { width: '90%' }]} />
+                    </View>
 
 
                     <Text style={styles.inputTitle}>Posta kodu</Text>
-                    <TextInput
-                        value={this.state.userPostalCode}
-                        onChangeText={(text) => this.setState({ userPostalCode: text })}
-                        placeholder='...'
-                        style={[styles.inputStyle, { width: '90%' }]} />
-
+                    <View style={[styles.inputView, { width: '90%' }]}>
+                        <SImage width={20} source={require('../images/post.png')} />
+                        <TextInput
+                            value={this.state.userPostalCode}
+                            onChangeText={(text) => this.setState({ userPostalCode: text })}
+                            placeholder='...'
+                            keyboardType='numeric'
+                            style={[styles.inputStyle, { width: '90%' }]} />
+                    </View>
 
                     {
                         this.state.hidden === false &&
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <Text style={styles.inputTitle}>Doğum tarihi</Text>
+
                             <DatePicker
-                                style={[styles.inputStyle, { width: '90%' }]}
+                                style={styles.dateInput}
                                 date={this.state.date}
                                 mode="date"
                                 placeholder="select date"
                                 format="DD-MM-YYYY"
+                                minDate={this.state.minDate}
                                 maxDate={this.state.maxDate}
                                 confirmBtnText="Confirm"
                                 cancelBtnText="Cancel"
@@ -196,14 +245,12 @@ class CVForm extends React.Component {
                                         display: 'none'
                                     },
                                     dateInput: {
-                                        borderWidth: 0,
+                                        borderWidth: 0
                                     },
                                     dateText: {
-                                        fontSize: 1,
-                                        color: '#737373',
-                                        width: '100%'
+                                        width: '100%',
+                                        color: '#737373'
                                     }
-                                    // ... You can check the source to find the other keys.
                                 }}
                                 onDateChange={(date) => { this.setState({ date: date }) }}
                             />
@@ -211,20 +258,26 @@ class CVForm extends React.Component {
 
 
                             <Text style={styles.inputTitle}>Cinsiyet</Text>
-                            <TextInput
-                                value={this.state.userGender}
-                                onChangeText={(text) => this.setState({ userGender: text })}
-                                placeholder='...'
-                                style={[styles.inputStyle, { width: '90%' }]} />
+                            <View style={[styles.inputView, { width: '90%' }]}>
+                                <SImage width={20} source={require('../images/gender.png')} />
+                                <TextInput
+                                    value={this.state.userGender}
+                                    onChangeText={(text) => this.setState({ userGender: text })}
+                                    placeholder='...'
+                                    style={[styles.inputStyle, { width: '90%' }]} />
+                            </View>
+
 
 
                             <Text style={styles.inputTitle}>Sürücü ehliyeti</Text>
-                            <TextInput
-                                value={this.state.userDrivingLicence}
-                                onChangeText={(text) => this.setState({ userDrivingLicence: text })}
-                                placeholder='...'
-                                style={[styles.inputStyle, { width: '90%' }]} />
-
+                            <View style={[styles.inputView, { width: '90%' }]}>
+                                <SImage width={20} source={require('../images/drivingLicense.png')} />
+                                <TextInput
+                                    value={this.state.userDrivingLicence}
+                                    onChangeText={(text) => this.setState({ userDrivingLicence: text })}
+                                    placeholder='...'
+                                    style={[styles.inputStyle, { width: '90%' }]} />
+                            </View>
 
                             <Text style={styles.inputTitle}>Linkler</Text>
                             <View style={styles.linksContainer}>
@@ -273,7 +326,7 @@ class CVForm extends React.Component {
 
 
 
-            </View>
+            </View >
         )
     }
 
@@ -282,42 +335,74 @@ class CVForm extends React.Component {
             <View style={{ width: '100%', marginTop: 100, alignItems: 'center' }}>
 
                 {/*Eğitim kısmı*/}
-                <Text style={styles.inputTitle}>Eğitim</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, }}>
+                    <SImage width={40} source={require('../images/graduate.png')} />
+                    <Text style={styles.inputTitle}>Eğitim</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>Okul/Fakülte</Text>
-                        <TextInput
-                            value={this.state.userSchoolName}
-                            onChangeText={(text) => this.setState({ userSchoolName: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/school.png')} />
+                            <TextInput
+                                value={this.state.userSchoolName}
+                                placeholder='...'
+                                onChangeText={(text) => this.setState({ userSchoolName: text })}
+                                style={styles.infoInput} />
+                        </View>
 
 
                         <Text style={styles.infoTitle}>Bölüm</Text>
-                        <TextInput
-                            value={this.state.userSchoolDepartment}
-                            onChangeText={(text) => this.setState({ userSchoolDepartment: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/department.png')} />
+                            <TextInput
+                                value={this.state.userSchoolDepartment}
+                                onChangeText={(text) => this.setState({ userSchoolDepartment: text })}
+                                style={styles.infoInput} />
+                        </View>
+
+
+
 
 
                         <Text style={styles.infoTitle}>Derece</Text>
-                        <TextInput
-                            value={this.state.userSchoolGrade}
-                            onChangeText={(text) => this.setState({ userSchoolGrade: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/degree.png')} />
+                            <TextInput
+                                value={this.state.userSchoolGrade}
+                                onChangeText={(text) => this.setState({ userSchoolGrade: text })}
+                                style={styles.infoInput} />
+                        </View>
+
+
+
+
 
 
                         <Text style={styles.infoTitle}>Şehir/ilçe</Text>
-                        <TextInput
-                            value={this.state.userSchoolCity}
-                            onChangeText={(text) => this.setState({ userSchoolCity: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/pin.png')} />
+                            <TextInput
+                                value={this.state.userSchoolCity}
+                                onChangeText={(text) => this.setState({ userSchoolCity: text })}
+                                style={styles.infoInput} />
+                        </View>
+
+
+
 
 
                         <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                        <TextInput
-                            value={this.state.userSchoolDate}
-                            onChangeText={(text) => this.setState({ userSchoolDate: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/calendar.png')} />
+                            <TextInput
+                                value={this.state.userSchoolDate}
+                                onChangeText={(text) => this.setState({ userSchoolDate: text })}
+                                style={styles.infoInput} />
+                        </View>
+
+
+
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
                         <TouchableOpacity style={[styles.linkAddButton, { marginTop: 10, right: 0 }]}><Text style={styles.buttonText}>Ekle</Text></TouchableOpacity>
@@ -325,47 +410,58 @@ class CVForm extends React.Component {
                 </View>
 
 
-                <Text style={styles.inputTitle}>Meslek</Text>
-                <TextInput
-                    value={this.state.userJob}
-                    onChangeText={(text) => this.setState({ userJob: text })}
-                    placeholder='...'
-                    style={[styles.inputStyle, { width: '90%' }]} />
 
 
                 {/*Iş deneyimi kısmı*/}
-                <Text style={styles.inputTitle}>İş deneyimi</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
+                    <SImage width={40} source={require('../images/work.png')} />
+                    <Text style={styles.inputTitle}>İş deneyimi</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>İş yeri</Text>
-                        <TextInput
-                            value={this.state.userCompanyName}
-                            onChangeText={(text) => this.setState({ userCompanyName: text })}
-                            style={styles.infoInput} />
-
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/workplace.png')} />
+                            <TextInput
+                                value={this.state.userCompanyName}
+                                placeholder='...'
+                                onChangeText={(text) => this.setState({ userCompanyName: text })}
+                                style={styles.infoInput} />
+                        </View>
 
                         <Text style={styles.infoTitle}>Meslek</Text>
-                        <TextInput
-                            value={this.state.userCompanyJob}
-                            onChangeText={(text) => this.setState({ userCompanyJob: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/manager.png')} />
+                            <TextInput
+                                placeholder='...'
+                                value={this.state.userCompanyJob}
+                                onChangeText={(text) => this.setState({ userCompanyJob: text })}
+                                style={styles.infoInput} />
+                        </View>
 
 
                         <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                        <TextInput
-                            value={this.state.userCompanyDate}
-                            onChangeText={(text) => this.setState({ userCompanyDate: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/calendar.png')} />
+                            <TextInput
+                                placeholder='...'
+                                value={this.state.userCompanyDate}
+                                onChangeText={(text) => this.setState({ userCompanyDate: text })}
+                                style={styles.infoInput} />
+                        </View>
 
 
                         <Text style={styles.infoTitle}>Açıklama</Text>
-                        <TextInput
-                            value={this.state.userCompanyDescription}
-                            onChangeText={(text) => this.setState({ userCompanyDescription: text })}
-                            multiline={true}
-                            numberOfLines={4}
-                            placeholder={'...'}
-                            style={styles.descriptionInput} />
+                        <View style={styles.experiencesDescInputView}>
+                            <SImage width={23} source={require('../images/comment.png')} />
+                            <TextInput
+                                value={this.state.userCompanyDescription}
+                                onChangeText={(text) => this.setState({ userCompanyDescription: text })}
+                                multiline={true}
+                                numberOfLines={4}
+                                placeholder={'...'}
+                                style={styles.descriptionInput} />
+                        </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
                         <TouchableOpacity style={[styles.linkAddButton, { marginTop: 10 }]}><Text style={styles.buttonText}>Ekle</Text></TouchableOpacity>
@@ -374,38 +470,56 @@ class CVForm extends React.Component {
 
 
                 {/*Projeler kısmı*/}
-                <Text style={styles.inputTitle}>Projeler</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
+                    <SImage width={40} source={require('../images/project.png')} />
+                    <Text style={styles.inputTitle}>Projeler</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>Proje adı</Text>
-                        <TextInput
-                            value={this.state.userProjectName}
-                            onChangeText={(text) => this.setState({ userProjectName: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/projectName.png')} />
+                            <TextInput
+                                value={this.state.userProjectName}
+                                onChangeText={(text) => this.setState({ userProjectName: text })}
+                                style={styles.infoInput} />
+                        </View>
+
 
 
                         <Text style={styles.infoTitle}>Araçlar</Text>
-                        <TextInput
-                            value={this.state.userProjectTools}
-                            onChangeText={(text) => this.setState({ userProjectTools: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={23} source={require('../images/tools.png')} />
+                            <TextInput
+                                value={this.state.userProjectTools}
+                                onChangeText={(text) => this.setState({ userProjectTools: text })}
+                                style={styles.infoInput} />
+                        </View>
+
 
 
                         <Text style={styles.infoTitle}>Link</Text>
-                        <TextInput
-                            value={this.state.userProjectLink}
-                            onChangeText={(text) => this.setState({ userProjectLink: text })}
-                            style={styles.infoInput} />
+                        <View style={styles.experiencesInputView}>
+                            <SImage width={20} source={require('../images/linkIcon.png')} />
+                            <TextInput
+                                value={this.state.userProjectLink}
+                                onChangeText={(text) => this.setState({ userProjectLink: text })}
+                                style={styles.infoInput} />
+                        </View>
+
 
 
                         <Text style={styles.infoTitle}>Açıklama</Text>
-                        <TextInput
-                            value={this.state.userProjectDescription}
-                            onChangeText={(text) => this.setState({ userProjectDescription: text })}
-                            multiline={true}
-                            numberOfLines={4}
-                            placeholder={'...'}
-                            style={styles.descriptionInput} />
+                        <View style={styles.experiencesDescInputView}>
+                            <SImage width={23} source={require('../images/comment.png')} />
+                            <TextInput
+                                value={this.state.userProjectDescription}
+                                onChangeText={(text) => this.setState({ userProjectDescription: text })}
+                                multiline={true}
+                                numberOfLines={4}
+                                placeholder={'...'}
+                                style={styles.descriptionInput} />
+                        </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
                         <TouchableOpacity style={[styles.linkAddButton, { marginTop: 10 }]}><Text style={styles.buttonText}>Ekle</Text></TouchableOpacity>
@@ -414,7 +528,10 @@ class CVForm extends React.Component {
 
 
                 {/*Yetenekler kısmı*/}
-                <Text style={styles.inputTitle}>Yetenekler</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
+                    <SImage width={40} source={require('../images/abilityTitle.png')} />
+                    <Text style={styles.inputTitle}>Yetenekler</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
                         <View style={styles.abilityContainer}>
@@ -458,7 +575,10 @@ class CVForm extends React.Component {
                 </View>
 
                 {/*Bildiği diller kısmı*/}
-                <Text style={styles.inputTitle}>Diller</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
+                    <SImage width={40} source={require('../images/languageTitle.png')} />
+                    <Text style={styles.inputTitle}>Diller</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
                         <View style={styles.abilityContainer}>
@@ -502,7 +622,10 @@ class CVForm extends React.Component {
 
 
                 {/*Ilgi alanı kısmı*/}
-                <Text style={styles.inputTitle}>İlgi alanı</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
+                    <SImage width={40} source={require('../images/heart.png')} />
+                    <Text style={styles.inputTitle}>İlgi alanı</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
                         <View style={styles.abilityContainer}>
@@ -534,7 +657,10 @@ class CVForm extends React.Component {
                 </View>
 
                 {/*Topluluk kısmı*/}
-                <Text style={styles.inputTitle}>Topluluk</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
+                    <SImage width={40} source={require('../images/communityTitle.png')} />
+                    <Text style={styles.inputTitle}>Topluluk</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>Topluluk adı</Text>
@@ -574,7 +700,10 @@ class CVForm extends React.Component {
 
 
                 {/*Referans kısmı*/}
-                <Text style={styles.inputTitle}>Referans</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
+                    <SImage width={40} source={require('../images/referance.png')} />
+                    <Text style={styles.inputTitle}>Referans</Text>
+                </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '90%', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 5 }}>
                         <View style={{ width: '35%' }}>
@@ -660,39 +789,5 @@ class CVForm extends React.Component {
 }
 
 
-class MyDatePicker extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = { date: "2016-05-15" }
-    }
 
-    render() {
-        return (
-            <DatePicker
-                style={{ width: 200 }}
-                date={this.state.date}
-                mode="date"
-                placeholder="select date"
-                format="YYYY-MM-DD"
-                minDate="2016-05-01"
-                maxDate="2016-06-01"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                    dateIcon: {
-                        position: 'absolute',
-                        left: 0,
-                        top: 4,
-                        marginLeft: 0
-                    },
-                    dateInput: {
-                        marginLeft: 36
-                    }
-                    // ... You can check the source to find the other keys.
-                }}
-                onDateChange={(date) => { this.setState({ date: date }) }}
-            />
-        )
-    }
-}
 export default CVForm;

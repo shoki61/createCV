@@ -55,21 +55,118 @@ const styles = StyleSheet.create({
     },
     inputTitle: {
         color: '#399EFF',
-        fontSize: 18,
-        marginBottom: 3,
-        width: '90%'
+        fontSize: 25,
+        marginLeft: 10
     },
-    inputStyle: {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    inputView: {
         borderRadius: 5,
         elevation: 3,
         backgroundColor: '#fff',
-        fontSize: 15,
-        padding: 5,
-        paddingLeft: 15,
-        paddingRight: 15,
-        color: '#737373',
-        marginBottom: 15
+        marginBottom: 15,
+        height: 35,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 10,
+        paddingRight: 10
     },
+    inputStyle: {
+        width: '90%',
+        padding: 0,
+        paddingLeft: 5,
+        fontSize: 18,
+        color: '#676767',
+        marginTop: 3
+    },
+    dateInput: {
+        width: '90%',
+        backgroundColor: '#fff',
+        elevation: 3,
+        borderRadius: 5,
+        height: 35,
+        marginBottom: 15,
+        paddingLeft: 10,
+        textAlignVertical: 'center'
+    },
+
+
+
+    experiencesInputView: {
+        width: '100%',
+        borderRadius: 3,
+        borderWidth: 1,
+        borderColor: '#DADADA',
+        height: 35,
+        padding: 0,
+        paddingLeft: 10,
+        marginBottom: 10,
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    experiencesDescInputView: {
+        width: '100%',
+        borderRadius: 3,
+        borderWidth: 1,
+        borderColor: '#DADADA',
+        height: 100,
+        padding: 0,
+        paddingLeft: 10,
+        marginBottom: 10,
+        flexDirection: 'row',
+        alignItems: 'flex-start',
+        paddingTop: 5
+    },
+    infoInput: {
+        width: '85%',
+        padding: 0,
+        fontSize: 15,
+        color: '#8D8D8D',
+        paddingLeft: 10,
+        marginTop: 5
+    },
+    descriptionInput: {
+        width: '90%',
+        padding: 0,
+        fontSize: 15,
+        color: '#8D8D8D',
+        paddingLeft: 10,
+        textAlignVertical: 'top'
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     moreButton: {
         alignItems: 'center',
         margin: 10
@@ -163,30 +260,8 @@ const styles = StyleSheet.create({
         width: '100%',
         marginBottom: 1
     },
-    infoInput: {
-        width: '100%',
-        borderRadius: 3,
-        borderWidth: 1,
-        borderColor: '#DADADA',
-        height: 35,
-        padding: 0,
-        fontSize: 18,
-        color: '#8D8D8D',
-        paddingLeft: 10,
-        marginBottom: 10
-    },
-    descriptionInput: {
-        width: '100%',
-        borderRadius: 3,
-        borderWidth: 1,
-        borderColor: '#DADADA',
-        padding: 0,
-        fontSize: 18,
-        color: '#8D8D8D',
-        paddingLeft: 10,
-        marginBottom: 10,
-        textAlignVertical: 'top'
-    },
+
+
     abilityContainer: {
         width: '100%',
         flexDirection: 'row',
