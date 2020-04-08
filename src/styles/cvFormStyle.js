@@ -55,8 +55,18 @@ const styles = StyleSheet.create({
     },
     inputTitle: {
         color: '#399EFF',
+        width: '90%',
         fontSize: 25,
-        marginLeft: 10
+        marginLeft: 10,
+    },
+
+    downloadButton: {
+        alignItems: 'center'
+    },
+    downloadText: {
+        margin: 5,
+        fontSize: 15,
+        color: '#12A3D0'
     },
 
 
