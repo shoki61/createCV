@@ -1,13 +1,120 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, Image, ScrollView, Picker, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, ScrollView, Dimensions, PermissionsAndroid, Platform, } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
 import SelectInput from 'react-native-select-input-ios';
-
+import ImagePicker from 'react-native-image-picker';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 
 import styles from '../styles/cvFormStyle';
+import Deneme from '../views/deneme';
 
 const h = Dimensions.get('window').height;
+
+
+
+class Example extends React.Component {
+    state = {
+        filePath: ''
+    };
+    constructor(props) {
+        super(props);
+    }
+
+    askPermission() {
+        var that = this;
+        async function requestExternalWritePermission() {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                    {
+                        title: 'CameraExample App External Storage Write Permission',
+                        message:
+                            'CameraExample App needs access to Storage data in your SD Card ',
+                    }
+                );
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    //If WRITE_EXTERNAL_STORAGE Permission is granted
+                    //changing the state to show Create PDF option
+                    that.createPDF();
+                } else {
+                    alert('WRITE_EXTERNAL_STORAGE permission denied');
+                }
+            } catch (err) {
+                alert('Write permission err', err);
+                console.warn(err);
+            }
+        }
+        //Calling the External Write permission function
+        if (Platform.OS === 'android') {
+            requestExternalWritePermission();
+        } else {
+            this.createPDF();
+        }
+    }
+
+    async createPDF() {
+
+        let options = {
+            //Content to print
+            html: '<h1 style="text-align: center;"><strong>Hello Guys</strong></h1> <img src="web.png"/><p style="text-align: center;">Here is an example of pdf Print in React Native</p><p style="text-align: center;"><strong>Team About React</strong></p>'
+            ,
+            //File Name
+            fileName: 'maçli',
+            //File directory
+            directory: 'docs',
+        };
+        let file = await RNHTMLtoPDF.convert(options);
+        alert(file.filePath);
+        this.setState({ filePath: file.filePath });
+    }
+    render() {
+        return (
+            <View style={styles.MainContainer}>
+                <TouchableOpacity onPress={this.askPermission.bind(this)}>
+                    <View>
+                        <Image
+                            //We are showing the Image from online
+                            source={{
+                                uri:
+                                    'https://raw.githubusercontent.com/AboutReact/sampleresource/master/pdf.png',
+                            }}
+                            //You can also show the image from you project directory like below
+                            //source={require('./Images/facebook.png')}
+                            style={styless.ImageStyle}
+                        />
+                        <Text style={styless.text}>Create PDF</Text>
+                    </View>
+                </TouchableOpacity>
+                <Text style={styless.text}>{this.state.filePath}</Text>
+            </View>
+        );
+    }
+}
+const styless = StyleSheet.create({
+    MainContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#2F4F4F',
+        borderWidth: 1,
+        borderColor: '#000',
+    },
+    text: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 25,
+        marginTop: 16,
+    },
+    ImageStyle: {
+        height: 150,
+        width: 150,
+        resizeMode: 'stretch',
+    },
+});
+
+
+
 
 
 
@@ -17,6 +124,14 @@ class CVForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+
+            photoSource: null,
+
+
+
+
+
+
             userName: '',
             userNumber: '',
             userEmail: '',
@@ -89,8 +204,8 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: false,
-            showExperiences: true,
+            showPersonalInformation: true,
+            showExperiences: false,
             showResultCV: false,
 
             minDate: '01-01-1950',
@@ -141,6 +256,7 @@ class CVForm extends React.Component {
     }
 
     deleteMore() {
+        RNHTMLtoPDF.convert
         this.setState({ hidden: !this.state.hidden })
         if (this.state.hidden) {
             this.setState({ userBirthDay: '' })
@@ -150,6 +266,80 @@ class CVForm extends React.Component {
         }
     }
 
+
+    getFoto = async () => {
+
+        try {
+            const sonuc1 = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+                {
+                    title: 'Dosya Okuma İzni',
+                    message: 'Uygulama bu izne ihtiyaç duyuyor.',
+                    buttonNeutral: 'Daha Sonra Sor',
+                    buttonNegative: 'İptal',
+                    buttonPositive: 'İzin Ver',
+                },
+            );
+
+
+            const sonuc2 = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                {
+                    title: 'Dosya Yazma İzni',
+                    message: 'Uygulama bu izne ihtiyaç duyuyor.',
+                    buttonNeutral: 'Daha Sonra Sor',
+                    buttonNegative: 'İptal',
+                    buttonPositive: 'İzin Ver',
+                },
+            );
+
+
+            if ((sonuc1 === PermissionsAndroid.RESULTS.GRANTED) && (sonuc2 === PermissionsAndroid.RESULTS.GRANTED)) console.log('İZİN VERİLDİ');
+            else console.log('İZİN VERİLMEDİ');
+        }
+        catch (err) { console.warn(err); }
+
+        const options = {
+            title: 'Seçenekler',
+            storageOptions: {
+                skipBackup: true,
+                path: 'images',
+            },
+            cancelButtonTitle: 'iptal',
+            takePhotoButtonTitle: 'Fotograf çek...',
+            chooseFromLibraryButtonTitle: 'Galeriden seç...',
+        };
+
+
+
+        ImagePicker.showImagePicker(options, (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+
+                console.log('User cancelled image picker');
+            } else if (response.error) {
+                console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+
+
+                console.log('User tapped custom button: ', response.customButton);
+            } else {
+                const source = { uri: response.uri };
+
+                // You can also display the image using data:
+                // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+
+                this.setState({
+                    photoSource: source,
+                });
+
+            }
+        });
+    }
+
+
+
     renderPersonalInformation() {
         return (
 
@@ -157,16 +347,19 @@ class CVForm extends React.Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View >
                         <View style={styles.photoContainer}>
-                            <Image style={styles.photoStyle} source={require('../images/defaultPhoto.png')} />
+                            <Image style={styles.photoStyle} source={this.state.photoSource === null ? require('../images/defaultPhoto.png') : this.state.photoSource} />
                         </View>
 
-                        <TouchableOpacity style={styles.selectButton}>
-                            <Text style={styles.buttonText}>Fotograf yükle</Text>
+                        <TouchableOpacity onPress={() => this.getFoto()} style={styles.selectButton}>
+                            <Text style={styles.photoButtonText}>{this.state.photoSource === null ? 'Fotograf yükle' : 'Fotografı değiştir'}</Text>
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.removeButton}>
-                            <Text style={styles.buttonText}>Fotografı çıkar</Text>
-                        </TouchableOpacity>
+                        {
+                            this.state.photoSource !== null &&
+                            <TouchableOpacity onPress={() => this.setState({ photoSource: null })} style={styles.removeButton}>
+                                <Text style={styles.photoButtonText}>Fotografı çıkar</Text>
+                            </TouchableOpacity>
+                        }
                     </View>
 
 
@@ -274,7 +467,7 @@ class CVForm extends React.Component {
                                 style={styles.dateInput}
                                 date={this.state.date}
                                 mode="date"
-                                duration={60000}
+                                duration={500000000000000000}
                                 format="DD-MM-YYYY"
                                 minDate={this.state.minDate}
                                 maxDate={this.state.maxDate}
@@ -353,7 +546,7 @@ class CVForm extends React.Component {
 
 
 
-
+                <Example />
 
 
 
@@ -362,7 +555,7 @@ class CVForm extends React.Component {
                     <Text style={{ color: '#B0B0B0' }}>Daha fazla...</Text>
                 </TouchableOpacity>
 
-                <View style={{ width: '100%', alignItems: 'center' }}>
+                <View style={{ width: '100%', alignItems: 'center', marginBottom: 20 }}>
                     <TouchableOpacity onPress={() => this.showExperiences()} style={styles.selectButton}>
                         <Text style={styles.buttonText}>İleri</Text>
                     </TouchableOpacity>
@@ -1073,6 +1266,7 @@ class CVForm extends React.Component {
                         this.state.showPersonalInformation &&
                         this.renderPersonalInformation()
                     }
+
                     {
                         this.state.showExperiences &&
                         this.renderExperiences()

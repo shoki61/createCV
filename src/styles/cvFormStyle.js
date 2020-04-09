@@ -35,22 +35,26 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16
     },
+    photoButtonText: {
+        color: '#fff',
+        fontSize: 13
+    },
     selectButton: {
         width: 120,
-        padding: 6,
+        padding: 8,
         backgroundColor: '#399EFF',
         alignItems: 'center',
-        borderRadius: 7,
+        borderRadius: 5,
         marginTop: 10,
         marginBottom: 10,
         elevation: 5,
     },
     removeButton: {
         width: 120,
-        padding: 6,
+        padding: 8,
         backgroundColor: '#FC4B4B',
         alignItems: 'center',
-        borderRadius: 7,
+        borderRadius: 5,
         elevation: 5
     },
     inputTitle: {

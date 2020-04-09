@@ -9,6 +9,10 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import com.christopherdro.htmltopdf.RNHTMLtoPDFPackage;
+
+// include package
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -21,6 +25,8 @@ public class MainApplication extends Application implements ReactApplication {
 
         @Override
         protected List<ReactPackage> getPackages() {
+
+                    new RNHTMLtoPDFPackage();
           @SuppressWarnings("UnnecessaryLocalVariable")
 
           List<ReactPackage> packages = new PackageList(this).getPackages();
