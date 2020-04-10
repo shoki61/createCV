@@ -73,19 +73,6 @@ const styles = StyleSheet.create({
         color: '#12A3D0'
     },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     inputView: {
         borderRadius: 5,
         elevation: 3,

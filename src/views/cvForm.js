@@ -57,10 +57,10 @@ class Example extends React.Component {
 
         let options = {
             //Content to print
-            html: '<h1 style="text-align: center;"><strong>Hello Guys</strong></h1> <img src="web.png"/><p style="text-align: center;">Here is an example of pdf Print in React Native</p><p style="text-align: center;"><strong>Team About React</strong></p>'
+            html: '<img src=${`${this.state.photoSource}`} width="500" height="333"/>'
             ,
             //File Name
-            fileName: 'maçli',
+            fileName: 'denesene',
             //File directory
             directory: 'docs',
         };
@@ -545,8 +545,6 @@ class CVForm extends React.Component {
                 </View>
 
 
-
-                <Example />
 
 
 
