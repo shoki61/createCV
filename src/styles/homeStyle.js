@@ -42,6 +42,29 @@ const styles = StyleSheet.create({
         flex: 1,
         alignSelf: 'stretch',
         width: null
+    },
+    myCVsButton: {
+        width: 100,
+        height: 35,
+        backgroundColor: '#368bad',
+        borderRadius: 7,
+        justifyContent: 'center',
+        alignItems: 'center',
+        margin: 30,
+        elevation: 7
+    },
+    myCVsText: {
+        color: '#fff',
+        fontSize: 15
+    },
+    logoutButton: {
+        position: 'absolute',
+        top: 15,
+        right: 20
+    },
+    logoutText: {
+        color: '#dbdbdb',
+        fontSize: 18
     }
 })
 

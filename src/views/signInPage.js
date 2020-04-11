@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Image, AsyncStorage } from 'react-native';
 import axios from 'axios';
 
 import styles from '../styles/signInPageStyle';
-
+import helper from '../controllers/helper';
 
 class SignInPage extends React.Component {
     constructor(props) {
@@ -18,8 +18,10 @@ class SignInPage extends React.Component {
         axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyB925pdgBIXm8iayS1Nq5m1y9NBH65p0w4',
             { email: this.state.userEmail, password: this.state.userPassword, returnSecureToken: true }
         ).then(response => {
-            alert(JSON.stringify(response.data) + 'başarılı')
-        }).catch(() => alert('hata'))
+            AsyncStorage.setItem('userToken', response.data.localId)
+            helper.setToken()
+            this.props.navigation.navigate('home')
+        }).catch((err) => alert(err))
     }
 
 
