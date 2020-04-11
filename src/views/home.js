@@ -13,7 +13,10 @@ class Home extends React.Component {
                     <TouchableOpacity onPress={() => this.props.navigation.navigate('cvForm')} style={styles.createCVButton}>
                         <Text style={styles.createText}>CV'inizi oluşturun</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={{ marginTop: 40 }}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('loginPage')} style={{ marginTop: 40, marginBottom: 20 }}>
+                        <Text style={styles.loginText}>Giriş yap</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('signInPage')}>
                         <Text style={styles.signInText}>Kaydol</Text>
                     </TouchableOpacity>
                 </View>

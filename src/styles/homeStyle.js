@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     createCVButton: {
+        elevation: 10,
         width: w / 2,
         height: 55,
         borderRadius: 8,
@@ -23,9 +24,16 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 20
     },
+    loginText: {
+        fontSize: 18,
+        color: '#e3e3e3',
+        textDecorationLine: "underline",
+        textDecorationStyle: "solid",
+        textDecorationColor: "#f5f5f5"
+    },
     signInText: {
         fontSize: 18,
-        color: '#fff',
+        color: '#e3e3e3',
         textDecorationLine: "underline",
         textDecorationStyle: "solid",
         textDecorationColor: "#f5f5f5"
