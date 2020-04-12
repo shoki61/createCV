@@ -115,7 +115,11 @@ const styless = StyleSheet.create({
 });
 
 
-let link = ''
+let link = '';
+let ability = {
+    name: '',
+    level: ''
+};
 
 class CVForm extends React.Component {
 
@@ -196,8 +200,8 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: true,
-            showExperiences: false,
+            showPersonalInformation: false,
+            showExperiences: true,
             showResultCV: false,
 
             minDate: '01-01-1950',
@@ -333,11 +337,18 @@ class CVForm extends React.Component {
         return (
             <View style={styles.linkContainer}>
                 <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
-                <Text style={styles.linkNameStyle} >{item.link}</Text>
-                <TouchableOpacity style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
+                <Text style={styles.linkNameStyle} >{item.item.link}</Text>
+                <TouchableOpacity onPress={() => this.removeLink(item)} style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
             </View>
         )
     }
+
+    removeLink(v) {
+        //alert(JSON.stringify(v.index))
+        helper.userLinks.splice(v.index, 1)
+        this.setState({ userLinks: link })
+    }
+
 
 
     pushLink = async () => {
@@ -535,13 +546,12 @@ class CVForm extends React.Component {
                                 <FlatList
                                     style={{ width: '90%' }}
                                     data={helper.userLinks}
-                                    renderItem={data => this.setLinks(data.item)}
+                                    renderItem={data => this.setLinks(data)}
                                     showsVerticalScrollIndicator={false}
                                 />
                                 <View style={styles.linkInputContainer}>
                                     <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
                                     <TextInput
-                                        //value={link}
                                         onChangeText={text => link = text}
                                         style={styles.linkInputStyle} />
                                     <TouchableOpacity onPress={() => this.pushLink()} style={styles.linkAddButton}>
@@ -576,6 +586,70 @@ class CVForm extends React.Component {
             </View >
         )
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    setAbilities(v) {
+        return (
+            <View style={styles.abilityContainer}>
+                <Text style={styles.abilityText}>{v.item.name}</Text>
+                <Text style={styles.abilityGradeText}>{v.item.level}</Text>
+                <TouchableOpacity onPress={() => this.removeAbility(v)} style={styles.removeAbilityButton}>
+                    <Text style={styles.buttonText}>Çıkar</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
+    removeAbility(v) {
+        //alert(JSON.stringify(v))
+        helper.userAbilities.splice(v.index, 1)
+        this.setState({ userAbility: ability })
+    }
+
+    pushAbility() {
+        this.setState({ userAbility: ability });
+        helper.setUserAbilities(ability)
+    }
+
 
     renderExperiences() {
         return (
@@ -717,9 +791,6 @@ class CVForm extends React.Component {
                     </View>
                 </View>
 
-
-
-
                 {/*Iş deneyimi kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
                     <SImage width={40} source={require('../images/work.png')} />
@@ -824,7 +895,6 @@ class CVForm extends React.Component {
                     </View>
                 </View>
 
-
                 {/*Projeler kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
                     <SImage width={40} source={require('../images/project.png')} />
@@ -886,6 +956,9 @@ class CVForm extends React.Component {
                 </View>
 
 
+
+
+
                 {/*Yetenekler kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
                     <SImage width={40} source={require('../images/abilityTitle.png')} />
@@ -893,28 +966,20 @@ class CVForm extends React.Component {
                 </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
-                        <View style={styles.abilityContainer}>
-                            <Text style={styles.abilityText}>Java Script</Text>
-                            <Text style={styles.abilityGradeText}>Profesyonel</Text>
-                            <TouchableOpacity style={styles.removeAbilityButton}>
-                                <Text style={styles.buttonText}>Çıkar</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.abilityContainer}>
-                            <Text style={styles.abilityText}>Java Script</Text>
-                            <Text style={styles.abilityGradeText}>Profesyonel</Text>
-                            <TouchableOpacity style={styles.removeAbilityButton}>
-                                <Text style={styles.buttonText}>Çıkar</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <FlatList
+                            style={{ width: '90%' }}
+                            data={helper.userAbilities}
+                            renderItem={data => this.setAbilities(data)}
+                            showsVerticalScrollIndicator={false}
+                        />
 
                         <View style={styles.chooseTalentContainer}>
                             <View style={{ width: '40%' }}>
                                 <Text style={styles.chooseTalentTitle}>Yetenek gir</Text>
                                 <TextInput
                                     placeholder='...'
-                                    value={this.state.userAbility}
-                                    onChangeText={(text) => this.setState({ userAbility: text })}
+                                    //value={this.state.userAbility}
+                                    onChangeText={(text) => ability.name = text}
                                     style={styles.abilityInput} />
 
 
@@ -922,19 +987,75 @@ class CVForm extends React.Component {
                             <View style={{ width: '35%' }}>
                                 <Text style={styles.chooseTalentTitle}>Seviye seç</Text>
                                 <SelectInput
-                                    value={this.state.optionsAbilityLevel}
+                                    value={'Orta'}
                                     style={[styles.abilityInput]}
                                     labelStyle={{ color: '#6E6E6E' }}
                                     mode='dropdown'
-                                    onSubmitEditing={(id) => this.setState({ userAbilityLevel: id })}
+                                    onSubmitEditing={(text) => ability.level = text}
                                     options={this.state.optionsAbilityLevel} />
                             </View>
-                            <TouchableOpacity style={styles.selectAbilityButton}>
+                            <TouchableOpacity onPress={() => this.pushAbility()} style={styles.selectAbilityButton}>
                                 <Text style={styles.buttonText}>Ekle</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
                 </View>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 {/*Bildiği diller kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
