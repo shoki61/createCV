@@ -11,6 +11,9 @@ class SignInPage extends React.Component {
         this.state = {
             userEmail: '',
             userPassword: '',
+
+            warningEmail: false,
+            warningPassword: false,
         }
     }
 
@@ -21,7 +24,13 @@ class SignInPage extends React.Component {
             AsyncStorage.setItem('userToken', response.data.localId)
             helper.setToken()
             this.props.navigation.navigate('home')
-        }).catch((err) => alert(err))
+        })
+
+
+        if (this.state.userEmail === '' || this.state.userPassword === '') {
+            this.setState({ warningEmail: true });
+            this.setState({ warningPassword: true })
+        }
     }
 
 
@@ -35,13 +44,13 @@ class SignInPage extends React.Component {
                         placeholder='e-postanız...'
                         placeholderTextColor='#c4c4c4'
                         onChangeText={(text) => this.setState({ userEmail: text })}
-                        style={styles.inputStyle} />
+                        style={[styles.inputStyle, this.state.warningEmail && this.state.userEmail === '' && styles.backRed]} />
 
                     <TextInput
                         placeholderTextColor='#c4c4c4'
                         placeholder='şifreniz...'
                         onChangeText={(text) => this.setState({ userPassword: text })}
-                        style={styles.inputStyle} />
+                        style={[styles.inputStyle, this.state.warningPassword && this.state.userPassword === '' && styles.backRed]} />
                     <TouchableOpacity onPress={() => this.signInFunc()} style={styles.loginButton}>
                         <Text style={styles.loginText}>Kaydol</Text>
                     </TouchableOpacity>

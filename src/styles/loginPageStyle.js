@@ -53,6 +53,9 @@ const styles = StyleSheet.create({
         textDecorationLine: "underline",
         textDecorationStyle: "solid",
         textDecorationColor: "#f5f5f5"
+    },
+    backRed: {
+        backgroundColor: '#ff5757'
     }
 
 })
