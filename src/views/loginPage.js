@@ -69,7 +69,7 @@ class LoginPage extends React.Component {
                     }}
                     onConfirm={() => this.AlertPro.close()}
                     title="Hata"
-                    message="Email yada şifreniz hatalı"
+                    message={this.state.userEmail === '' || this.state.userPassword === '' ? 'Lütfen boşlukları doldurunuz' : 'Email yada şifreniz hatalı'}
                     textConfirm='TAMAM'
                     showConfirm
                     showCancel={false}

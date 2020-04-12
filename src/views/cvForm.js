@@ -1,13 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, ScrollView, Dimensions, PermissionsAndroid, Platform, } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
 import SelectInput from 'react-native-select-input-ios';
 import ImagePicker from 'react-native-image-picker';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import { observer } from 'mobx-react';
 
 import styles from '../styles/cvFormStyle';
-import Deneme from '../views/deneme';
+import helper from '../controllers/helper';
 
 const h = Dimensions.get('window').height;
 
@@ -114,23 +115,14 @@ const styless = StyleSheet.create({
 });
 
 
-
-
-
-
+let link = ''
 
 class CVForm extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
-
             photoSource: null,
-
-
-
-
-
 
             userName: '',
             userNumber: '',
@@ -209,11 +201,10 @@ class CVForm extends React.Component {
             showResultCV: false,
 
             minDate: '01-01-1950',
-            date: '01-01-1990',
             maxDate: '01-01-2016',
 
-
-
+            //Arrayler kısmı
+            userLinks: []
 
         }
     }
@@ -338,6 +329,22 @@ class CVForm extends React.Component {
         });
     }
 
+    setLinks(item) {
+        return (
+            <View style={styles.linkContainer}>
+                <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
+                <Text style={styles.linkNameStyle} >{item.link}</Text>
+                <TouchableOpacity style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
+            </View>
+        )
+    }
+
+
+    pushLink = async () => {
+        this.setState({ userLink: link })
+        helper.setUserLinks(link)
+    }
+
 
 
     renderPersonalInformation() {
@@ -460,14 +467,13 @@ class CVForm extends React.Component {
                         this.state.hidden === false &&
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <Text style={styles.inputTitle}>Doğum tarihi</Text>
-
                             <DatePicker
                                 androidMode='spinner'
                                 iconSource={require('../images/calendar.png')}
                                 style={styles.dateInput}
-                                date={this.state.date}
+                                date={this.state.userBirthDay}
                                 mode="date"
-                                duration={500000000000000000}
+                                placeholder='gg-aa-yyyy'
                                 format="DD-MM-YYYY"
                                 minDate={this.state.minDate}
                                 maxDate={this.state.maxDate}
@@ -478,18 +484,26 @@ class CVForm extends React.Component {
                                         position: 'absolute',
                                         left: -4,
                                         width: 18,
-                                        height: 18
+                                        height: 18,
+                                        bottom: 13
                                     },
                                     dateInput: {
-                                        borderWidth: 0
+                                        borderWidth: 0,
+                                    },
+                                    placeholderText: {
+                                        paddingLeft: 10,
+                                        paddingBottom: 5,
+                                        color: '#737373',
+                                        width: '90%'
                                     },
                                     dateText: {
                                         width: '100%',
                                         color: '#737373',
-                                        marginLeft: 60
+                                        marginLeft: 60,
+                                        paddingBottom: 5
                                     }
                                 }}
-                                onDateChange={(date) => { this.setState({ date: date }) }}
+                                onDateChange={(date) => { this.setState({ userBirthDay: date }) }}
                             />
 
 
@@ -518,23 +532,21 @@ class CVForm extends React.Component {
 
                             <Text style={styles.inputTitle}>Linkler</Text>
                             <View style={styles.linksContainer}>
-                                <View style={styles.linkContainer}>
-                                    <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
-                                    <Text style={styles.linkNameStyle} >shoki61</Text>
-                                    <TouchableOpacity style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
-                                </View>
-                                <View style={styles.linkContainer}>
-                                    <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/linkedin.png')} /></View>
-                                    <Text numberOfLines={1} style={styles.linkNameStyle} >sohratjumadurdyyew</Text>
-                                    <TouchableOpacity style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
-                                </View>
+                                <FlatList
+                                    style={{ width: '90%' }}
+                                    data={helper.userLinks}
+                                    renderItem={data => this.setLinks(data.item)}
+                                    showsVerticalScrollIndicator={false}
+                                />
                                 <View style={styles.linkInputContainer}>
                                     <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
                                     <TextInput
-                                        value={this.state.userLink}
-                                        onChangeText={(text) => this.setState({ userLink: text })}
+                                        //value={link}
+                                        onChangeText={text => link = text}
                                         style={styles.linkInputStyle} />
-                                    <TouchableOpacity style={styles.linkAddButton}><Text style={styles.buttonText}>Ekle</Text></TouchableOpacity>
+                                    <TouchableOpacity onPress={() => this.pushLink()} style={styles.linkAddButton}>
+                                        <Text style={styles.buttonText}>Ekle</Text>
+                                    </TouchableOpacity>
                                 </View>
 
 
@@ -1282,4 +1294,4 @@ class CVForm extends React.Component {
 
 
 
-export default CVForm;
+export default observer(CVForm);

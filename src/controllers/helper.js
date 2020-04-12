@@ -6,7 +6,18 @@ import { AsyncStorage } from 'react-native';
 
 class helper {
     userToken = null;
-    splashState = true
+    splashState = true;
+
+    userLinks = []
+    setUserLinks(v) {
+        this.userLinks.push(
+            {
+                link: v
+            }
+        )
+        alert(JSON.stringify(this.userLinks))
+    }
+
     setToken() {
         AsyncStorage.getItem('userToken')
             .then((response) => {
@@ -21,7 +32,9 @@ decorate(
     {
         userToken: observable,
         splashState: observable,
-        setToken: action
+        userLinks: observable,
+        setToken: action,
+        setUserLinks: action
 
     }
 );

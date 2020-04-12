@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, TextInput, Image, AsyncStorage } from 'react-native';
 import axios from 'axios';
+import AlertPro from "react-native-alert-pro";
+
 
 import styles from '../styles/signInPageStyle';
 import helper from '../controllers/helper';
@@ -24,7 +26,7 @@ class SignInPage extends React.Component {
             AsyncStorage.setItem('userToken', response.data.localId)
             helper.setToken()
             this.props.navigation.navigate('home')
-        })
+        }).catch(() => this.AlertPro.open())
 
 
         if (this.state.userEmail === '' || this.state.userPassword === '') {
@@ -58,6 +60,38 @@ class SignInPage extends React.Component {
                         <Text style={styles.signInText}>Giriş yap</Text>
                     </TouchableOpacity>
                 </View>
+                <AlertPro
+                    ref={ref => {
+                        this.AlertPro = ref;
+                    }}
+                    onConfirm={() => this.AlertPro.close()}
+                    title="Hata"
+                    message={this.state.userEmail === '' || this.state.userPassword === '' ? 'Lütfen boşlukları doldurunuz' : 'Girdiğiniz Email hatalı'}
+                    textConfirm='TAMAM'
+                    showConfirm
+                    showCancel={false}
+                    customStyles={{
+                        mask: {
+                            backgroundColor: "transparent"
+                        },
+                        container: {
+                            borderWidth: 1,
+                            borderRadius: 8,
+                            borderColor: '#5181fc',
+                            width: 300
+                        },
+                        title: {
+                            fontSize: 18,
+                            color: '#545454',
+                        },
+                        buttonConfirm: {
+                            backgroundColor: 'green',
+                        },
+                        message: {
+                            color: '#2f6478',
+                        }
+                    }}
+                />
 
 
             </View>

@@ -184,7 +184,7 @@ const styles = StyleSheet.create({
     linkContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '90%',
+        width: '100%',
         height: 10,
         marginBottom: 35
     },
