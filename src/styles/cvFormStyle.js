@@ -253,8 +253,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         alignItems: 'center',
         padding: 15,
+        marginBottom: 15,
         paddingBottom: 30,
-        marginBottom: 15
     },
     infoTitle: {
         color: '#8D8D8D',
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     abilityText: {
-        width: '40%',
+        width: '35%',
         borderRadius: 3,
         borderWidth: 1,
         borderColor: '#DADADA',
@@ -281,7 +281,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center'
     },
     abilityGradeText: {
-        width: '30%',
+        width: '35%',
         borderRadius: 3,
         borderWidth: 1,
         borderColor: '#DADADA',
@@ -303,8 +303,8 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginTop: 30,
-        alignItems: 'flex-end'
+        alignItems: 'flex-end',
+        marginTop: 20
     },
     abilityInput: {
         width: '100%',

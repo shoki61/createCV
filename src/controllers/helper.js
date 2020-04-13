@@ -9,8 +9,26 @@ class helper {
     splashState = true;
 
     userLinks = []
+    userHobbyes = []
     userAbilities = []
-    setUser
+    UserLanguages = []
+
+    setUserLanguages(v) {
+        this.UserLanguages.push(
+            {
+                name: v.name,
+                level: v.level
+            }
+        )
+    }
+    setUserHobbyes(v) {
+        this.userHobbyes.push(
+            {
+                hobby: v
+            }
+        )
+        //alert(JSON.stringify(this.userHobbyes))
+    }
 
     setUserAbilities(v) {
         this.userAbilities.push(
@@ -19,7 +37,6 @@ class helper {
                 level: v.level
             }
         )
-        //alert(JSON.stringify(this.userAbilities))
     }
 
     setUserLinks(v) {
@@ -28,7 +45,6 @@ class helper {
                 link: v
             }
         )
-        // alert(JSON.stringify(this.userLinks))
     }
 
     setToken() {
@@ -46,6 +62,12 @@ decorate(
         userToken: observable,
         splashState: observable,
         userLinks: observable,
+        UserLanguages: observable,
+        userHobbyes: observable,
+
+        setUserAbilities: action,
+        setUserLanguages: action,
+        setUserHobbyes: action,
         setToken: action,
         setUserLinks: action
 

@@ -121,28 +121,60 @@ let ability = {
     name: '',
     level: ''
 };
+let language = {
+    name: '',
+    level: ''
+};
+let hobby = '';
 
 function Ability() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
     ability.level = selectedValue
     return (
-        <Picker
-            selectedValue={selectedValue}
-            itemStyle={{ color: 'green', fontSize: 10 }}
-            style={{
-                width: 150, height: 35, borderRadius: 15, borderColor: 'black', borderWidth: 3, transform: [
-                    { scaleX: 0.9 },
-                    { scaleY: 0.9 },
-                ],
-            }}
-            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-            mode='dropdown'
-        >
-            <Picker.Item label="Başlangıç" value="Başlangıç" />
-            <Picker.Item label="Orta" value="Orta" />
-            <Picker.Item label="İyi" value="İyi" />
-            <Picker.Item label="Profesyonel" value="Profesyonel" />
-        </Picker>
+        <View style={[styles.abilityInput, { paddingLeft: 0 }]}>
+            <Picker
+                selectedValue={selectedValue}
+                itemStyle={{ color: 'green', fontSize: 10 }}
+                style={{
+                    width: 150, height: 35, color: 'grey', transform: [
+                        { scaleX: 0.9 },
+                        { scaleY: 0.9 },
+                    ],
+                }}
+                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                mode='dropdown'
+            >
+                <Picker.Item label="Başlangıç" value="Başlangıç" />
+                <Picker.Item label="Orta" value="Orta" />
+                <Picker.Item label="İyi" value="İyi" />
+                <Picker.Item label="Profesyonel" value="Profesyonel" />
+            </Picker>
+        </View>
+    )
+}
+function Language() {
+    const [selectedValue, setSelectedValue] = useState("Başlangıç");
+    language.level = selectedValue
+    return (
+        <View style={[styles.abilityInput, { paddingLeft: 0 }]}>
+            <Picker
+                selectedValue={selectedValue}
+                itemStyle={{ color: 'green', fontSize: 10 }}
+                style={{
+                    width: 150, height: 35, color: 'grey', transform: [
+                        { scaleX: 0.9 },
+                        { scaleY: 0.9 },
+                    ],
+                }}
+                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                mode='dropdown'
+            >
+                <Picker.Item label="Başlangıç" value="Başlangıç" />
+                <Picker.Item label="Orta" value="Orta" />
+                <Picker.Item label="İyi" value="İyi" />
+                <Picker.Item label="Ana dil" value="Ana dil" />
+            </Picker>
+        </View>
     )
 }
 
@@ -233,9 +265,6 @@ class CVForm extends React.Component {
             minDate: '01-01-1950',
             maxDate: '01-01-2016',
 
-            //Arrayler kısmı
-            userLinks: [],
-            a: 'başlamgıç'
 
         }
     }
@@ -369,9 +398,22 @@ class CVForm extends React.Component {
             </View>
         )
     }
+    setHobbyes(item) {
+        return (
+            <View style={styles.abilityContainer}>
+                <Text style={styles.hobbyText}>{item.item.hobby}</Text>
+                <TouchableOpacity onPress={() => this.removeHobby(item)} style={styles.removeAbilityButton}>
+                    <Text style={styles.buttonText}>Çıkar</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+    removeHobby(v) {
+        helper.userHobbyes.splice(v.index, 1)
+        this.setState({ userHobby: hobby })
+    }
 
     removeLink(v) {
-        //alert(JSON.stringify(v.index))
         helper.userLinks.splice(v.index, 1)
         this.setState({ userLinks: link })
     }
@@ -616,44 +658,6 @@ class CVForm extends React.Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     setAbilities(v) {
         return (
             <View style={styles.abilityContainer}>
@@ -665,9 +669,24 @@ class CVForm extends React.Component {
             </View>
         )
     }
+    setLanguage(v) {
+        return (
+            <View style={styles.abilityContainer}>
+                <Text style={styles.abilityText}>{v.item.name}</Text>
+                <Text style={styles.abilityGradeText}>{v.item.level}</Text>
+                <TouchableOpacity onPress={() => this.removeLanguage(v)} style={styles.removeAbilityButton}>
+                    <Text style={styles.buttonText}>Çıkar</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
+    removeLanguage(v) {
+        helper.UserLanguages.splice(v.index, 1)
+        this.setState({ userLanguage: language })
+    }
 
     removeAbility(v) {
-        //alert(JSON.stringify(v))
         helper.userAbilities.splice(v.index, 1)
         this.setState({ userAbility: ability })
     }
@@ -675,6 +694,14 @@ class CVForm extends React.Component {
     pushAbility() {
         this.setState({ userAbility: ability });
         helper.setUserAbilities(ability)
+    }
+    pushLanuage() {
+        this.setState({ userLanguage: language });
+        helper.setUserLanguages(language)
+    }
+    pushHobby() {
+        this.setState({ userHobby: hobby });
+        helper.setUserHobbyes(hobby)
     }
 
 
@@ -995,7 +1022,7 @@ class CVForm extends React.Component {
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
                         <FlatList
-                            style={{ width: '90%' }}
+                            style={{ width: '100%', marginTop: 10 }}
                             data={helper.userAbilities}
                             renderItem={data => this.setAbilities(data)}
                             showsVerticalScrollIndicator={false}
@@ -1027,59 +1054,6 @@ class CVForm extends React.Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 {/*Bildiği diller kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
                     <SImage width={40} source={require('../images/languageTitle.png')} />
@@ -1087,42 +1061,27 @@ class CVForm extends React.Component {
                 </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
-                        <View style={styles.abilityContainer}>
-                            <Text style={styles.abilityText}>Rusça</Text>
-                            <Text style={styles.abilityGradeText}>Orta</Text>
-                            <TouchableOpacity style={styles.removeAbilityButton}>
-                                <Text style={styles.buttonText}>Çıkar</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.abilityContainer}>
-                            <Text style={styles.abilityText}>Inglizce</Text>
-                            <Text style={styles.abilityGradeText}>Başlangıç</Text>
-                            <TouchableOpacity style={styles.removeAbilityButton}>
-                                <Text style={styles.buttonText}>Çıkar</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <FlatList
+                            style={{ width: '100%', marginTop: 10 }}
+                            data={helper.UserLanguages}
+                            renderItem={data => this.setLanguage(data)}
+                            showsVerticalScrollIndicator={false}
+                        />
                         <View style={styles.chooseTalentContainer}>
-                            <View style={{ width: '40%' }}>
+                            <View style={{ width: '35%' }}>
                                 <Text style={styles.chooseTalentTitle}>Dil gir</Text>
                                 <TextInput
                                     placeholder='...'
-                                    value={this.state.userLanguage}
-                                    onChangeText={(text) => this.setState({ userLanguage: text })}
+                                    onChangeText={(text) => language.name = text}
                                     style={styles.abilityInput} />
 
                             </View>
-                            <View style={{ width: '35%' }}>
+                            <View style={{ width: '40%' }}>
                                 <Text style={styles.chooseTalentTitle}>Seviye seç</Text>
-                                <SelectInput
-                                    value={this.state.optionsLanguageLevel}
-                                    style={[styles.abilityInput]}
-                                    labelStyle={{ color: '#6E6E6E' }}
-                                    mode='dropdown'
-                                    onSubmitEditing={(id) => this.setState({ userLanguageLevel: id })}
-                                    options={this.state.optionsLanguageLevel} />
+                                <Language />
 
                             </View>
-                            <TouchableOpacity style={styles.selectAbilityButton}>
+                            <TouchableOpacity onPress={() => this.pushLanuage()} style={styles.selectAbilityButton}>
                                 <Text style={styles.buttonText}>Ekle</Text>
                             </TouchableOpacity>
                         </View>
@@ -1137,29 +1096,24 @@ class CVForm extends React.Component {
                 </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
-                        <View style={styles.abilityContainer}>
-                            <Text style={styles.hobbyText}>Doğa yürüyüşü</Text>
-                            <TouchableOpacity style={styles.removeAbilityButton}>
-                                <Text style={styles.buttonText}>Çıkar</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.abilityContainer}>
-                            <Text style={styles.hobbyText}>Balık tutmak</Text>
-                            <TouchableOpacity style={styles.removeAbilityButton}>
-                                <Text style={styles.buttonText}>Çıkar</Text>
-                            </TouchableOpacity>
-                        </View>
+
+                        <FlatList
+                            style={{ width: '100%', marginTop: 10 }}
+                            data={helper.userHobbyes}
+                            renderItem={data => this.setHobbyes(data)}
+                            showsVerticalScrollIndicator={false}
+                        />
+
                         <View style={styles.chooseTalentContainer}>
                             <View style={{ width: '72%' }}>
                                 <Text style={styles.chooseTalentTitle}>İlgi alanı gir</Text>
                                 <TextInput
                                     placeholder='...'
-                                    value={this.state.userHobby}
-                                    onChangeText={(text) => this.setState({ userHobby: text })}
+                                    onChangeText={(text) => hobby = text}
                                     style={styles.abilityInput} />
 
                             </View>
-                            <TouchableOpacity style={styles.selectHobbyButton}>
+                            <TouchableOpacity onPress={() => this.pushHobby()} style={styles.selectHobbyButton}>
                                 <Text style={styles.buttonText}>Ekle</Text>
                             </TouchableOpacity>
                         </View>
