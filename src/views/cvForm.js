@@ -1,11 +1,12 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
 import SelectInput from 'react-native-select-input-ios';
 import ImagePicker from 'react-native-image-picker';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import { observer } from 'mobx-react';
+
 
 import styles from '../styles/cvFormStyle';
 import helper from '../controllers/helper';
@@ -121,6 +122,31 @@ let ability = {
     level: ''
 };
 
+function Ability() {
+    const [selectedValue, setSelectedValue] = useState("Başlangıç");
+    ability.level = selectedValue
+    return (
+        <Picker
+            selectedValue={selectedValue}
+            itemStyle={{ color: 'green', fontSize: 10 }}
+            style={{
+                width: 150, height: 35, borderRadius: 15, borderColor: 'black', borderWidth: 3, transform: [
+                    { scaleX: 0.9 },
+                    { scaleY: 0.9 },
+                ],
+            }}
+            onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+            mode='dropdown'
+        >
+            <Picker.Item label="Başlangıç" value="Başlangıç" />
+            <Picker.Item label="Orta" value="Orta" />
+            <Picker.Item label="İyi" value="İyi" />
+            <Picker.Item label="Profesyonel" value="Profesyonel" />
+        </Picker>
+    )
+}
+
+
 class CVForm extends React.Component {
 
     constructor(props) {
@@ -208,7 +234,8 @@ class CVForm extends React.Component {
             maxDate: '01-01-2016',
 
             //Arrayler kısmı
-            userLinks: []
+            userLinks: [],
+            a: 'başlamgıç'
 
         }
     }
@@ -652,6 +679,7 @@ class CVForm extends React.Component {
 
 
     renderExperiences() {
+
         return (
             <View style={{ width: '100%', marginTop: 100, alignItems: 'center' }}>
 
@@ -974,7 +1002,7 @@ class CVForm extends React.Component {
                         />
 
                         <View style={styles.chooseTalentContainer}>
-                            <View style={{ width: '40%' }}>
+                            <View style={{ width: '35%' }}>
                                 <Text style={styles.chooseTalentTitle}>Yetenek gir</Text>
                                 <TextInput
                                     placeholder='...'
@@ -984,15 +1012,10 @@ class CVForm extends React.Component {
 
 
                             </View>
-                            <View style={{ width: '35%' }}>
+                            <View style={{ width: '40%', }}>
                                 <Text style={styles.chooseTalentTitle}>Seviye seç</Text>
-                                <SelectInput
-                                    value={'Orta'}
-                                    style={[styles.abilityInput]}
-                                    labelStyle={{ color: '#6E6E6E' }}
-                                    mode='dropdown'
-                                    onSubmitEditing={(text) => ability.level = text}
-                                    options={this.state.optionsAbilityLevel} />
+                                <Ability />
+
                             </View>
                             <TouchableOpacity onPress={() => this.pushAbility()} style={styles.selectAbilityButton}>
                                 <Text style={styles.buttonText}>Ekle</Text>

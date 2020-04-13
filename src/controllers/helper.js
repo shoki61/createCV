@@ -19,7 +19,7 @@ class helper {
                 level: v.level
             }
         )
-        alert(JSON.stringify(this.userAbilities))
+        //alert(JSON.stringify(this.userAbilities))
     }
 
     setUserLinks(v) {
