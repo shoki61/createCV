@@ -132,6 +132,12 @@ let reference = {
     email: '',
     companyName: ''
 }
+let school = {
+    schoolName: '',
+    schoolGrade: '',
+    schoolDescription: '',
+    schoolDate: ''
+}
 
 function Ability() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
@@ -737,6 +743,25 @@ class CVForm extends React.Component {
         helper.setUserReferences(reference)
     }
 
+    setSchools(item) {
+        return (
+            <View style={{ width: '90%' }}>
+                <Text style={styles.experiencesInputView} numberOfLines={1}></Text>
+                <Text style={styles.experiencesInputView} numberOfLines={1}></Text>
+                <Text style={[styles.experiencesInputView, { height: 80 }]}></Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={[styles.experiencesInputView, { width: '72%' }]}></Text>
+                    <TouchableOpacity style={styles.removeAbilityButton}>
+                        <Text style={styles.buttonText}>Çıkar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    pushSchool() {
+        this.setState({ userSchoolName: school.name });
+        helper.setUserSchools(school)
+    }
 
     renderExperiences() {
 
@@ -749,6 +774,14 @@ class CVForm extends React.Component {
                     <Text style={styles.inputTitle}>Eğitim</Text>
                 </View>
                 <View style={styles.infoContainer}>
+
+                    <FlatList
+                        style={{ width: '100%', marginTop: 10 }}
+                        data={helper.userAbilities}
+                        renderItem={data => this.setAbilities(data)}
+                        showsVerticalScrollIndicator={false}
+                    />
+
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>Okul/Fakülte</Text>
                         <View style={styles.experiencesInputView}>
@@ -875,7 +908,9 @@ class CVForm extends React.Component {
 
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity style={[styles.linkAddButton, { marginTop: 10, right: 0 }]}><Text style={styles.buttonText}>Ekle</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.pushSchool()} style={[styles.linkAddButton, { marginTop: 10, right: 0 }]}>
+                            <Text style={styles.buttonText}>Ekle</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
