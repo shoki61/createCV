@@ -12,6 +12,19 @@ class helper {
     userHobbyes = []
     userAbilities = []
     UserLanguages = []
+    userReferences = []
+
+    setUserReferences(v) {
+        this.userReferences.push(
+            {
+                name: v.name,
+                email: v.email,
+                companyName: v.companyName,
+                tel: v.tel
+            }
+        )
+        alert(JSON.stringify(this.userReferences))
+    }
 
     setUserLanguages(v) {
         this.UserLanguages.push(
@@ -64,12 +77,14 @@ decorate(
         userLinks: observable,
         UserLanguages: observable,
         userHobbyes: observable,
+        userReferences: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
         setUserHobbyes: action,
         setToken: action,
-        setUserLinks: action
+        setUserLinks: action,
+        setUserReferences: action
 
     }
 );

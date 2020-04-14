@@ -126,6 +126,12 @@ let language = {
     level: ''
 };
 let hobby = '';
+let reference = {
+    name: '',
+    tel: '',
+    email: '',
+    companyName: ''
+}
 
 function Ability() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
@@ -389,6 +395,24 @@ class CVForm extends React.Component {
         });
     }
 
+    setReferences(item) {
+        return (
+            <View style={{ width: '100%', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 5 }}>
+                <View style={{ width: '36%' }}>
+                    <Text style={styles.referansText} numberOfLines={1} >{item.item.name}</Text>
+                    <Text style={styles.referansText} numberOfLines={1} >{item.item.tel}</Text>
+                </View>
+                <View style={{ width: '36%' }}>
+                    <Text style={styles.referansText} numberOfLines={1} >{item.item.companyName}</Text>
+                    <Text style={styles.referansText} numberOfLines={1} >{item.item.email}</Text>
+                </View>
+                <TouchableOpacity onPress={() => this.removeReference(item)} style={styles.removeAbilityButton}>
+                    <Text style={styles.buttonText}>Çıkar</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+
     setLinks(item) {
         return (
             <View style={styles.linkContainer}>
@@ -411,6 +435,11 @@ class CVForm extends React.Component {
     removeHobby(v) {
         helper.userHobbyes.splice(v.index, 1)
         this.setState({ userHobby: hobby })
+    }
+    removeReference(v) {
+        helper.userReferences.splice(v.index, 1)
+        this.setState({ userReferenceName: reference.name })
+        //alert(JSON.stringify(helper.userReferences))
     }
 
     removeLink(v) {
@@ -702,6 +731,10 @@ class CVForm extends React.Component {
     pushHobby() {
         this.setState({ userHobby: hobby });
         helper.setUserHobbyes(hobby)
+    }
+    pushReference() {
+        this.setState({ userReferenceName: reference.name });
+        helper.setUserReferences(reference)
     }
 
 
@@ -1229,27 +1262,21 @@ class CVForm extends React.Component {
                     <Text style={styles.inputTitle}>Referans</Text>
                 </View>
                 <View style={styles.infoContainer}>
-                    <View style={{ width: '90%', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 5 }}>
-                        <View style={{ width: '35%' }}>
-                            <Text style={styles.referansText} numberOfLines={1} >Murat Artan</Text>
-                            <Text style={styles.referansText} numberOfLines={1} >05556669988</Text>
-                        </View>
-                        <View style={{ width: '35%' }}>
-                            <Text style={styles.referansText} numberOfLines={1} >Logo Yazılım</Text>
-                            <Text style={styles.referansText} numberOfLines={1} >murti61@gmail.com</Text>
-                        </View>
-                        <TouchableOpacity style={styles.removeAbilityButton}>
-                            <Text style={styles.buttonText}>Çıkar</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <FlatList
+                        style={{ width: '90%', marginTop: 10 }}
+                        data={helper.userReferences}
+                        renderItem={data => this.setReferences(data)}
+                        showsVerticalScrollIndicator={false}
+                    />
+
                     <View style={{ width: '90%', alignItems: 'center', marginTop: 40, }}>
                         <Text style={styles.infoTitle}>İsim, soy isim</Text>
                         <View style={styles.experiencesInputView}>
                             <SImage width={20} source={require('../images/userForm.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userReferenceName}
-                                onChangeText={(text) => this.setState({ userReferenceName: text })}
+                                //value={this.state.userReferenceName}
+                                onChangeText={(text) => reference.name = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1260,8 +1287,8 @@ class CVForm extends React.Component {
                             <TextInput
                                 placeholder='...'
                                 keyboardType='numeric'
-                                value={this.state.userReferenceNumber}
-                                onChangeText={(text) => this.setState({ userReferenceNumber: text })}
+                                //value={this.state.userReferenceNumber}
+                                onChangeText={(text) => reference.tel = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1272,8 +1299,8 @@ class CVForm extends React.Component {
                             <TextInput
                                 placeholder='...'
                                 keyboardType='email-address'
-                                value={this.state.userReferenceEmail}
-                                onChangeText={(text) => this.setState({ userReferenceEmail: text })}
+                                //value={this.state.userReferenceEmail}
+                                onChangeText={(text) => reference.email = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1283,13 +1310,15 @@ class CVForm extends React.Component {
                             <SImage width={20} source={require('../images/workplace.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userReferenceCompanyName}
-                                onChangeText={(text) => this.setState({ userReferenceCompanyName: text })}
+                                //value={this.state.userReferenceCompanyName}
+                                onChangeText={(text) => reference.companyName = text}
                                 style={styles.infoInput} />
                         </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity style={[styles.linkAddButton, { marginTop: 10 }]}><Text style={styles.buttonText}>Ekle</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.pushReference()} style={[styles.linkAddButton, { marginTop: 10 }]}>
+                            <Text style={styles.buttonText}>Ekle</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
