@@ -104,6 +104,19 @@ const styles = StyleSheet.create({
     },
 
 
+    schoolInfoText: {
+        width: '100%',
+        borderRadius: 3,
+        borderWidth: 1,
+        borderColor: '#DADADA',
+        height: 35,
+        paddingLeft: 10,
+        marginBottom: 10,
+        textAlignVertical: 'center',
+        color: '#6b6b6b'
+    },
+
+
 
     experiencesInputView: {
         width: '100%',

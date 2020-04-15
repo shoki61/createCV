@@ -752,13 +752,13 @@ class CVForm extends React.Component {
 
     setSchools(item) {
         return (
-            <View style={{ width: '90%' }}>
-                <Text style={styles.experiencesInputView} numberOfLines={1}>{item.item.schoolName}</Text>
-                <Text style={styles.experiencesInputView} numberOfLines={1}>{item.item.schoolDepartment}</Text>
-                <Text style={styles.experiencesInputView} numberOfLines={1}>{item.item.schoolGrade}</Text>
-                <Text style={styles.experiencesInputView} numberOfLines={1}>{item.item.schoolCity}</Text>
+            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolName}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolDepartment}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolGrade}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolCity}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.experiencesInputView, { width: '72%' }]}>{item.item.schoolStartDate}/{item.item.schoolFinishDate}</Text>
+                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.schoolStartDate} / {item.item.schoolFinishDate}</Text>
                     <TouchableOpacity onPress={() => this.removeSchool(item)} style={styles.removeAbilityButton}>
                         <Text style={styles.buttonText}>Çıkar</Text>
                     </TouchableOpacity>
@@ -784,7 +784,7 @@ class CVForm extends React.Component {
                 <View style={styles.infoContainer}>
 
                     <FlatList
-                        style={{ width: '100%', marginTop: 10 }}
+                        style={{ width: '90%', marginTop: 5, }}
                         data={helper.userSchools}
                         renderItem={data => this.setSchools(data)}
                         showsVerticalScrollIndicator={false}
