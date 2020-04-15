@@ -140,6 +140,13 @@ let school = {
     schoolStartDate: '',
     schoolFinishDate: ''
 }
+let company = {
+    companyName: '',
+    companyJob: '',
+    companyStartDate: '',
+    companyFinishDate: '',
+    companyDescription: ''
+}
 
 function Ability() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
@@ -430,7 +437,7 @@ class CVForm extends React.Component {
             </View>
         )
     }
-    setHobbyes(item) {
+    setHobbies(item) {
         return (
             <View style={styles.abilityContainer}>
                 <Text style={styles.hobbyText}>{item.item.hobby}</Text>
@@ -441,7 +448,7 @@ class CVForm extends React.Component {
         )
     }
     removeHobby(v) {
-        helper.userHobbyes.splice(v.index, 1)
+        helper.userHobbies.splice(v.index, 1)
         this.setState({ userHobby: hobby })
     }
     removeReference(v) {
@@ -743,7 +750,7 @@ class CVForm extends React.Component {
     }
     pushHobby() {
         this.setState({ userHobby: hobby });
-        helper.setUserHobbyes(hobby)
+        helper.setUserHobbies(hobby)
     }
     pushReference() {
         this.setState({ userReferenceName: reference.name });
@@ -765,6 +772,29 @@ class CVForm extends React.Component {
                 </View>
             </View>
         )
+    }
+    setCompanies(item) {
+        return (
+            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyName}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyJob}</Text>
+                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.companyDescription}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.companyStartDate} / {item.item.companyFinishDate}</Text>
+                    <TouchableOpacity onPress={() => this.removeCompany(item)} style={styles.removeAbilityButton}>
+                        <Text style={styles.buttonText}>Çıkar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    pushCompany() {
+        this.setState({ userCompanyName: company.companyName });
+        helper.setUserCompanies(company)
+    }
+    removeCompany(v) {
+        helper.userCompanies.splice(v.index, 1)
+        this.setState({ userCompanyName: company.companyName })
     }
     pushSchool() {
         this.setState({ userSchoolName: school.name });
@@ -928,14 +958,21 @@ class CVForm extends React.Component {
                     <Text style={styles.inputTitle}>İş deneyimi</Text>
                 </View>
                 <View style={styles.infoContainer}>
+                    <FlatList
+                        style={{ width: '90%', marginTop: 5, }}
+                        data={helper.userCompanies}
+                        renderItem={data => this.setCompanies(data)}
+                        showsVerticalScrollIndicator={false}
+                    />
+
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>İş yeri</Text>
                         <View style={styles.experiencesInputView}>
                             <SImage width={23} source={require('../images/workplace.png')} />
                             <TextInput
-                                value={this.state.userCompanyName}
+                                //value={this.state.userCompanyName}
                                 placeholder='...'
-                                onChangeText={(text) => this.setState({ userCompanyName: text })}
+                                onChangeText={(text) => company.companyName = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -944,8 +981,8 @@ class CVForm extends React.Component {
                             <SImage width={23} source={require('../images/manager.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userCompanyJob}
-                                onChangeText={(text) => this.setState({ userCompanyJob: text })}
+                                //value={this.state.userCompanyJob}
+                                onChangeText={(text) => company.companyJob = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -976,7 +1013,7 @@ class CVForm extends React.Component {
                                         color: '#8D8D8D',
                                     }
                                 }}
-                                onDateChange={(date) => { this.setState({ userCompanyStartDate: date }) }}
+                                onDateChange={(date) => { company.companyStartDate = date; this.setState({ userCompanyStartDate: date }) }}
                             />
                             <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
                             <DatePicker
@@ -1004,7 +1041,7 @@ class CVForm extends React.Component {
                                         paddingLeft: 5
                                     }
                                 }}
-                                onDateChange={(date) => { this.setState({ userCompanyFinishDate: date }) }}
+                                onDateChange={(date) => { company.companyFinishDate = date; this.setState({ userCompanyFinishDate: date }) }}
                             />
                         </View>
 
@@ -1013,8 +1050,8 @@ class CVForm extends React.Component {
                         <View style={styles.experiencesDescInputView}>
                             <SImage width={23} source={require('../images/comment.png')} />
                             <TextInput
-                                value={this.state.userCompanyDescription}
-                                onChangeText={(text) => this.setState({ userCompanyDescription: text })}
+                                //value={this.state.userCompanyDescription}
+                                onChangeText={(text) => company.companyDescription = text}
                                 multiline={true}
                                 numberOfLines={4}
                                 placeholder={'...'}
@@ -1022,7 +1059,9 @@ class CVForm extends React.Component {
                         </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity style={[styles.linkAddButton, { marginTop: 10 }]}><Text style={styles.buttonText}>Ekle</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.pushCompany()} style={[styles.linkAddButton, { marginTop: 10 }]}>
+                            <Text style={styles.buttonText}>Ekle</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
@@ -1175,8 +1214,8 @@ class CVForm extends React.Component {
 
                         <FlatList
                             style={{ width: '100%', marginTop: 10 }}
-                            data={helper.userHobbyes}
-                            renderItem={data => this.setHobbyes(data)}
+                            data={helper.userHobbies}
+                            renderItem={data => this.setHobbies(data)}
                             showsVerticalScrollIndicator={false}
                         />
 

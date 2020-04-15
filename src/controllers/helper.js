@@ -9,11 +9,24 @@ class helper {
     splashState = true;
 
     userLinks = []
-    userHobbyes = []
+    userHobbies = []
     userAbilities = []
     UserLanguages = []
     userReferences = []
     userSchools = []
+    userCompanies = []
+
+    setUserCompanies(v) {
+        this.userCompanies.push(
+            {
+                companyName: v.companyName,
+                companyJob: v.companyJob,
+                companyStartDate: v.companyStartDate,
+                companyFinishDate: v.companyFinishDate,
+                companyDescription: v.companyDescription
+            }
+        )
+    }
 
     setUserReferences(v) {
         this.userReferences.push(
@@ -24,7 +37,7 @@ class helper {
                 tel: v.tel
             }
         )
-        alert(JSON.stringify(this.userReferences))
+        //alert(JSON.stringify(this.userReferences))
     }
     setUserSchools(v) {
         this.userSchools.push(
@@ -48,13 +61,13 @@ class helper {
             }
         )
     }
-    setUserHobbyes(v) {
-        this.userHobbyes.push(
+    setUserHobbies(v) {
+        this.userHobbies.push(
             {
                 hobby: v
             }
         )
-        //alert(JSON.stringify(this.userHobbyes))
+        //alert(JSON.stringify(this.userHobbies))
     }
 
     setUserAbilities(v) {
@@ -90,17 +103,19 @@ decorate(
         splashState: observable,
         userLinks: observable,
         UserLanguages: observable,
-        userHobbyes: observable,
+        userHobbies: observable,
         userReferences: observable,
         userSchools: observable,
+        userCompanies: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
-        setUserHobbyes: action,
+        setUserHobbies: action,
         setToken: action,
         setUserLinks: action,
         setUserReferences: action,
-        setUserSchools: action
+        setUserSchools: action,
+        setUserCompanies: action,
 
     }
 );
