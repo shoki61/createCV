@@ -134,9 +134,11 @@ let reference = {
 }
 let school = {
     schoolName: '',
+    schoolDepartment: '',
     schoolGrade: '',
-    schoolDescription: '',
-    schoolDate: ''
+    schoolCity: '',
+    schoolStartDate: '',
+    schoolFinishDate: ''
 }
 
 function Ability() {
@@ -726,6 +728,11 @@ class CVForm extends React.Component {
         this.setState({ userAbility: ability })
     }
 
+    removeSchool(v) {
+        helper.userSchools.splice(v.index, 1)
+        this.setState({ userSchoolName: school.schoolName })
+    }
+
     pushAbility() {
         this.setState({ userAbility: ability });
         helper.setUserAbilities(ability)
@@ -746,12 +753,13 @@ class CVForm extends React.Component {
     setSchools(item) {
         return (
             <View style={{ width: '90%' }}>
-                <Text style={styles.experiencesInputView} numberOfLines={1}></Text>
-                <Text style={styles.experiencesInputView} numberOfLines={1}></Text>
-                <Text style={[styles.experiencesInputView, { height: 80 }]}></Text>
+                <Text style={styles.experiencesInputView} numberOfLines={1}>{item.item.schoolName}</Text>
+                <Text style={styles.experiencesInputView} numberOfLines={1}>{item.item.schoolDepartment}</Text>
+                <Text style={styles.experiencesInputView} numberOfLines={1}>{item.item.schoolGrade}</Text>
+                <Text style={styles.experiencesInputView} numberOfLines={1}>{item.item.schoolCity}</Text>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.experiencesInputView, { width: '72%' }]}></Text>
-                    <TouchableOpacity style={styles.removeAbilityButton}>
+                    <Text style={[styles.experiencesInputView, { width: '72%' }]}>{item.item.schoolStartDate}/{item.item.schoolFinishDate}</Text>
+                    <TouchableOpacity onPress={() => this.removeSchool(item)} style={styles.removeAbilityButton}>
                         <Text style={styles.buttonText}>Çıkar</Text>
                     </TouchableOpacity>
                 </View>
@@ -777,8 +785,8 @@ class CVForm extends React.Component {
 
                     <FlatList
                         style={{ width: '100%', marginTop: 10 }}
-                        data={helper.userAbilities}
-                        renderItem={data => this.setAbilities(data)}
+                        data={helper.userSchools}
+                        renderItem={data => this.setSchools(data)}
                         showsVerticalScrollIndicator={false}
                     />
 
@@ -787,9 +795,9 @@ class CVForm extends React.Component {
                         <View style={styles.experiencesInputView}>
                             <SImage width={23} source={require('../images/school.png')} />
                             <TextInput
-                                value={this.state.userSchoolName}
+                                //value={this.state.userSchoolName}
                                 placeholder='...'
-                                onChangeText={(text) => this.setState({ userSchoolName: text })}
+                                onChangeText={(text) => school.schoolName = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -799,8 +807,8 @@ class CVForm extends React.Component {
                             <SImage width={23} source={require('../images/department.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userSchoolDepartment}
-                                onChangeText={(text) => this.setState({ userSchoolDepartment: text })}
+                                // value={this.state.userSchoolDepartment}
+                                onChangeText={(text) => school.schoolDepartment = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -817,7 +825,7 @@ class CVForm extends React.Component {
                                 style={styles.infoInput}
                                 labelStyle={{ color: '#6E6E6E' }}
                                 mode='dropdown'
-                                onSubmitEditing={(id) => this.setState({ userDegree: id })}
+                                onSubmitEditing={(text) => school.schoolGrade = text}
                                 options={this.state.optionsSchoolDegree} />
 
 
@@ -835,8 +843,8 @@ class CVForm extends React.Component {
                             <SImage width={23} source={require('../images/pin.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userSchoolCity}
-                                onChangeText={(text) => this.setState({ userSchoolCity: text })}
+                                //value={this.state.userSchoolCity}
+                                onChangeText={(text) => school.schoolCity = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -870,7 +878,7 @@ class CVForm extends React.Component {
                                         color: '#8D8D8D',
                                     }
                                 }}
-                                onDateChange={(date) => { this.setState({ userSchoolStartDate: date }) }}
+                                onDateChange={(date) => { school.schoolStartDate = date; this.setState({ userSchoolStartDate: date }) }}
                             />
                             <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
                             <DatePicker
@@ -898,7 +906,7 @@ class CVForm extends React.Component {
                                         paddingLeft: 5
                                     }
                                 }}
-                                onDateChange={(date) => { this.setState({ userSchoolFinishDate: date }) }}
+                                onDateChange={(date) => { school.schoolFinishDate = date; this.setState({ userSchoolFinishDate: date }) }}
                             />
 
                         </View>

@@ -30,9 +30,11 @@ class helper {
         this.userSchools.push(
             {
                 schoolName: v.schoolName,
+                schoolDepartment: v.schoolDepartment,
                 schoolGrade: v.schoolGrade,
-                schoolDescription: v.schoolDescription,
-                schoolDate: v.schoolDate
+                schoolCity: v.schoolCity,
+                schoolStartDate: v.schoolStartDate,
+                schoolFinishDate: v.schoolFinishDate
             }
         )
         alert(JSON.stringify(this.userSchools))
