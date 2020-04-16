@@ -6,6 +6,7 @@ import SelectInput from 'react-native-select-input-ios';
 import ImagePicker from 'react-native-image-picker';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import { observer } from 'mobx-react';
+import AlertPro from "react-native-alert-pro";
 
 
 import styles from '../styles/cvFormStyle';
@@ -292,12 +293,13 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: false,
-            showExperiences: true,
+            showPersonalInformation: true,
+            showExperiences: false,
             showResultCV: false,
 
             minDate: '01-01-1950',
             maxDate: '01-01-2016',
+
 
 
         }
@@ -310,10 +312,14 @@ class CVForm extends React.Component {
     }
 
 
-    showExperiences() {
-        this.setState({ showPersonalInformation: false })
-        this.setState({ showExperiences: true })
-        this.setState({ showResultCV: false })
+    controlShowExperiences() {
+        if (this.state.userName === '' || this.state.userNumber === '' || this.userEmail === '' || this.state.userJob === '' || this.state.userCity === '') {
+            this.AlertPro.open()
+        } else {
+            this.setState({ showPersonalInformation: false })
+            this.setState({ showExperiences: true })
+            this.setState({ showResultCV: false })
+        }
     }
 
     showResultCV() {
@@ -423,6 +429,7 @@ class CVForm extends React.Component {
         });
     }
 
+    ///////listelenecek eklentiler//////////////////////////
     setReferences(item) {
         return (
             <View style={{ width: '100%', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 5 }}>
@@ -440,7 +447,6 @@ class CVForm extends React.Component {
             </View>
         )
     }
-
     setLinks(item) {
         return (
             <View style={styles.linkContainer}>
@@ -460,6 +466,94 @@ class CVForm extends React.Component {
             </View>
         )
     }
+    setAbilities(v) {
+        return (
+            <View style={styles.abilityContainer}>
+                <Text style={styles.abilityText}>{v.item.name}</Text>
+                <Text style={styles.abilityGradeText}>{v.item.level}</Text>
+                <TouchableOpacity onPress={() => this.removeAbility(v)} style={styles.removeAbilityButton}>
+                    <Text style={styles.buttonText}>Çıkar</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+    setLanguage(v) {
+        return (
+            <View style={styles.abilityContainer}>
+                <Text style={styles.abilityText}>{v.item.name}</Text>
+                <Text style={styles.abilityGradeText}>{v.item.level}</Text>
+                <TouchableOpacity onPress={() => this.removeLanguage(v)} style={styles.removeAbilityButton}>
+                    <Text style={styles.buttonText}>Çıkar</Text>
+                </TouchableOpacity>
+            </View>
+        )
+    }
+    setSchools(item) {
+        return (
+            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolName}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolDepartment}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolGrade}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolCity}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.schoolStartDate} / {item.item.schoolFinishDate}</Text>
+                    <TouchableOpacity onPress={() => this.removeSchool(item)} style={styles.removeAbilityButton}>
+                        <Text style={styles.buttonText}>Çıkar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    setCompanies(item) {
+        return (
+            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyName}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyJob}</Text>
+                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.companyDescription}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.companyStartDate} / {item.item.companyFinishDate}</Text>
+                    <TouchableOpacity onPress={() => this.removeCompany(item)} style={styles.removeAbilityButton}>
+                        <Text style={styles.buttonText}>Çıkar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    setProjects(item) {
+        return (
+            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectName}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectTools}</Text>
+                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.projectDescription}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.projectLink}</Text>
+                    <TouchableOpacity onPress={() => this.removeProject(item)} style={styles.removeAbilityButton}>
+                        <Text style={styles.buttonText}>Çıkar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    setCommunities(item) {
+        return (
+            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityName}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityTitle}</Text>
+                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.communityDescription}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.communityStartDate} / {item.item.communityFinishDate}</Text>
+                    <TouchableOpacity onPress={() => this.removeCommunity(item)} style={styles.removeAbilityButton}>
+                        <Text style={styles.buttonText}>Çıkar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    ////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////
+
+
+    ////////listeleri çıkaran fonksyonlar////////////////////////
     removeHobby(v) {
         helper.userHobbies.splice(v.index, 1)
         this.setState({ userHobby: hobby })
@@ -469,20 +563,78 @@ class CVForm extends React.Component {
         this.setState({ userReferenceName: reference.name })
         //alert(JSON.stringify(helper.userReferences))
     }
-
     removeLink(v) {
         helper.userLinks.splice(v.index, 1)
         this.setState({ userLinks: link })
     }
+    removeLanguage(v) {
+        helper.UserLanguages.splice(v.index, 1)
+        this.setState({ userLanguage: language })
+    }
+    removeAbility(v) {
+        helper.userAbilities.splice(v.index, 1)
+        this.setState({ userAbility: ability })
+    }
+    removeSchool(v) {
+        helper.userSchools.splice(v.index, 1)
+        this.setState({ userSchoolName: school.schoolName })
+    }
+    removeCommunity(v) {
+        helper.userCommunities.splice(v.index, 1)
+        this.setState({ userCommunityName: community.communityName })
+    }
+    removeProject(v) {
+        helper.userProjects.splice(v.index, 1)
+        this.setState({ userProjectName: project.projectName })
+    }
+    removeCompany(v) {
+        helper.userCompanies.splice(v.index, 1)
+        this.setState({ userCompanyName: company.companyName })
+    }
+    ///////////////////////////////////////////////////
+    //////////////////////////////////////////////////
 
 
 
+    ///////listeye ekleyen fonksyonlar//////////////    
     pushLink = async () => {
         this.setState({ userLink: link })
         helper.setUserLinks(link)
     }
-
-
+    pushAbility() {
+        this.setState({ userAbility: ability });
+        helper.setUserAbilities(ability)
+    }
+    pushLanuage() {
+        this.setState({ userLanguage: language });
+        helper.setUserLanguages(language)
+    }
+    pushHobby() {
+        this.setState({ userHobby: hobby });
+        helper.setUserHobbies(hobby)
+    }
+    pushReference() {
+        this.setState({ userReferenceName: reference.name });
+        helper.setUserReferences(reference)
+    }
+    pushProject() {
+        this.setState({ userProjectName: project.projectName });
+        helper.setUserProjects(project)
+    }
+    pushCompany() {
+        this.setState({ userCompanyName: company.companyName });
+        helper.setUserCompanies(company)
+    }
+    pushSchool() {
+        this.setState({ userSchoolName: school.name });
+        helper.setUserSchools(school)
+    }
+    pushCommunity() {
+        helper.setUserCommunities(community);
+        this.setState({ userCommunityName: community.communityName })
+    }
+    /////////////////////////////////////////////////
+    ////////////////////////////////////////////////
 
     renderPersonalInformation() {
         return (
@@ -506,14 +658,8 @@ class CVForm extends React.Component {
                         }
                     </View>
 
-
-
-
-
-
-
                     <View style={{ width: '60%' }}>
-                        <Text style={styles.inputTitle}>İsim soy isim</Text>
+                        <Text style={styles.inputTitle}>Ad, Soyad <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                         <View style={styles.inputView}>
                             <SImage width={20} source={require('../images/userForm.png')} />
                             <TextInput
@@ -523,9 +669,7 @@ class CVForm extends React.Component {
                                 style={styles.inputStyle} />
                         </View>
 
-
-
-                        <Text style={styles.inputTitle}>Telefon numarası</Text>
+                        <Text style={styles.inputTitle}>Telefon numarası <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                         <View style={styles.inputView}>
                             <SImage width={20} source={require('../images/phone.png')} />
                             <TextInput
@@ -537,7 +681,7 @@ class CVForm extends React.Component {
                         </View>
 
 
-                        <Text style={styles.inputTitle}>E-posta</Text>
+                        <Text style={styles.inputTitle}>E-posta <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                         <View style={styles.inputView}>
                             <SImage width={20} source={require('../images/mail.png')} />
                             <TextInput
@@ -556,7 +700,7 @@ class CVForm extends React.Component {
 
                 <View style={{ width: '100%', alignItems: 'center' }}>
 
-                    <Text style={styles.inputTitle}>Meslek</Text>
+                    <Text style={styles.inputTitle}>Meslek <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                     <View style={[styles.inputView, { width: '90%' }]}>
                         <SImage width={20} source={require('../images/manager.png')} />
                         <TextInput
@@ -566,6 +710,15 @@ class CVForm extends React.Component {
                             style={[styles.inputStyle, { width: '90%', paddingLeft: 10 }]} />
                     </View>
 
+                    <Text style={styles.inputTitle}>Şehir/ilçe <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
+                    <View style={[styles.inputView, { width: '90%' }]}>
+                        <SImage width={20} source={require('../images/pin.png')} />
+                        <TextInput
+                            value={this.state.userCity}
+                            onChangeText={(text) => this.setState({ userCity: text })}
+                            placeholder='...'
+                            style={[styles.inputStyle, { width: '90%' }]} />
+                    </View>
 
                     <Text style={styles.inputTitle}>Adress</Text>
                     <View style={[styles.inputView, { width: '90%' }]}>
@@ -576,18 +729,6 @@ class CVForm extends React.Component {
                             placeholder='...'
                             style={[styles.inputStyle, { width: '90%' }]} />
                     </View>
-
-
-                    <Text style={styles.inputTitle}>Şehir/ilçe</Text>
-                    <View style={[styles.inputView, { width: '90%' }]}>
-                        <SImage width={20} source={require('../images/pin.png')} />
-                        <TextInput
-                            value={this.state.userCity}
-                            onChangeText={(text) => this.setState({ userCity: text })}
-                            placeholder='...'
-                            style={[styles.inputStyle, { width: '90%' }]} />
-                    </View>
-
 
                     <Text style={styles.inputTitle}>Posta kodu</Text>
                     <View style={[styles.inputView, { width: '90%' }]}>
@@ -702,7 +843,7 @@ class CVForm extends React.Component {
                 </TouchableOpacity>
 
                 <View style={{ width: '100%', alignItems: 'center', marginBottom: 20 }}>
-                    <TouchableOpacity onPress={() => this.showExperiences()} style={styles.selectButton}>
+                    <TouchableOpacity onPress={() => this.controlShowExperiences()} style={styles.selectButton}>
                         <Text style={styles.buttonText}>İleri</Text>
                     </TouchableOpacity>
                 </View>
@@ -711,153 +852,6 @@ class CVForm extends React.Component {
 
             </View >
         )
-    }
-
-
-
-    setAbilities(v) {
-        return (
-            <View style={styles.abilityContainer}>
-                <Text style={styles.abilityText}>{v.item.name}</Text>
-                <Text style={styles.abilityGradeText}>{v.item.level}</Text>
-                <TouchableOpacity onPress={() => this.removeAbility(v)} style={styles.removeAbilityButton}>
-                    <Text style={styles.buttonText}>Çıkar</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-    setLanguage(v) {
-        return (
-            <View style={styles.abilityContainer}>
-                <Text style={styles.abilityText}>{v.item.name}</Text>
-                <Text style={styles.abilityGradeText}>{v.item.level}</Text>
-                <TouchableOpacity onPress={() => this.removeLanguage(v)} style={styles.removeAbilityButton}>
-                    <Text style={styles.buttonText}>Çıkar</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
-
-    removeLanguage(v) {
-        helper.UserLanguages.splice(v.index, 1)
-        this.setState({ userLanguage: language })
-    }
-
-    removeAbility(v) {
-        helper.userAbilities.splice(v.index, 1)
-        this.setState({ userAbility: ability })
-    }
-
-    removeSchool(v) {
-        helper.userSchools.splice(v.index, 1)
-        this.setState({ userSchoolName: school.schoolName })
-    }
-
-    pushAbility() {
-        this.setState({ userAbility: ability });
-        helper.setUserAbilities(ability)
-    }
-    pushLanuage() {
-        this.setState({ userLanguage: language });
-        helper.setUserLanguages(language)
-    }
-    pushHobby() {
-        this.setState({ userHobby: hobby });
-        helper.setUserHobbies(hobby)
-    }
-    pushReference() {
-        this.setState({ userReferenceName: reference.name });
-        helper.setUserReferences(reference)
-    }
-
-    setSchools(item) {
-        return (
-            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolName}</Text>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolDepartment}</Text>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolGrade}</Text>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolCity}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.schoolStartDate} / {item.item.schoolFinishDate}</Text>
-                    <TouchableOpacity onPress={() => this.removeSchool(item)} style={styles.removeAbilityButton}>
-                        <Text style={styles.buttonText}>Çıkar</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        )
-    }
-    setCompanies(item) {
-        return (
-            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyName}</Text>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyJob}</Text>
-                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.companyDescription}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.companyStartDate} / {item.item.companyFinishDate}</Text>
-                    <TouchableOpacity onPress={() => this.removeCompany(item)} style={styles.removeAbilityButton}>
-                        <Text style={styles.buttonText}>Çıkar</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        )
-    }
-    setProjects(item) {
-        return (
-            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectName}</Text>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectTools}</Text>
-                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.projectDescription}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.projectLink}</Text>
-                    <TouchableOpacity onPress={() => this.removeProject(item)} style={styles.removeAbilityButton}>
-                        <Text style={styles.buttonText}>Çıkar</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        )
-    }
-    setCommunities(item) {
-        return (
-            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityName}</Text>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityTitle}</Text>
-                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.communityDescription}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.communityStartDate} / {item.item.communityFinishDate}</Text>
-                    <TouchableOpacity onPress={() => this.removeCommunity(item)} style={styles.removeAbilityButton}>
-                        <Text style={styles.buttonText}>Çıkar</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        )
-    }
-    removeCommunity(v) {
-        helper.userCommunities.splice(v.index, 1)
-        this.setState({ userCommunityName: community.communityName })
-    }
-    removeProject(v) {
-        helper.userProjects.splice(v.index, 1)
-        this.setState({ userProjectName: project.projectName })
-    }
-    pushProject() {
-        this.setState({ userProjectName: project.projectName });
-        helper.setUserProjects(project)
-    }
-    pushCompany() {
-        this.setState({ userCompanyName: company.companyName });
-        helper.setUserCompanies(company)
-    }
-    removeCompany(v) {
-        helper.userCompanies.splice(v.index, 1)
-        this.setState({ userCompanyName: company.companyName })
-    }
-    pushSchool() {
-        this.setState({ userSchoolName: school.name });
-        helper.setUserSchools(school)
-    }
-    pushCommunity() {
-        helper.setUserCommunities(community);
-        this.setState({ userCommunityName: community.communityName })
     }
 
     renderExperiences() {
@@ -884,9 +878,9 @@ class CVForm extends React.Component {
                         <View style={styles.experiencesInputView}>
                             <SImage width={23} source={require('../images/school.png')} />
                             <TextInput
-                                //value={this.state.userSchoolName}
+                                value={this.state.userSchoolName}
                                 placeholder='...'
-                                onChangeText={(text) => school.schoolName = text}
+                                onChangeText={(text) => { school.schoolName = text; this.setState({ userSchoolName: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1566,6 +1560,38 @@ class CVForm extends React.Component {
                         this.renderResultCV()
                     }
                 </View>
+                <AlertPro
+                    ref={ref => {
+                        this.AlertPro = ref;
+                    }}
+                    onConfirm={() => this.AlertPro.close()}
+                    title="Hata"
+                    message={'Lütfen zorunlu(*) olan boşlukları doldurunuz'}
+                    textConfirm='TAMAM'
+                    showConfirm
+                    showCancel={false}
+                    customStyles={{
+                        mask: {
+                            backgroundColor: 'rgba(0,0,0,0.7)'
+                        },
+                        container: {
+                            borderWidth: 1,
+                            borderRadius: 8,
+                            borderColor: '#5181fc',
+                            width: 300
+                        },
+                        title: {
+                            fontSize: 18,
+                            color: '#545454',
+                        },
+                        buttonConfirm: {
+                            backgroundColor: 'green',
+                        },
+                        message: {
+                            color: '#2f6478',
+                        }
+                    }}
+                />
             </ScrollView>
 
         )
