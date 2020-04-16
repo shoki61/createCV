@@ -301,6 +301,17 @@ class CVForm extends React.Component {
             maxDate: '01-01-2016',
 
 
+            ////////////uyarılar kısmı
+            warningLink: false,
+
+            warningSchoolName: false,
+            warningSchoolDepartment: false,
+            warningSchoolGrade: false,
+            warningSchoolCity: false,
+            warningSchoolDate: false,
+
+
+
 
         }
     }
@@ -310,7 +321,6 @@ class CVForm extends React.Component {
         this.setState({ showPersonalInformation: true })
         this.setState({ showExperiences: false })
     }
-
     controlShowExperiences() {
         if (this.state.userName === '' || this.state.userNumber === '' || this.userEmail === '' || this.state.userJob === '' || this.state.userCity === '') {
             this.AlertPro.open()
@@ -320,7 +330,6 @@ class CVForm extends React.Component {
             this.setState({ showResultCV: false })
         }
     }
-
     conrtolShowResultCV() {
         if (school.schoolName === '' || school.schoolDepartment === '' || school.schoolGrade === '' || school.schoolCity === '' || school.schoolStartDate === '' || school.schoolFinishDate === '' || helper.userSchools.length <= 0) {
             this.AlertPro.open();
@@ -329,6 +338,11 @@ class CVForm extends React.Component {
             this.setState({ showResultCV: true })
             this.setState({ showExperiences: false })
         }
+    }
+    showExperiences() {
+        this.setState({ showPersonalInformation: false })
+        this.setState({ showExperiences: true })
+        this.setState({ showResultCV: false })
     }
 
 
@@ -349,7 +363,6 @@ class CVForm extends React.Component {
 
         )
     }
-
     deleteMore() {
         RNHTMLtoPDF.convert
         this.setState({ hidden: !this.state.hidden })
@@ -360,8 +373,6 @@ class CVForm extends React.Component {
             this.setState({ userLink: '' })
         }
     }
-
-
     getFoto = async () => {
 
         try {
@@ -556,7 +567,6 @@ class CVForm extends React.Component {
     ////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////
 
-
     ////////listeleri çıkaran fonksyonlar////////////////////////
     removeHobby(v) {
         helper.userHobbies.splice(v.index, 1)
@@ -601,9 +611,13 @@ class CVForm extends React.Component {
 
 
     ///////listeye ekleyen fonksyonlar//////////////    
-    pushLink = async () => {
-        this.setState({ userLink: link })
-        helper.setUserLinks(link)
+    controlLink = async () => {
+        if (link === '') {
+            this.setState({ warningLink: true })
+        } else {
+            this.setState({ userLink: link })
+            helper.setUserLinks(link)
+        }
     }
     pushAbility() {
         this.setState({ userAbility: ability });
@@ -629,9 +643,17 @@ class CVForm extends React.Component {
         this.setState({ userCompanyName: company.companyName });
         helper.setUserCompanies(company)
     }
-    pushSchool() {
-        this.setState({ userSchoolName: school.name });
-        helper.setUserSchools(school)
+    controlSchool() {
+        if (school.schoolName === '' || school.schoolDepartment === '' || school.schoolGrade === '' || school.schoolCity === '' || school.schoolStartDate === '' || school.schoolFinishDate === '') {
+            if (this.state.userSchoolName === '') this.setState({ warningSchoolName: true })
+            if (this.state.userSchoolDepartment === '') this.setState({ warningSchoolDepartment: true })
+            if (this.state.userSchoolGrade === '') this.setState({ warningSchoolGrade: true })
+            if (this.state.userSchoolCity === '') this.setState({ warningSchoolCity: true })
+            if (this.state.userSchoolStartDate === '' || this.state.userSchoolFinishDate === '') this.setState({ warningSchoolDate: true })
+        } else {
+            this.setState({ userSchoolName: school.name });
+            helper.setUserSchools(school)
+        }
     }
     pushCommunity() {
         helper.setUserCommunities(community);
@@ -823,9 +845,10 @@ class CVForm extends React.Component {
                                 <View style={styles.linkInputContainer}>
                                     <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
                                     <TextInput
-                                        onChangeText={text => link = text}
-                                        style={styles.linkInputStyle} />
-                                    <TouchableOpacity onPress={() => this.pushLink()} style={styles.linkAddButton}>
+                                        placeholder='...'
+                                        onChangeText={text => { link = text; this.setState({ userLink: text }) }}
+                                        style={[styles.linkInputStyle, this.state.warningLink && link === '' && { borderColor: 'red' }]} />
+                                    <TouchableOpacity onPress={() => this.controlLink()} style={styles.linkAddButton}>
                                         <Text style={styles.buttonText}>Ekle</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -858,6 +881,7 @@ class CVForm extends React.Component {
         )
     }
 
+
     renderExperiences() {
 
         return (
@@ -879,7 +903,7 @@ class CVForm extends React.Component {
 
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>Okul/Fakülte</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningSchoolName && school.schoolName === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/school.png')} />
                             <TextInput
                                 value={this.state.userSchoolName}
@@ -890,12 +914,12 @@ class CVForm extends React.Component {
 
 
                         <Text style={styles.infoTitle}>Bölüm</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningSchoolDepartment && school.schoolDepartment === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/department.png')} />
                             <TextInput
                                 placeholder='...'
-                                // value={this.state.userSchoolDepartment}
-                                onChangeText={(text) => school.schoolDepartment = text}
+                                value={this.state.userSchoolDepartment}
+                                onChangeText={(text) => { school.schoolDepartment = text; this.setState({ userSchoolDepartment: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
@@ -904,43 +928,29 @@ class CVForm extends React.Component {
 
 
                         <Text style={styles.infoTitle}>Derece</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningSchoolGrade && school.schoolGrade === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/degree.png')} />
 
                             <SelectInput
-                                value={this.state.optionsSchoolDegree}
                                 style={styles.infoInput}
                                 labelStyle={{ color: '#6E6E6E' }}
                                 mode='dropdown'
-                                onSubmitEditing={(text) => school.schoolGrade = text}
+                                onSubmitEditing={(text) => { school.schoolGrade = text; this.setState({ userSchoolGrade: text }) }}
                                 options={this.state.optionsSchoolDegree} />
-
-
-
-
                         </View>
 
-
-
-
-
-
                         <Text style={styles.infoTitle}>Şehir/ilçe</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningSchoolCity && school.schoolCity === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/pin.png')} />
                             <TextInput
                                 placeholder='...'
-                                //value={this.state.userSchoolCity}
-                                onChangeText={(text) => school.schoolCity = text}
+                                value={this.state.userSchoolCity}
+                                onChangeText={(text) => { school.schoolCity = text; this.setState({ userSchoolCity: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
-
-
-
-
                         <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningSchoolDate && school.schoolStartDate === '' && { borderColor: 'red' }, this.state.warningSchoolDate && school.schoolFinishDate === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/calendar.png')} />
                             <DatePicker
                                 androidMode='spinner'
@@ -1003,7 +1013,7 @@ class CVForm extends React.Component {
 
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity onPress={() => this.pushSchool()} style={[styles.linkAddButton, { marginTop: 10, right: 0 }]}>
+                        <TouchableOpacity onPress={() => this.controlSchool()} style={[styles.linkAddButton, { marginTop: 10, right: 0 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
                         </TouchableOpacity>
                     </View>

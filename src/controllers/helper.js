@@ -71,7 +71,7 @@ class helper {
                 schoolFinishDate: v.schoolFinishDate
             }
         )
-        alert(JSON.stringify(this.userSchools))
+        //alert(JSON.stringify(this.userSchools))
     }
 
     setUserLanguages(v) {
