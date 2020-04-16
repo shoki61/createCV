@@ -293,8 +293,8 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: true,
-            showExperiences: false,
+            showPersonalInformation: false,
+            showExperiences: true,
             showResultCV: false,
 
             minDate: '01-01-1950',
@@ -311,7 +311,6 @@ class CVForm extends React.Component {
         this.setState({ showExperiences: false })
     }
 
-
     controlShowExperiences() {
         if (this.state.userName === '' || this.state.userNumber === '' || this.userEmail === '' || this.state.userJob === '' || this.state.userCity === '') {
             this.AlertPro.open()
@@ -322,9 +321,14 @@ class CVForm extends React.Component {
         }
     }
 
-    showResultCV() {
-        this.setState({ showResultCV: true })
-        this.setState({ showExperiences: false })
+    conrtolShowResultCV() {
+        if (school.schoolName === '' || school.schoolDepartment === '' || school.schoolGrade === '' || school.schoolCity === '' || school.schoolStartDate === '' || school.schoolFinishDate === '' || helper.userSchools.length <= 0) {
+            this.AlertPro.open();
+        }
+        else {
+            this.setState({ showResultCV: true })
+            this.setState({ showExperiences: false })
+        }
     }
 
 
@@ -862,7 +866,7 @@ class CVForm extends React.Component {
                 {/*Eğitim kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, }}>
                     <SImage width={40} source={require('../images/graduate.png')} />
-                    <Text style={styles.inputTitle}>Eğitim</Text>
+                    <Text style={styles.inputTitle}>Eğitim <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                 </View>
                 <View style={styles.infoContainer}>
 
@@ -1474,7 +1478,7 @@ class CVForm extends React.Component {
                     <TouchableOpacity onPress={() => this.showPersonalInformation()} style={styles.selectButton}>
                         <Text style={styles.buttonText}>Geri</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => this.showResultCV()} style={styles.selectButton}>
+                    <TouchableOpacity onPress={() => this.conrtolShowResultCV()} style={styles.selectButton}>
                         <Text style={styles.buttonText}>İleri</Text>
                     </TouchableOpacity>
                 </View>
@@ -1566,7 +1570,7 @@ class CVForm extends React.Component {
                     }}
                     onConfirm={() => this.AlertPro.close()}
                     title="Hata"
-                    message={'Lütfen zorunlu(*) olan boşlukları doldurunuz'}
+                    message={'Lütfen zorunlu(*) olan yerleri doldurunuz'}
                     textConfirm='TAMAM'
                     showConfirm
                     showCancel={false}
