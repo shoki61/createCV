@@ -147,6 +147,12 @@ let company = {
     companyFinishDate: '',
     companyDescription: ''
 }
+let project = {
+    projectName: '',
+    projectTools: '',
+    projectLink: '',
+    projectDescription: ''
+}
 
 function Ability() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
@@ -788,6 +794,29 @@ class CVForm extends React.Component {
             </View>
         )
     }
+    setProjects(item) {
+        return (
+            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectName}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectTools}</Text>
+                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.projectDescription}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.projectLink}</Text>
+                    <TouchableOpacity onPress={() => this.removeProject(item)} style={styles.removeAbilityButton}>
+                        <Text style={styles.buttonText}>Çıkar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    removeProject(v) {
+        helper.userProjects.splice(v.index, 1)
+        this.setState({ userProjectName: project.projectName })
+    }
+    pushProject() {
+        this.setState({ userProjectName: project.projectName });
+        helper.setUserProjects(project)
+    }
     pushCompany() {
         this.setState({ userCompanyName: company.companyName });
         helper.setUserCompanies(company)
@@ -1071,14 +1100,21 @@ class CVForm extends React.Component {
                     <Text style={styles.inputTitle}>Projeler</Text>
                 </View>
                 <View style={styles.infoContainer}>
+                    <FlatList
+                        style={{ width: '90%', marginTop: 5, }}
+                        data={helper.userProjects}
+                        renderItem={data => this.setProjects(data)}
+                        showsVerticalScrollIndicator={false}
+                    />
+
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>Proje adı</Text>
                         <View style={styles.experiencesInputView}>
                             <SImage width={23} source={require('../images/projectName.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userProjectName}
-                                onChangeText={(text) => this.setState({ userProjectName: text })}
+                                //value={this.state.userProjectName}
+                                onChangeText={(text) => project.projectName = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1089,8 +1125,8 @@ class CVForm extends React.Component {
                             <SImage width={23} source={require('../images/tools.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userProjectTools}
-                                onChangeText={(text) => this.setState({ userProjectTools: text })}
+                                //value={this.state.userProjectTools}
+                                onChangeText={(text) => project.projectTools = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1101,8 +1137,8 @@ class CVForm extends React.Component {
                             <SImage width={20} source={require('../images/linkIcon.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userProjectLink}
-                                onChangeText={(text) => this.setState({ userProjectLink: text })}
+                                //value={this.state.userProjectLink}
+                                onChangeText={(text) => project.projectLink = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1112,8 +1148,8 @@ class CVForm extends React.Component {
                         <View style={styles.experiencesDescInputView}>
                             <SImage width={23} source={require('../images/comment.png')} />
                             <TextInput
-                                value={this.state.userProjectDescription}
-                                onChangeText={(text) => this.setState({ userProjectDescription: text })}
+                                //value={this.state.userProjectDescription}
+                                onChangeText={(text) => project.projectDescription = text}
                                 multiline={true}
                                 numberOfLines={4}
                                 placeholder={'...'}
@@ -1121,7 +1157,9 @@ class CVForm extends React.Component {
                         </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity style={[styles.linkAddButton, { marginTop: 10 }]}><Text style={styles.buttonText}>Ekle</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.pushProject()} style={[styles.linkAddButton, { marginTop: 10 }]}>
+                            <Text style={styles.buttonText}>Ekle</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 

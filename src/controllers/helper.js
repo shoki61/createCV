@@ -15,6 +15,17 @@ class helper {
     userReferences = []
     userSchools = []
     userCompanies = []
+    userProjects = []
+
+    setUserProjects(v) {
+        this.userProjects.push({
+            projectName: v.projectName,
+            projectTools: v.projectTools,
+            projectLink: v.projectLink,
+            projectDescription: v.projectDescription
+            ,
+        })
+    }
 
     setUserCompanies(v) {
         this.userCompanies.push(
@@ -107,6 +118,7 @@ decorate(
         userReferences: observable,
         userSchools: observable,
         userCompanies: observable,
+        userProjects: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
@@ -116,6 +128,7 @@ decorate(
         setUserReferences: action,
         setUserSchools: action,
         setUserCompanies: action,
+        setUserProjects: action
 
     }
 );
