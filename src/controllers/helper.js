@@ -16,6 +16,17 @@ class helper {
     userSchools = []
     userCompanies = []
     userProjects = []
+    userCommunities = []
+
+    setUserCommunities(v) {
+        this.userCommunities.push({
+            communityName: v.communityName,
+            communityTitle: v.communityTitle,
+            communityStartDate: v.communityStartDate,
+            communityFinishDate: v.communityFinishDate,
+            communityDescription: v.communityDescription
+        })
+    }
 
     setUserProjects(v) {
         this.userProjects.push({
@@ -23,7 +34,6 @@ class helper {
             projectTools: v.projectTools,
             projectLink: v.projectLink,
             projectDescription: v.projectDescription
-            ,
         })
     }
 
@@ -119,6 +129,7 @@ decorate(
         userSchools: observable,
         userCompanies: observable,
         userProjects: observable,
+        userCommunities: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
@@ -128,7 +139,8 @@ decorate(
         setUserReferences: action,
         setUserSchools: action,
         setUserCompanies: action,
-        setUserProjects: action
+        setUserProjects: action,
+        setUserCommunities: action
 
     }
 );

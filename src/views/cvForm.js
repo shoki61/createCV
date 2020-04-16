@@ -153,6 +153,13 @@ let project = {
     projectLink: '',
     projectDescription: ''
 }
+let community = {
+    communityName: '',
+    communityTitle: '',
+    communityStartDate: '',
+    communityFinishDate: '',
+    communityDescription: '',
+}
 
 function Ability() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
@@ -809,6 +816,25 @@ class CVForm extends React.Component {
             </View>
         )
     }
+    setCommunities(item) {
+        return (
+            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityName}</Text>
+                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityTitle}</Text>
+                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.communityDescription}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.communityStartDate} / {item.item.communityFinishDate}</Text>
+                    <TouchableOpacity onPress={() => this.removeCommunity(item)} style={styles.removeAbilityButton}>
+                        <Text style={styles.buttonText}>Çıkar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        )
+    }
+    removeCommunity(v) {
+        helper.userCommunities.splice(v.index, 1)
+        this.setState({ userCommunityName: community.communityName })
+    }
     removeProject(v) {
         helper.userProjects.splice(v.index, 1)
         this.setState({ userProjectName: project.projectName })
@@ -1164,9 +1190,6 @@ class CVForm extends React.Component {
                 </View>
 
 
-
-
-
                 {/*Yetenekler kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
                     <SImage width={40} source={require('../images/abilityTitle.png')} />
@@ -1203,8 +1226,6 @@ class CVForm extends React.Component {
                         </View>
                     </View>
                 </View>
-
-
 
 
                 {/*Bildiği diller kısmı*/}
@@ -1279,6 +1300,12 @@ class CVForm extends React.Component {
                     <Text style={styles.inputTitle}>Topluluk</Text>
                 </View>
                 <View style={styles.infoContainer}>
+                    <FlatList
+                        style={{ width: '90%', marginTop: 5, }}
+                        data={helper.userCommunities}
+                        renderItem={data => this.setCommunities(data)}
+                        showsVerticalScrollIndicator={false}
+                    />
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>Topluluk adı</Text>
                         <View style={styles.experiencesInputView}>
