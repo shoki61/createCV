@@ -855,6 +855,10 @@ class CVForm extends React.Component {
         this.setState({ userSchoolName: school.name });
         helper.setUserSchools(school)
     }
+    pushCommunity() {
+        helper.setUserCommunities(community);
+        this.setState({ userCommunityName: community.communityName })
+    }
 
     renderExperiences() {
 
@@ -1312,8 +1316,8 @@ class CVForm extends React.Component {
                             <SImage width={23} source={require('../images/community.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userCommunityName}
-                                onChangeText={(text) => this.setState({ userCommunityName: text })}
+                                //value={this.state.userCommunityName}
+                                onChangeText={(text) => community.communityName = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1322,8 +1326,8 @@ class CVForm extends React.Component {
                             <SImage width={23} source={require('../images/manager.png')} />
                             <TextInput
                                 placeholder='...'
-                                value={this.state.userCommunityTitle}
-                                onChangeText={(text) => this.setState({ userCommunityTitle: text })}
+                                //value={this.state.userCommunityTitle}
+                                onChangeText={(text) => community.communityTitle = text}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1353,7 +1357,7 @@ class CVForm extends React.Component {
                                         color: '#8D8D8D',
                                     }
                                 }}
-                                onDateChange={(date) => { this.setState({ userCommunityStartDate: date }) }}
+                                onDateChange={(date) => { community.communityStartDate = date; this.setState({ userCommunityStartDate: date }) }}
                             />
                             <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
                             <DatePicker
@@ -1381,7 +1385,7 @@ class CVForm extends React.Component {
                                         paddingLeft: 5
                                     }
                                 }}
-                                onDateChange={(date) => { this.setState({ userCommunityFinishDate: date }) }}
+                                onDateChange={(date) => { community.communityFinishDate = date; this.setState({ userCommunityFinishDate: date }) }}
                             />
                         </View>
 
@@ -1389,8 +1393,8 @@ class CVForm extends React.Component {
                         <View style={styles.experiencesDescInputView}>
                             <SImage width={23} source={require('../images/comment.png')} />
                             <TextInput
-                                value={this.state.userCommunityDescription}
-                                onChangeText={(text) => this.setState({ userCommunityDescription: text })}
+                                //value={this.state.userCommunityDescription}
+                                onChangeText={(text) => community.communityDescription = text}
                                 multiline={true}
                                 numberOfLines={4}
                                 placeholder={'...'}
@@ -1398,7 +1402,9 @@ class CVForm extends React.Component {
                         </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity style={[styles.linkAddButton, { marginTop: 10 }]}><Text style={styles.buttonText}>Ekle</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.pushCommunity()} style={[styles.linkAddButton, { marginTop: 10 }]}>
+                            <Text style={styles.buttonText}>Ekle</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
 
