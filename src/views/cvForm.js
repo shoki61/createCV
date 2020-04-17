@@ -310,6 +310,12 @@ class CVForm extends React.Component {
             warningSchoolCity: false,
             warningSchoolDate: false,
 
+            warningCompanyName: false,
+            warningCompanyJob: false,
+            warningCompanyDate: false,
+            warningCompanyDescription: false
+
+
 
 
 
@@ -639,9 +645,16 @@ class CVForm extends React.Component {
         this.setState({ userProjectName: project.projectName });
         helper.setUserProjects(project)
     }
-    pushCompany() {
-        this.setState({ userCompanyName: company.companyName });
-        helper.setUserCompanies(company)
+    controlCompany() {
+        if (company.companyName === '' || company.companyJob === '' || company.companyStartDate === '' || company.companyFinishDate === '' || company.companyDescription === '') {
+            if (this.state.userCompanyName === '') this.setState({ warningCompanyName: true })
+            if (this.state.userCompanyJob === '') this.setState({ warningCompanyJob: true })
+            if (this.state.userCompanyDescription === '') this.setState({ warningCompanyDescription: true })
+            if (this.state.userCompanyStartDate === '' || this.state.userCompanyFinishDate === '') this.setState({ warningCompanyDate: true })
+        } else {
+            this.setState({ userCompanyName: company.companyName });
+            helper.setUserCompanies(company)
+        }
     }
     controlSchool() {
         if (school.schoolName === '' || school.schoolDepartment === '' || school.schoolGrade === '' || school.schoolCity === '' || school.schoolStartDate === '' || school.schoolFinishDate === '') {
@@ -1034,28 +1047,28 @@ class CVForm extends React.Component {
 
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>İş yeri</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningCompanyName && this.state.userCompanyName === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/workplace.png')} />
                             <TextInput
-                                //value={this.state.userCompanyName}
+                                value={this.state.userCompanyName}
                                 placeholder='...'
-                                onChangeText={(text) => company.companyName = text}
+                                onChangeText={(text) => { company.companyName = text; this.setState({ userCompanyName: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
                         <Text style={styles.infoTitle}>Meslek</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningCompanyJob && this.state.userCompanyJob === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/manager.png')} />
                             <TextInput
                                 placeholder='...'
-                                //value={this.state.userCompanyJob}
-                                onChangeText={(text) => company.companyJob = text}
+                                value={this.state.userCompanyJob}
+                                onChangeText={(text) => { company.companyJob = text; this.setState({ userCompanyJob: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
 
                         <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningCompanyDate && this.state.userCompanyStartDate === '' && { borderColor: 'red' }, this.state.warningCompanyDate && this.state.userCompanyFinishDate === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/calendar.png')} />
                             <DatePicker
                                 androidMode='spinner'
@@ -1114,11 +1127,11 @@ class CVForm extends React.Component {
 
 
                         <Text style={styles.infoTitle}>Açıklama</Text>
-                        <View style={styles.experiencesDescInputView}>
+                        <View style={[styles.experiencesDescInputView, this.state.warningCompanyDescription && this.state.userCompanyDescription === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/comment.png')} />
                             <TextInput
-                                //value={this.state.userCompanyDescription}
-                                onChangeText={(text) => company.companyDescription = text}
+                                value={this.state.userCompanyDescription}
+                                onChangeText={(text) => { company.companyDescription = text; this.setState({ userCompanyDescription: text }) }}
                                 multiline={true}
                                 numberOfLines={4}
                                 placeholder={'...'}
@@ -1126,7 +1139,7 @@ class CVForm extends React.Component {
                         </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity onPress={() => this.pushCompany()} style={[styles.linkAddButton, { marginTop: 10 }]}>
+                        <TouchableOpacity onPress={() => this.controlCompany()} style={[styles.linkAddButton, { marginTop: 10 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
                         </TouchableOpacity>
                     </View>
