@@ -228,7 +228,7 @@ class CVForm extends React.Component {
             userCity: '',
             userPostalCode: '',
             userBirthDay: '',
-            userGender: '',
+            userGender: 'Erkek',
             userDrivingLicence: '',
             userLink: '',
 
@@ -293,8 +293,8 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: false,
-            showExperiences: true,
+            showPersonalInformation: true,
+            showExperiences: false,
             showResultCV: false,
 
             minDate: '01-01-1950',
@@ -471,7 +471,10 @@ class CVForm extends React.Component {
                     <Text style={styles.referansText} numberOfLines={1} >{item.item.tel}</Text>
                 </View>
                 <View style={{ width: '36%' }}>
-                    <Text style={styles.referansText} numberOfLines={1} >{item.item.companyName}</Text>
+                    {
+                        item.item.companyName !== '' &&
+                        <Text style={styles.referansText} numberOfLines={1} >{item.item.companyName}</Text>
+                    }
                     <Text style={styles.referansText} numberOfLines={1} >{item.item.email}</Text>
                 </View>
                 <TouchableOpacity onPress={() => this.removeReference(item)} style={styles.removeAbilityButton}>
@@ -670,9 +673,16 @@ class CVForm extends React.Component {
             helper.setUserHobbies(hobby)
         }
     }
-    pushReference() {
-        this.setState({ userReferenceName: reference.name });
-        helper.setUserReferences(reference)
+    controlReference() {
+        if (reference.name === '' || reference.tel === '' || reference.email === '') {
+            if (reference.name === '') this.setState({ warningReferenceName: true });
+            if (reference.tel === '') this.setState({ warningReferenceTel: true });
+            if (reference.email === '') this.setState({ warningReferenceEmail: true });
+
+        } else {
+            this.setState({ userReferenceName: reference.name });
+            helper.setUserReferences(reference)
+        }
     }
     controlProject() {
         if (project.projectName === '' || project.projectDescription === '') {
@@ -872,13 +882,20 @@ class CVForm extends React.Component {
                             <Text style={styles.inputTitle}>Cinsiyet</Text>
                             <View style={[styles.inputView, { width: '90%' }]}>
                                 <SImage width={20} source={require('../images/gender.png')} />
-                                <TextInput
-                                    value={this.state.userGender}
-                                    onChangeText={(text) => this.setState({ userGender: text })}
-                                    placeholder='...'
-                                    style={[styles.inputStyle, { width: '90%' }]} />
-                            </View>
+                                <Picker
+                                    selectedValue={this.state.userGender}
+                                    itemStyle={{ color: 'green', fontSize: 10 }}
+                                    style={{
+                                        width: '90%', height: 35, color: 'grey'
+                                    }}
+                                    onValueChange={(text) => this.setState({ userGender: text })}
+                                    mode='dropdown'
+                                >
+                                    <Picker.Item label="Erkek" value="Erkek" />
+                                    <Picker.Item label="Kadın" value="Kadın" />
+                                </Picker>
 
+                            </View>
 
 
                             <Text style={styles.inputTitle}>Sürücü ehliyeti</Text>
@@ -1491,36 +1508,36 @@ class CVForm extends React.Component {
 
                     <View style={{ width: '90%', alignItems: 'center', marginTop: 40, }}>
                         <Text style={styles.infoTitle}>İsim, soy isim</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningReferenceName && reference.name === '' && { borderColor: 'red' }]}>
                             <SImage width={20} source={require('../images/userForm.png')} />
                             <TextInput
                                 placeholder='...'
-                                //value={this.state.userReferenceName}
-                                onChangeText={(text) => reference.name = text}
+                                value={this.state.userReferenceName}
+                                onChangeText={(text) => { reference.name = text; this.setState({ userReferenceName: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
 
                         <Text style={styles.infoTitle}>Telefon numarası</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningReferenceTel && reference.tel === '' && { borderColor: 'red' }]}>
                             <SImage width={20} source={require('../images/phone.png')} />
                             <TextInput
                                 placeholder='...'
                                 keyboardType='numeric'
-                                //value={this.state.userReferenceNumber}
-                                onChangeText={(text) => reference.tel = text}
+                                value={this.state.userReferenceNumber}
+                                onChangeText={(text) => { reference.tel = text; this.setState({ userReferenceNumber: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
 
                         <Text style={styles.infoTitle}>E-posta</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningReferenceEmail && reference.email === '' && { borderColor: 'red' }]}>
                             <SImage width={20} source={require('../images/mail.png')} />
                             <TextInput
                                 placeholder='...'
                                 keyboardType='email-address'
-                                //value={this.state.userReferenceEmail}
-                                onChangeText={(text) => reference.email = text}
+                                value={this.state.userReferenceEmail}
+                                onChangeText={(text) => { reference.email = text; this.setState({ userReferenceEmail: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1530,13 +1547,13 @@ class CVForm extends React.Component {
                             <SImage width={20} source={require('../images/workplace.png')} />
                             <TextInput
                                 placeholder='...'
-                                //value={this.state.userReferenceCompanyName}
-                                onChangeText={(text) => reference.companyName = text}
+                                value={this.state.userReferenceCompanyName}
+                                onChangeText={(text) => { reference.companyName = text; this.setState({ userReferenceCompanyName: text }) }}
                                 style={styles.infoInput} />
                         </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity onPress={() => this.pushReference()} style={[styles.linkAddButton, { marginTop: 10 }]}>
+                        <TouchableOpacity onPress={() => this.controlReference()} style={[styles.linkAddButton, { marginTop: 10 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
                         </TouchableOpacity>
                     </View>
