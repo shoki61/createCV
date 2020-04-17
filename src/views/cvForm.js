@@ -659,9 +659,13 @@ class CVForm extends React.Component {
             helper.setUserLanguages(language)
         }
     }
-    pushHobby() {
-        this.setState({ userHobby: hobby });
-        helper.setUserHobbies(hobby)
+    controlHobby() {
+        if (hobby === '') {
+            this.setState({ warningHobby: true })
+        } else {
+            this.setState({ userHobby: hobby });
+            helper.setUserHobbies(hobby)
+        }
     }
     pushReference() {
         this.setState({ userReferenceName: reference.name });
@@ -1339,12 +1343,13 @@ class CVForm extends React.Component {
                             <View style={{ width: '72%' }}>
                                 <Text style={styles.chooseTalentTitle}>İlgi alanı gir</Text>
                                 <TextInput
+                                    value={this.state.userHobby}
                                     placeholder='...'
-                                    onChangeText={(text) => hobby = text}
-                                    style={styles.abilityInput} />
+                                    onChangeText={(text) => { hobby = text; this.setState({ userHobby: text }) }}
+                                    style={[styles.abilityInput, this.state.warningHobby && hobby === '' && { borderColor: 'red' }]} />
 
                             </View>
-                            <TouchableOpacity onPress={() => this.pushHobby()} style={styles.selectHobbyButton}>
+                            <TouchableOpacity onPress={() => this.controlHobby()} style={styles.selectHobbyButton}>
                                 <Text style={styles.buttonText}>Ekle</Text>
                             </TouchableOpacity>
                         </View>
