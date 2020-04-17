@@ -578,7 +578,10 @@ class CVForm extends React.Component {
             <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityName}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityTitle}</Text>
-                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.communityDescription}</Text>
+                {
+                    item.item.communityDescription !== '' &&
+                    <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.communityDescription}</Text>
+                }
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.communityStartDate} / {item.item.communityFinishDate}</Text>
                     <TouchableOpacity onPress={() => this.removeCommunity(item)} style={styles.removeAbilityButton}>
@@ -703,9 +706,15 @@ class CVForm extends React.Component {
             helper.setUserSchools(school)
         }
     }
-    pushCommunity() {
-        helper.setUserCommunities(community);
-        this.setState({ userCommunityName: community.communityName })
+    controlCommunity() {
+        if (community.communityName === '' || community.communityTitle === '' || community.communityStartDate === '' || community.communityFinishDate === '') {
+            if (community.communityName === '') this.setState({ warningCommunityName: true })
+            if (community.communityTitle === '') this.setState({ warningCommunityTitle: true })
+            if (community.communityStartDate === '' || community.communityFinishDate === '') this.setState({ warningCommunityDate: true })
+        } else {
+            helper.setUserCommunities(community);
+            this.setState({ userCommunityName: community.communityName })
+        }
     }
     /////////////////////////////////////////////////
     ////////////////////////////////////////////////
@@ -1370,27 +1379,27 @@ class CVForm extends React.Component {
                     />
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>Topluluk adı</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningCommunityName && community.communityName === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/community.png')} />
                             <TextInput
                                 placeholder='...'
-                                //value={this.state.userCommunityName}
-                                onChangeText={(text) => community.communityName = text}
+                                value={this.state.userCommunityName}
+                                onChangeText={(text) => { community.communityName = text; this.setState({ userCommunityName: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
                         <Text style={styles.infoTitle}>Ünvan</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningCommunityTitle && community.communityTitle === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/manager.png')} />
                             <TextInput
                                 placeholder='...'
-                                //value={this.state.userCommunityTitle}
-                                onChangeText={(text) => community.communityTitle = text}
+                                value={this.state.userCommunityTitle}
+                                onChangeText={(text) => { community.communityTitle = text; this.setState({ userCommunityTitle: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
                         <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningCommunityDate && community.communityStartDate === '' && { borderColor: 'red' }, this.state.warningCommunityDate && community.communityFinishDate === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/calendar.png')} />
                             <DatePicker
                                 androidMode='spinner'
@@ -1451,8 +1460,8 @@ class CVForm extends React.Component {
                         <View style={styles.experiencesDescInputView}>
                             <SImage width={23} source={require('../images/comment.png')} />
                             <TextInput
-                                //value={this.state.userCommunityDescription}
-                                onChangeText={(text) => community.communityDescription = text}
+                                value={this.state.userCommunityDescription}
+                                onChangeText={(text) => { community.communityDescription = text; this.setState({ userCommunityDescription: text }) }}
                                 multiline={true}
                                 numberOfLines={4}
                                 placeholder={'...'}
@@ -1460,7 +1469,7 @@ class CVForm extends React.Component {
                         </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity onPress={() => this.pushCommunity()} style={[styles.linkAddButton, { marginTop: 10 }]}>
+                        <TouchableOpacity onPress={() => this.controlCommunity()} style={[styles.linkAddButton, { marginTop: 10 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
                         </TouchableOpacity>
                     </View>
