@@ -313,9 +313,10 @@ class CVForm extends React.Component {
             warningCompanyName: false,
             warningCompanyJob: false,
             warningCompanyDate: false,
-            warningCompanyDescription: false
+            warningCompanyDescription: false,
 
-
+            warningProjectName: false,
+            warningProjectDescription: false,
 
 
 
@@ -544,10 +545,16 @@ class CVForm extends React.Component {
         return (
             <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectName}</Text>
-                <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectTools}</Text>
+                {
+                    item.item.projectTools !== '' &&
+                    <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectTools}</Text>
+                }
                 <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.projectDescription}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.projectLink}</Text>
+                <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }, item.item.projectLink === '' && { justifyContent: 'flex-end', paddingBottom: 10 }]}>
+                    {
+                        item.item.projectLink !== '' &&
+                        <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.projectLink}</Text>
+                    }
                     <TouchableOpacity onPress={() => this.removeProject(item)} style={styles.removeAbilityButton}>
                         <Text style={styles.buttonText}>Çıkar</Text>
                     </TouchableOpacity>
@@ -641,9 +648,14 @@ class CVForm extends React.Component {
         this.setState({ userReferenceName: reference.name });
         helper.setUserReferences(reference)
     }
-    pushProject() {
-        this.setState({ userProjectName: project.projectName });
-        helper.setUserProjects(project)
+    controlProject() {
+        if (project.projectName === '' || project.projectDescription === '') {
+            if (project.projectName === '') this.setState({ warningProjectName: true });
+            if (project.projectDescription === '') this.setState({ warningProjectDescription: true })
+        } else {
+            this.setState({ userProjectName: project.projectName });
+            helper.setUserProjects(project)
+        }
     }
     controlCompany() {
         if (company.companyName === '' || company.companyJob === '' || company.companyStartDate === '' || company.companyFinishDate === '' || company.companyDescription === '') {
@@ -1160,12 +1172,12 @@ class CVForm extends React.Component {
 
                     <View style={{ width: '90%', alignItems: 'center' }}>
                         <Text style={styles.infoTitle}>Proje adı</Text>
-                        <View style={styles.experiencesInputView}>
+                        <View style={[styles.experiencesInputView, this.state.warningProjectName && project.projectName === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/projectName.png')} />
                             <TextInput
                                 placeholder='...'
-                                //value={this.state.userProjectName}
-                                onChangeText={(text) => project.projectName = text}
+                                value={this.state.userProjectName}
+                                onChangeText={(text) => { project.projectName = text; this.setState({ userProjectName: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1176,8 +1188,8 @@ class CVForm extends React.Component {
                             <SImage width={23} source={require('../images/tools.png')} />
                             <TextInput
                                 placeholder='...'
-                                //value={this.state.userProjectTools}
-                                onChangeText={(text) => project.projectTools = text}
+                                value={this.state.userProjectTools}
+                                onChangeText={(text) => { project.projectTools = text; this.setState({ userProjectTools: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
@@ -1188,19 +1200,19 @@ class CVForm extends React.Component {
                             <SImage width={20} source={require('../images/linkIcon.png')} />
                             <TextInput
                                 placeholder='...'
-                                //value={this.state.userProjectLink}
-                                onChangeText={(text) => project.projectLink = text}
+                                value={this.state.userProjectLink}
+                                onChangeText={(text) => { project.projectLink = text; this.setState({ userProjectLink: text }) }}
                                 style={styles.infoInput} />
                         </View>
 
 
 
                         <Text style={styles.infoTitle}>Açıklama</Text>
-                        <View style={styles.experiencesDescInputView}>
+                        <View style={[styles.experiencesDescInputView, this.state.warningProjectDescription && project.projectDescription === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/comment.png')} />
                             <TextInput
-                                //value={this.state.userProjectDescription}
-                                onChangeText={(text) => project.projectDescription = text}
+                                value={this.state.userProjectDescription}
+                                onChangeText={(text) => { project.projectDescription = text; this.setState({ userProjectDescription: text }) }}
                                 multiline={true}
                                 numberOfLines={4}
                                 placeholder={'...'}
@@ -1208,7 +1220,7 @@ class CVForm extends React.Component {
                         </View>
                     </View>
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
-                        <TouchableOpacity onPress={() => this.pushProject()} style={[styles.linkAddButton, { marginTop: 10 }]}>
+                        <TouchableOpacity onPress={() => this.controlProject()} style={[styles.linkAddButton, { marginTop: 10 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
                         </TouchableOpacity>
                     </View>
