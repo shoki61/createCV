@@ -164,7 +164,7 @@ let community = {
 
 function Ability() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
-    ability.level = selectedValue
+    ability.level = selectedValue;
     return (
         <View style={[styles.abilityInput, { paddingLeft: 0 }]}>
             <Picker
@@ -176,7 +176,7 @@ function Ability() {
                         { scaleY: 0.9 },
                     ],
                 }}
-                onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                onValueChange={(itemValue) => setSelectedValue(itemValue)}
                 mode='dropdown'
             >
                 <Picker.Item label="Başlangıç" value="Başlangıç" />
@@ -318,8 +318,19 @@ class CVForm extends React.Component {
             warningProjectName: false,
             warningProjectDescription: false,
 
+            warningAbility: false,
 
+            warningLanguage: false,
 
+            warningHobby: false,
+
+            warningCommunityName: false,
+            warningCommunityTitle: false,
+            warningCommunityDate: false,
+
+            warningReferenceName: false,
+            warningReferenceTel: false,
+            warningReferenceEmail: false,
         }
     }
 
@@ -632,13 +643,21 @@ class CVForm extends React.Component {
             helper.setUserLinks(link)
         }
     }
-    pushAbility() {
-        this.setState({ userAbility: ability });
-        helper.setUserAbilities(ability)
+    controlAbility() {
+        if (ability.name === '') {
+            this.setState({ warningAbility: true })
+        } else {
+            this.setState({ userAbility: ability });
+            helper.setUserAbilities(ability)
+        }
     }
-    pushLanuage() {
-        this.setState({ userLanguage: language });
-        helper.setUserLanguages(language)
+    controlLanguage() {
+        if (language.name === '') {
+            this.setState({ warningLanguage: true })
+        } else {
+            this.setState({ userLanguage: language });
+            helper.setUserLanguages(language)
+        }
     }
     pushHobby() {
         this.setState({ userHobby: hobby });
@@ -1246,9 +1265,9 @@ class CVForm extends React.Component {
                                 <Text style={styles.chooseTalentTitle}>Yetenek gir</Text>
                                 <TextInput
                                     placeholder='...'
-                                    //value={this.state.userAbility}
-                                    onChangeText={(text) => ability.name = text}
-                                    style={styles.abilityInput} />
+                                    value={this.state.userAbility}
+                                    onChangeText={(text) => { ability.name = text; this.setState({ userAbility: text }) }}
+                                    style={[styles.abilityInput, this.state.warningAbility && ability.name === '' && { borderColor: 'red' }]} />
 
 
                             </View>
@@ -1257,7 +1276,7 @@ class CVForm extends React.Component {
                                 <Ability />
 
                             </View>
-                            <TouchableOpacity onPress={() => this.pushAbility()} style={styles.selectAbilityButton}>
+                            <TouchableOpacity onPress={() => this.controlAbility()} style={styles.selectAbilityButton}>
                                 <Text style={styles.buttonText}>Ekle</Text>
                             </TouchableOpacity>
                         </View>
@@ -1282,9 +1301,10 @@ class CVForm extends React.Component {
                             <View style={{ width: '35%' }}>
                                 <Text style={styles.chooseTalentTitle}>Dil gir</Text>
                                 <TextInput
+                                    value={this.state.userLanguage}
                                     placeholder='...'
-                                    onChangeText={(text) => language.name = text}
-                                    style={styles.abilityInput} />
+                                    onChangeText={(text) => { language.name = text; this.setState({ userLanguage: text }) }}
+                                    style={[styles.abilityInput, this.state.warningLanguage && language.name === '' && { borderColor: 'red' }]} />
 
                             </View>
                             <View style={{ width: '40%' }}>
@@ -1292,7 +1312,7 @@ class CVForm extends React.Component {
                                 <Language />
 
                             </View>
-                            <TouchableOpacity onPress={() => this.pushLanuage()} style={styles.selectAbilityButton}>
+                            <TouchableOpacity onPress={() => this.controlLanguage()} style={styles.selectAbilityButton}>
                                 <Text style={styles.buttonText}>Ekle</Text>
                             </TouchableOpacity>
                         </View>

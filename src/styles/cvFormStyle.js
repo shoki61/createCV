@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center'
     },
     abilityGradeText: {
-        width: '35%',
+        width: '40%',
         borderRadius: 3,
         borderWidth: 1,
         borderColor: '#DADADA',
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center'
     },
     removeAbilityButton: {
-        width: '25%',
+        width: '20%',
         height: 35,
         backgroundColor: '#FC4B4B',
         justifyContent: 'center',
