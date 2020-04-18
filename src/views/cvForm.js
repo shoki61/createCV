@@ -212,6 +212,26 @@ function Language() {
         </View>
     )
 }
+function SchoolGrade() {
+    const [selectedValue, setSelectedValue] = useState("Lisans");
+    school.schoolGrade = selectedValue
+    return (
+        <View >
+            <Picker
+                selectedValue={selectedValue}
+                itemStyle={{ color: 'green', fontSize: 10 }}
+                style={{ width: 270, height: 35, color: 'grey' }}
+                onValueChange={(text) => setSelectedValue(text)}
+                mode='dropdown'
+            >
+                <Picker.Item label="Önlisans" value="Önlisans" />
+                <Picker.Item label="Lisans" value="Lisans" />
+                <Picker.Item label="Yüksek Lisans" value="Yüksek Lisans" />
+                <Picker.Item label="Doktora" value="Doktora" />
+            </Picker>
+        </View>
+    )
+}
 
 
 class CVForm extends React.Component {
@@ -1014,12 +1034,7 @@ class CVForm extends React.Component {
                         <View style={[styles.experiencesInputView, this.state.warningSchoolGrade && school.schoolGrade === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/degree.png')} />
 
-                            <SelectInput
-                                style={styles.infoInput}
-                                labelStyle={{ color: '#6E6E6E' }}
-                                mode='dropdown'
-                                onSubmitEditing={(text) => { school.schoolGrade = text; this.setState({ userSchoolGrade: text }) }}
-                                options={this.state.optionsSchoolDegree} />
+                            <SchoolGrade />
                         </View>
 
                         <Text style={styles.infoTitle}>Şehir/ilçe</Text>
