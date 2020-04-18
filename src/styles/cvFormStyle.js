@@ -240,8 +240,6 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
 
-
-    /*renderExperiences styles*/
     infoContainer: {
         width: '90%',
         borderRadius: 10,

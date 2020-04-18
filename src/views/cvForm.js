@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, CheckBox, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
-import SelectInput from 'react-native-select-input-ios';
 import ImagePicker from 'react-native-image-picker';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import { observer } from 'mobx-react';
@@ -232,7 +231,18 @@ function SchoolGrade() {
         </View>
     )
 }
+function DrivingLicence() {
+    const [isSelected, setSelection] = useState(false);
 
+    return (
+        <View>
+            <CheckBox
+                value={isSelected}
+                onValueChange={setSelection}
+            />
+        </View>
+    );
+};
 
 
 class CVForm extends React.Component {
@@ -329,8 +339,8 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: false,
-            showExperiences: true,
+            showPersonalInformation: true,
+            showExperiences: false,
             showResultCV: false,
 
             minDate: '01-01-1950',
@@ -400,8 +410,6 @@ class CVForm extends React.Component {
         this.setState({ showExperiences: true })
         this.setState({ showResultCV: false })
     }
-
-
 
     renderProgressBar() {
         return (
@@ -1028,6 +1036,7 @@ class CVForm extends React.Component {
                             </View>
 
                             <Text style={styles.inputTitle}>Sürücü ehliyeti</Text>
+                            <DrivingLicence />
                             <View style={[styles.inputView, { width: '90%' }]}>
                                 <SImage width={20} source={require('../images/drivingLicense.png')} />
                                 <TextInput
