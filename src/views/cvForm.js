@@ -234,7 +234,31 @@ function SchoolGrade() {
 }
 
 
+
 class CVForm extends React.Component {
+
+    componentWillMount() {
+        setInterval(() => {
+            let color = Math.floor(Math.random() * 4)
+            switch (color) {
+                case 0:
+                    this.setState({ color: '#47ceff' });
+                    break;
+                case 1:
+                    this.setState({ color: '#ff5cb6' });
+                    break;
+                case 2:
+                    this.setState({ color: '#00f078' });
+                    break;
+                case 3:
+                    this.setState({ color: '#ffda47' });
+                    break;
+                case 4:
+                    this.setState({ color: '#40e685' });
+                    break;
+            }
+        }, 10000)
+    }
 
     constructor(props) {
         super(props);
@@ -342,6 +366,9 @@ class CVForm extends React.Component {
             warningReferenceName: false,
             warningReferenceTel: false,
             warningReferenceEmail: false,
+
+
+            color: 'ssssssss'
         }
     }
 
@@ -472,7 +499,6 @@ class CVForm extends React.Component {
             }
         });
     }
-
     ///////listelenecek eklentiler//////////////////////////
     setReferences(item) {
         return (
@@ -543,7 +569,7 @@ class CVForm extends React.Component {
     setSchools(item) {
         return (
             <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
+                <Text style={[styles.SchoolListNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolName}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolDepartment}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolGrade}</Text>
@@ -661,12 +687,17 @@ class CVForm extends React.Component {
 
 
     ///////listeye ekleyen fonksyonlar//////////////    
-    controlLink = async () => {
+    controlLink() {
         if (link === '') {
             this.setState({ warningLink: true })
         } else {
-            this.setState({ userLink: link })
-            helper.setUserLinks(link)
+            helper.setUserLinks(link);
+            this.setState({
+                userLink: '',
+                warningLink: false
+            });
+            link = ''
+
         }
     }
     controlAbility() {
@@ -712,10 +743,21 @@ class CVForm extends React.Component {
             if (reference.name === '') this.setState({ warningReferenceName: true });
             if (reference.tel === '') this.setState({ warningReferenceTel: true });
             if (reference.email === '') this.setState({ warningReferenceEmail: true });
-
         } else {
-            this.setState({ userReferenceName: reference.name });
-            helper.setUserReferences(reference)
+            helper.setUserReferences(reference);
+            this.setState({
+                userReferenceName: '',
+                userReferenceNumber: '',
+                userReferenceEmail: '',
+                userReferenceCompanyName: '',
+
+                warningReferenceName: false,
+                warningReferenceTel: false,
+                warningReferenceEmail: false,
+            });
+            reference.name = '';
+            reference.tel = '';
+            reference.email = '';
         }
     }
     controlProject() {
@@ -773,7 +815,8 @@ class CVForm extends React.Component {
             if (school.schoolCity === '') this.setState({ warningSchoolCity: true })
             if (school.schoolStartDate === '' || school.schoolFinishDate === '') this.setState({ warningSchoolDate: true })
         } else {
-            helper.setUserSchools(school);
+            helper.setUserSchools(school, this.state.color);
+
             this.setState({
                 userSchoolName: '',
                 userSchoolDepartment: '',
@@ -791,6 +834,7 @@ class CVForm extends React.Component {
             school.schoolCity = '';
             school.schoolStartDate = '';
             school.schoolFinishDate = '';
+
         }
     }
     controlCommunity() {
@@ -879,10 +923,6 @@ class CVForm extends React.Component {
                     </View>
                 </View>
 
-
-
-
-
                 <View style={{ width: '100%', alignItems: 'center' }}>
 
                     <Text style={styles.inputTitle}>Meslek <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
@@ -969,8 +1009,6 @@ class CVForm extends React.Component {
                                 onDateChange={(date) => { this.setState({ userBirthDay: date }) }}
                             />
 
-
-
                             <Text style={styles.inputTitle}>Cinsiyet</Text>
                             <View style={[styles.inputView, { width: '90%' }]}>
                                 <SImage width={20} source={require('../images/gender.png')} />
@@ -988,7 +1026,6 @@ class CVForm extends React.Component {
                                 </Picker>
 
                             </View>
-
 
                             <Text style={styles.inputTitle}>Sürücü ehliyeti</Text>
                             <View style={[styles.inputView, { width: '90%' }]}>
@@ -1011,6 +1048,7 @@ class CVForm extends React.Component {
                                 <View style={styles.linkInputContainer}>
                                     <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
                                     <TextInput
+                                        value={this.state.userLink}
                                         placeholder='...'
                                         onChangeText={text => { link = text; this.setState({ userLink: text }) }}
                                         style={[styles.linkInputStyle, this.state.warningLink && link === '' && { borderColor: 'red' }]} />
@@ -1018,17 +1056,10 @@ class CVForm extends React.Component {
                                         <Text style={styles.buttonText}>Ekle</Text>
                                     </TouchableOpacity>
                                 </View>
-
-
                             </View>
-
                         </View>
                     }
                 </View>
-
-
-
-
 
                 <TouchableOpacity onPress={() => this.deleteMore()} style={styles.moreButton}>
                     <SImage width={35} source={this.state.hidden ? require('../images/plusIcon.png') : require('../images/minusIcon.png')} />
@@ -1661,46 +1692,10 @@ class CVForm extends React.Component {
 
     renderResultCV() {
         return (
-            <View style={{ width: '100%', marginTop: 100, alignItems: 'center' }}>
-                <Text>
-                    {this.state.userName}
-                    {this.state.userNumber}
-                    {this.state.userEmail}
-                    {this.state.userAddress}
-                    {this.state.userCity}
-                    {this.state.userPostalCode}
-                    {this.state.userBirthDay}
-                    {this.state.userGender}
-                    {this.state.userDrivingLicence}
-                    {this.state.userLink}
-                    {this.state.userSchoolName}
-                    {this.state.userSchoolDepartment}
-                    {this.state.userSchoolGrade}
-                    {this.state.userSchoolCity}
-                    {this.state.userSchoolDate}
-                    {this.state.userJob}
-                    {this.state.userCompanyName}
-                    {this.state.userCompanyJob}
-                    {this.state.userCompanyDate}
-                    {this.state.userCompanyDescription}
-                    {this.state.userProjectName}
-                    {this.state.userProjectTools}
-                    {this.state.userProjectLink}
-                    {this.state.userProjectDescription}
-                    {this.state.userAbility}
-                    {this.state.userAbilityLevel}
-                    {this.state.userLanguage}
-                    {this.state.userLanguageLevel}
-                    {this.state.userHobby}
-                    {this.state.userCommunityName}
-                    {this.state.userCommunityTitle}
-                    {this.state.userCommunityDate}
-                    {this.state.userCommunityDescription}
-                    {this.state.userReferenceName}
-                    {this.state.userReferenceNumber}
-                    {this.state.userReferenceEmail}
-                    {this.state.userReferenceCompanyName}
-                </Text>
+            <View style={{ width: '100%', marginTop: 60, alignItems: 'center' }}>
+                <View style={{ width: 280, height: 380, backgroundColor: '#3ef08b', marginBottom: 10 }}>
+
+                </View>
 
                 <TouchableOpacity style={styles.downloadButton}>
                     <SImage width={40} source={require('../images/download.png')} />
@@ -1727,7 +1722,6 @@ class CVForm extends React.Component {
                         this.state.showPersonalInformation &&
                         this.renderPersonalInformation()
                     }
-
                     {
                         this.state.showExperiences &&
                         this.renderExperiences()

@@ -60,7 +60,7 @@ class helper {
         )
         //alert(JSON.stringify(this.userReferences))
     }
-    setUserSchools(v) {
+    setUserSchools(v, color) {
         this.userSchools.push(
             {
                 schoolName: v.schoolName,
@@ -68,7 +68,8 @@ class helper {
                 schoolGrade: v.schoolGrade,
                 schoolCity: v.schoolCity,
                 schoolStartDate: v.schoolStartDate,
-                schoolFinishDate: v.schoolFinishDate
+                schoolFinishDate: v.schoolFinishDate,
+                listNumberColor: color
             }
         )
         //alert(JSON.stringify(this.userSchools))

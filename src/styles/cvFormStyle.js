@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     },
     downloadText: {
         margin: 5,
+        marginBottom: 10,
         fontSize: 15,
         color: '#12A3D0'
     },
@@ -159,27 +160,6 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         textAlignVertical: 'top'
     },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     moreButton: {
         alignItems: 'center',
@@ -407,14 +387,31 @@ const styles = StyleSheet.create({
         width: 25,
         height: 25,
         borderRadius: 100,
-        backgroundColor: '#40e685',
+        //backgroundColor: '#ff5cb6',
         textAlign: 'center',
         textAlignVertical: 'center',
         color: '#fff',
         left: 3,
         top: -10,
         zIndex: 100
-    }
+    },
+
+    listNumberBackGreen: {
+        backgroundColor: '#00f078'
+    },
+    listNumberBackBlue: {
+        backgroundColor: '#47ceff'
+    },
+    listNumberBackYellow: {
+        backgroundColor: '#ffda47'
+    },
+    listNumberBackPurple: {
+        backgroundColor: '#40e685'
+    },
+    listNumberBackPink: {
+        backgroundColor: '#ff5cb6'
+    },
+
 
 
 
