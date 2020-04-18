@@ -18,44 +18,48 @@ class helper {
     userProjects = []
     userCommunities = []
 
-    setUserCommunities(v) {
+    setUserCommunities(v, color) {
         this.userCommunities.push({
             communityName: v.communityName,
             communityTitle: v.communityTitle,
             communityStartDate: v.communityStartDate,
             communityFinishDate: v.communityFinishDate,
-            communityDescription: v.communityDescription
+            communityDescription: v.communityDescription,
+            listNumberColor: color
         })
     }
 
-    setUserProjects(v) {
+    setUserProjects(v, color) {
         this.userProjects.push({
             projectName: v.projectName,
             projectTools: v.projectTools,
             projectLink: v.projectLink,
-            projectDescription: v.projectDescription
+            projectDescription: v.projectDescription,
+            listNumberColor: color
         })
     }
 
-    setUserCompanies(v) {
+    setUserCompanies(v, color) {
         this.userCompanies.push(
             {
                 companyName: v.companyName,
                 companyJob: v.companyJob,
                 companyStartDate: v.companyStartDate,
                 companyFinishDate: v.companyFinishDate,
-                companyDescription: v.companyDescription
+                companyDescription: v.companyDescription,
+                listNumberColor: color
             }
         )
     }
 
-    setUserReferences(v) {
+    setUserReferences(v, color) {
         this.userReferences.push(
             {
                 name: v.name,
                 email: v.email,
                 companyName: v.companyName,
-                tel: v.tel
+                tel: v.tel,
+                listNumberColor: color
             }
         )
         //alert(JSON.stringify(this.userReferences))
@@ -75,36 +79,40 @@ class helper {
         //alert(JSON.stringify(this.userSchools))
     }
 
-    setUserLanguages(v) {
+    setUserLanguages(v, color) {
         this.UserLanguages.push(
             {
                 name: v.name,
-                level: v.level
+                level: v.level,
+                listNumberColor: color
             }
         )
     }
-    setUserHobbies(v) {
+    setUserHobbies(v, color) {
         this.userHobbies.push(
             {
-                hobby: v
+                hobby: v,
+                listNumberColor: color
             }
         )
         //alert(JSON.stringify(this.userHobbies))
     }
 
-    setUserAbilities(v) {
+    setUserAbilities(v, color) {
         this.userAbilities.push(
             {
                 name: v.name,
-                level: v.level
+                level: v.level,
+                listNumberColor: color
             }
         )
     }
 
-    setUserLinks(v) {
+    setUserLinks(v, color) {
         this.userLinks.push(
             {
-                link: v
+                link: v,
+                listNumberColor: color
             }
         )
     }

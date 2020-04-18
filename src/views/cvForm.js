@@ -257,7 +257,7 @@ class CVForm extends React.Component {
                     this.setState({ color: '#40e685' });
                     break;
             }
-        }, 10000)
+        }, 3000)
     }
 
     constructor(props) {
@@ -368,7 +368,7 @@ class CVForm extends React.Component {
             warningReferenceEmail: false,
 
 
-            color: 'ssssssss'
+            color: '#47ceff'
         }
     }
 
@@ -503,7 +503,7 @@ class CVForm extends React.Component {
     setReferences(item) {
         return (
             <View style={{ width: '100%', borderBottomColor: 'lightgrey', borderBottomWidth: 1, paddingBottom: 10, marginBottom: 10, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 10, paddingLeft: 15, paddingRight: 15 }}>
-                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
+                <Text style={[styles.SchoolListNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <View style={{ width: '36%' }}>
                     <Text style={styles.referansText} numberOfLines={1} >{item.item.name}</Text>
                     <Text style={styles.referansText} numberOfLines={1} >{item.item.tel}</Text>
@@ -524,7 +524,7 @@ class CVForm extends React.Component {
     setLinks(item) {
         return (
             <View style={styles.linkContainer}>
-                <Text style={styles.listNumber}>{item.index + 1}</Text>
+                <Text style={[styles.listNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
                 <Text style={styles.linkNameStyle} >{item.item.link}</Text>
                 <TouchableOpacity onPress={() => this.removeLink(item)} style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
@@ -534,7 +534,7 @@ class CVForm extends React.Component {
     setHobbies(item) {
         return (
             <View style={styles.abilityContainer}>
-                <Text style={[styles.listNumber, { left: 0 }]}>{item.index + 1}</Text>
+                <Text style={[styles.listNumber, { left: 0, backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <Text style={styles.hobbyText}>{item.item.hobby}</Text>
                 <TouchableOpacity onPress={() => this.removeHobby(item)} style={styles.removeAbilityButton}>
                     <Text style={styles.buttonText}>Çıkar</Text>
@@ -545,7 +545,7 @@ class CVForm extends React.Component {
     setAbilities(v) {
         return (
             <View style={styles.abilityContainer}>
-                <Text style={[styles.listNumber, { left: 0 }]}>{v.index + 1}</Text>
+                <Text style={[styles.listNumber, { left: 0, backgroundColor: v.item.listNumberColor }]}>{v.index + 1}</Text>
                 <Text style={styles.abilityText}>{v.item.name}</Text>
                 <Text style={styles.abilityGradeText}>{v.item.level}</Text>
                 <TouchableOpacity onPress={() => this.removeAbility(v)} style={styles.removeAbilityButton}>
@@ -557,7 +557,7 @@ class CVForm extends React.Component {
     setLanguage(v) {
         return (
             <View style={styles.abilityContainer}>
-                <Text style={[styles.listNumber, { left: 0 }]}>{v.index + 1}</Text>
+                <Text style={[styles.listNumber, { left: 0, backgroundColor: v.item.listNumberColor }]}>{v.index + 1}</Text>
                 <Text style={styles.abilityText}>{v.item.name}</Text>
                 <Text style={styles.abilityGradeText}>{v.item.level}</Text>
                 <TouchableOpacity onPress={() => this.removeLanguage(v)} style={styles.removeAbilityButton}>
@@ -586,7 +586,7 @@ class CVForm extends React.Component {
     setCompanies(item) {
         return (
             <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, alignItems: 'center' }}>
-                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
+                <Text style={[styles.SchoolListNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyName}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyJob}</Text>
                 <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.companyDescription}</Text>
@@ -602,7 +602,7 @@ class CVForm extends React.Component {
     setProjects(item) {
         return (
             <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, alignItems: 'center' }}>
-                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
+                <Text style={[styles.SchoolListNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectName}</Text>
                 {
                     item.item.projectTools !== '' &&
@@ -624,7 +624,7 @@ class CVForm extends React.Component {
     setCommunities(item) {
         return (
             <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, alignItems: 'center' }}>
-                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
+                <Text style={[styles.SchoolListNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityName}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityTitle}</Text>
                 {
@@ -691,7 +691,7 @@ class CVForm extends React.Component {
         if (link === '') {
             this.setState({ warningLink: true })
         } else {
-            helper.setUserLinks(link);
+            helper.setUserLinks(link, this.state.color);
             this.setState({
                 userLink: '',
                 warningLink: false
@@ -704,7 +704,7 @@ class CVForm extends React.Component {
         if (ability.name === '') {
             this.setState({ warningAbility: true })
         } else {
-            helper.setUserAbilities(ability);
+            helper.setUserAbilities(ability, this.state.color);
             this.setState({
                 userAbility: '',
                 warningAbility: false
@@ -717,9 +717,9 @@ class CVForm extends React.Component {
         if (language.name === '') {
             this.setState({ warningLanguage: true })
         } else {
-            helper.setUserLanguages(language);
+            helper.setUserLanguages(language, this.state.color);
             this.setState({
-                userLanguage: language,
+                userLanguage: '',
                 warningLanguage: false
             });
             language.name = ''
@@ -729,9 +729,9 @@ class CVForm extends React.Component {
         if (hobby === '') {
             this.setState({ warningHobby: true })
         } else {
-            helper.setUserHobbies(hobby);
+            helper.setUserHobbies(hobby, this.state.color);
             this.setState({
-                userHobby: hobby,
+                userHobby: '',
                 warningHobby: false
             });
             hobby = '';
@@ -744,7 +744,7 @@ class CVForm extends React.Component {
             if (reference.tel === '') this.setState({ warningReferenceTel: true });
             if (reference.email === '') this.setState({ warningReferenceEmail: true });
         } else {
-            helper.setUserReferences(reference);
+            helper.setUserReferences(reference, this.state.color);
             this.setState({
                 userReferenceName: '',
                 userReferenceNumber: '',
@@ -765,7 +765,7 @@ class CVForm extends React.Component {
             if (project.projectName === '') this.setState({ warningProjectName: true });
             if (project.projectDescription === '') this.setState({ warningProjectDescription: true })
         } else {
-            helper.setUserProjects(project)
+            helper.setUserProjects(project, this.state.color)
             this.setState({
                 userProjectName: '',
                 userProjectLink: '',
@@ -788,7 +788,7 @@ class CVForm extends React.Component {
             if (company.companyDescription === '') this.setState({ warningCompanyDescription: true })
             if (company.companyStartDate === '' || company.companyFinishDate === '') this.setState({ warningCompanyDate: true })
         } else {
-            helper.setUserCompanies(company);
+            helper.setUserCompanies(company, this.state.color);
             this.setState({
                 userCompanyName: '',
                 userCompanyJob: '',
@@ -843,7 +843,7 @@ class CVForm extends React.Component {
             if (community.communityTitle === '') this.setState({ warningCommunityTitle: true })
             if (community.communityStartDate === '' || community.communityFinishDate === '') this.setState({ warningCommunityDate: true })
         } else {
-            helper.setUserCommunities(community);
+            helper.setUserCommunities(community, this.state.color);
             this.setState({
                 userCommunityName: '',
                 userCommunityTitle: '',
