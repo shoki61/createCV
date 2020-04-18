@@ -293,15 +293,15 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: true,
-            showExperiences: false,
+            showPersonalInformation: false,
+            showExperiences: true,
             showResultCV: false,
 
             minDate: '01-01-1950',
             maxDate: '01-01-2016',
 
 
-            ////////////uyarılar kısmı
+            ////////////uyarılar kısmı//////////////////////////////
             warningLink: false,
 
             warningSchoolName: false,
@@ -465,7 +465,8 @@ class CVForm extends React.Component {
     ///////listelenecek eklentiler//////////////////////////
     setReferences(item) {
         return (
-            <View style={{ width: '100%', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 5 }}>
+            <View style={{ width: '100%', borderBottomColor: 'lightgrey', borderBottomWidth: 1, paddingBottom: 10, marginBottom: 10, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 10, paddingLeft: 15, paddingRight: 15 }}>
+                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
                 <View style={{ width: '36%' }}>
                     <Text style={styles.referansText} numberOfLines={1} >{item.item.name}</Text>
                     <Text style={styles.referansText} numberOfLines={1} >{item.item.tel}</Text>
@@ -486,6 +487,7 @@ class CVForm extends React.Component {
     setLinks(item) {
         return (
             <View style={styles.linkContainer}>
+                <Text style={styles.listNumber}>{item.index + 1}</Text>
                 <View style={styles.linkIconStyle}><SImage width={25} source={require('../images/github.png')} /></View>
                 <Text style={styles.linkNameStyle} >{item.item.link}</Text>
                 <TouchableOpacity onPress={() => this.removeLink(item)} style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
@@ -495,6 +497,7 @@ class CVForm extends React.Component {
     setHobbies(item) {
         return (
             <View style={styles.abilityContainer}>
+                <Text style={[styles.listNumber, { left: 0 }]}>{item.index + 1}</Text>
                 <Text style={styles.hobbyText}>{item.item.hobby}</Text>
                 <TouchableOpacity onPress={() => this.removeHobby(item)} style={styles.removeAbilityButton}>
                     <Text style={styles.buttonText}>Çıkar</Text>
@@ -505,6 +508,7 @@ class CVForm extends React.Component {
     setAbilities(v) {
         return (
             <View style={styles.abilityContainer}>
+                <Text style={[styles.listNumber, { left: 0 }]}>{v.index + 1}</Text>
                 <Text style={styles.abilityText}>{v.item.name}</Text>
                 <Text style={styles.abilityGradeText}>{v.item.level}</Text>
                 <TouchableOpacity onPress={() => this.removeAbility(v)} style={styles.removeAbilityButton}>
@@ -516,6 +520,7 @@ class CVForm extends React.Component {
     setLanguage(v) {
         return (
             <View style={styles.abilityContainer}>
+                <Text style={[styles.listNumber, { left: 0 }]}>{v.index + 1}</Text>
                 <Text style={styles.abilityText}>{v.item.name}</Text>
                 <Text style={styles.abilityGradeText}>{v.item.level}</Text>
                 <TouchableOpacity onPress={() => this.removeLanguage(v)} style={styles.removeAbilityButton}>
@@ -526,13 +531,14 @@ class CVForm extends React.Component {
     }
     setSchools(item) {
         return (
-            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+            <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolName}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolDepartment}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolGrade}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolCity}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.schoolStartDate} / {item.item.schoolFinishDate}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
+                    <Text style={[styles.schoolInfoText, { width: '75%' }]}>{item.item.schoolStartDate} / {item.item.schoolFinishDate}</Text>
                     <TouchableOpacity onPress={() => this.removeSchool(item)} style={styles.removeAbilityButton}>
                         <Text style={styles.buttonText}>Çıkar</Text>
                     </TouchableOpacity>
@@ -542,12 +548,13 @@ class CVForm extends React.Component {
     }
     setCompanies(item) {
         return (
-            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+            <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, alignItems: 'center' }}>
+                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyName}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyJob}</Text>
                 <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.companyDescription}</Text>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.companyStartDate} / {item.item.companyFinishDate}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
+                    <Text style={[styles.schoolInfoText, { width: '75%' }]}>{item.item.companyStartDate} / {item.item.companyFinishDate}</Text>
                     <TouchableOpacity onPress={() => this.removeCompany(item)} style={styles.removeAbilityButton}>
                         <Text style={styles.buttonText}>Çıkar</Text>
                     </TouchableOpacity>
@@ -557,17 +564,18 @@ class CVForm extends React.Component {
     }
     setProjects(item) {
         return (
-            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+            <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, alignItems: 'center' }}>
+                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectName}</Text>
                 {
                     item.item.projectTools !== '' &&
                     <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectTools}</Text>
                 }
                 <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.projectDescription}</Text>
-                <View style={[{ flexDirection: 'row', justifyContent: 'space-between' }, item.item.projectLink === '' && { justifyContent: 'flex-end', paddingBottom: 10 }]}>
+                <View style={[{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }, item.item.projectLink === '' && { justifyContent: 'flex-end', paddingBottom: 10 }]}>
                     {
                         item.item.projectLink !== '' &&
-                        <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.projectLink}</Text>
+                        <Text style={[styles.schoolInfoText, { width: '75%' }]}>{item.item.projectLink}</Text>
                     }
                     <TouchableOpacity onPress={() => this.removeProject(item)} style={styles.removeAbilityButton}>
                         <Text style={styles.buttonText}>Çıkar</Text>
@@ -578,15 +586,16 @@ class CVForm extends React.Component {
     }
     setCommunities(item) {
         return (
-            <View style={{ width: '100%', marginBottom: 20, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center' }}>
+            <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, alignItems: 'center' }}>
+                <Text style={styles.SchoolListNumber}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityName}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityTitle}</Text>
                 {
                     item.item.communityDescription !== '' &&
                     <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.communityDescription}</Text>
                 }
-                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={[styles.schoolInfoText, { width: '72%' }]}>{item.item.communityStartDate} / {item.item.communityFinishDate}</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
+                    <Text style={[styles.schoolInfoText, { width: '75%' }]}>{item.item.communityStartDate} / {item.item.communityFinishDate}</Text>
                     <TouchableOpacity onPress={() => this.removeCommunity(item)} style={styles.removeAbilityButton}>
                         <Text style={styles.buttonText}>Çıkar</Text>
                     </TouchableOpacity>
@@ -911,7 +920,7 @@ class CVForm extends React.Component {
                             <Text style={styles.inputTitle}>Linkler</Text>
                             <View style={styles.linksContainer}>
                                 <FlatList
-                                    style={{ width: '90%' }}
+                                    style={{ width: '100%' }}
                                     data={helper.userLinks}
                                     renderItem={data => this.setLinks(data)}
                                     showsVerticalScrollIndicator={false}
@@ -969,7 +978,7 @@ class CVForm extends React.Component {
                 <View style={styles.infoContainer}>
 
                     <FlatList
-                        style={{ width: '90%', marginTop: 5, }}
+                        style={{ width: '100%', marginTop: 5, }}
                         data={helper.userSchools}
                         renderItem={data => this.setSchools(data)}
                         showsVerticalScrollIndicator={false}
@@ -1100,7 +1109,7 @@ class CVForm extends React.Component {
                 </View>
                 <View style={styles.infoContainer}>
                     <FlatList
-                        style={{ width: '90%', marginTop: 5, }}
+                        style={{ width: '100%', marginTop: 5, }}
                         data={helper.userCompanies}
                         renderItem={data => this.setCompanies(data)}
                         showsVerticalScrollIndicator={false}
@@ -1213,7 +1222,7 @@ class CVForm extends React.Component {
                 </View>
                 <View style={styles.infoContainer}>
                     <FlatList
-                        style={{ width: '90%', marginTop: 5, }}
+                        style={{ width: '100%', marginTop: 5, }}
                         data={helper.userProjects}
                         renderItem={data => this.setProjects(data)}
                         showsVerticalScrollIndicator={false}
@@ -1389,7 +1398,7 @@ class CVForm extends React.Component {
                 </View>
                 <View style={styles.infoContainer}>
                     <FlatList
-                        style={{ width: '90%', marginTop: 5, }}
+                        style={{ width: '100%', marginTop: 5, }}
                         data={helper.userCommunities}
                         renderItem={data => this.setCommunities(data)}
                         showsVerticalScrollIndicator={false}
@@ -1500,7 +1509,7 @@ class CVForm extends React.Component {
                 </View>
                 <View style={styles.infoContainer}>
                     <FlatList
-                        style={{ width: '90%', marginTop: 10 }}
+                        style={{ width: '100%', marginTop: 10 }}
                         data={helper.userReferences}
                         renderItem={data => this.setReferences(data)}
                         showsVerticalScrollIndicator={false}

@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 
 
     schoolInfoText: {
-        width: '100%',
+        width: '90%',
         borderRadius: 3,
         borderWidth: 1,
         borderColor: '#DADADA',
@@ -199,7 +199,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '100%',
         height: 10,
-        marginBottom: 35
+        marginBottom: 35,
+        padding: 10,
+        paddingLeft: 20,
+        paddingRight: 20
     },
     linkInputContainer: {
         flexDirection: 'row',
@@ -221,7 +224,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
     },
     linkIconStyle: {
-        width: '20%',
+        width: '15%',
         height: 35,
         borderRadius: 3,
         borderWidth: 1,
@@ -274,13 +277,14 @@ const styles = StyleSheet.create({
         width: '100%',
         marginBottom: 1
     },
-
-
     abilityContainer: {
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 10
+        marginBottom: 10,
+        paddingTop: 10,
+        paddingLeft: 10,
+        paddingRight: 10
     },
     abilityText: {
         width: '35%',
@@ -384,6 +388,32 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         overflow: 'hidden',
         marginTop: 7
+    },
+
+    listNumber: {
+        position: 'absolute',
+        width: 20,
+        height: 20,
+        borderRadius: 100,
+        backgroundColor: '#40e685',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        color: '#fff',
+        left: 10,
+        zIndex: 100
+    },
+    SchoolListNumber: {
+        position: 'absolute',
+        width: 25,
+        height: 25,
+        borderRadius: 100,
+        backgroundColor: '#40e685',
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        color: '#fff',
+        left: 3,
+        top: -10,
+        zIndex: 100
     }
 
 
