@@ -254,17 +254,9 @@ class CVForm extends React.Component {
 
             userSchoolName: '',
             userSchoolDepartment: '',
-            userSchoolGrade: '',
             userSchoolCity: '',
             userSchoolStartDate: '',
             userSchoolFinishDate: '',
-            optionsSchoolDegree: [
-                { value: 'Önlisans', label: 'Önlisans' },
-                { value: 'Lisans', label: 'Lisans' },
-                { value: 'Yüksek Lisans', label: 'Yüksek Lisans' },
-                { value: 'Doktora', label: 'Doktora' }
-            ],
-            userDegree: 'Önlisans',
 
             userJob: '',
 
@@ -326,7 +318,6 @@ class CVForm extends React.Component {
 
             warningSchoolName: false,
             warningSchoolDepartment: false,
-            warningSchoolGrade: false,
             warningSchoolCity: false,
             warningSchoolDate: false,
 
@@ -369,7 +360,7 @@ class CVForm extends React.Component {
         }
     }
     conrtolShowResultCV() {
-        if (school.schoolName === '' || school.schoolDepartment === '' || school.schoolGrade === '' || school.schoolCity === '' || school.schoolStartDate === '' || school.schoolFinishDate === '' || helper.userSchools.length <= 0) {
+        if (helper.userSchools.length <= 0) {
             this.AlertPro.open();
         }
         else {
@@ -682,24 +673,38 @@ class CVForm extends React.Component {
         if (ability.name === '') {
             this.setState({ warningAbility: true })
         } else {
-            this.setState({ userAbility: ability });
-            helper.setUserAbilities(ability)
+            helper.setUserAbilities(ability);
+            this.setState({
+                userAbility: '',
+                warningAbility: false
+            });
+            ability.name = ''
+
         }
     }
     controlLanguage() {
         if (language.name === '') {
             this.setState({ warningLanguage: true })
         } else {
-            this.setState({ userLanguage: language });
-            helper.setUserLanguages(language)
+            helper.setUserLanguages(language);
+            this.setState({
+                userLanguage: language,
+                warningLanguage: false
+            });
+            language.name = ''
         }
     }
     controlHobby() {
         if (hobby === '') {
             this.setState({ warningHobby: true })
         } else {
-            this.setState({ userHobby: hobby });
-            helper.setUserHobbies(hobby)
+            helper.setUserHobbies(hobby);
+            this.setState({
+                userHobby: hobby,
+                warningHobby: false
+            });
+            hobby = '';
+
         }
     }
     controlReference() {
@@ -718,31 +723,74 @@ class CVForm extends React.Component {
             if (project.projectName === '') this.setState({ warningProjectName: true });
             if (project.projectDescription === '') this.setState({ warningProjectDescription: true })
         } else {
-            this.setState({ userProjectName: project.projectName });
             helper.setUserProjects(project)
+            this.setState({
+                userProjectName: '',
+                userProjectLink: '',
+                userProjectTools: '',
+                userProjectDescription: '',
+
+                warningProjectName: false,
+                warningProjectDescription: false
+            });
+            project.projectName = '';
+            project.projectTools = '';
+            project.projectLink = '';
+            project.projectDescription = '';
         }
     }
     controlCompany() {
         if (company.companyName === '' || company.companyJob === '' || company.companyStartDate === '' || company.companyFinishDate === '' || company.companyDescription === '') {
-            if (this.state.userCompanyName === '') this.setState({ warningCompanyName: true })
-            if (this.state.userCompanyJob === '') this.setState({ warningCompanyJob: true })
-            if (this.state.userCompanyDescription === '') this.setState({ warningCompanyDescription: true })
-            if (this.state.userCompanyStartDate === '' || this.state.userCompanyFinishDate === '') this.setState({ warningCompanyDate: true })
+            if (company.companyName === '') this.setState({ warningCompanyName: true })
+            if (company.companyJob === '') this.setState({ warningCompanyJob: true })
+            if (company.companyDescription === '') this.setState({ warningCompanyDescription: true })
+            if (company.companyStartDate === '' || company.companyFinishDate === '') this.setState({ warningCompanyDate: true })
         } else {
-            this.setState({ userCompanyName: company.companyName });
-            helper.setUserCompanies(company)
+            helper.setUserCompanies(company);
+            this.setState({
+                userCompanyName: '',
+                userCompanyJob: '',
+                userCompanyStartDate: '',
+                userCompanyFinishDate: '',
+                userCompanyDescription: '',
+
+                warningCompanyName: false,
+                warningCompanyJob: false,
+                warningCompanyDate: false,
+                warningCompanyDescription: false
+            });
+            company.companyName = '';
+            company.companyJob = '';
+            company.companyStartDate = '';
+            company.companyFinishDate = '';
+            company.companyDescription = '';
         }
     }
     controlSchool() {
         if (school.schoolName === '' || school.schoolDepartment === '' || school.schoolGrade === '' || school.schoolCity === '' || school.schoolStartDate === '' || school.schoolFinishDate === '') {
-            if (this.state.userSchoolName === '') this.setState({ warningSchoolName: true })
-            if (this.state.userSchoolDepartment === '') this.setState({ warningSchoolDepartment: true })
-            if (this.state.userSchoolGrade === '') this.setState({ warningSchoolGrade: true })
-            if (this.state.userSchoolCity === '') this.setState({ warningSchoolCity: true })
-            if (this.state.userSchoolStartDate === '' || this.state.userSchoolFinishDate === '') this.setState({ warningSchoolDate: true })
+            if (school.schoolName === '') this.setState({ warningSchoolName: true })
+            if (school.schoolDepartment === '') this.setState({ warningSchoolDepartment: true })
+            if (school.schoolCity === '') this.setState({ warningSchoolCity: true })
+            if (school.schoolStartDate === '' || school.schoolFinishDate === '') this.setState({ warningSchoolDate: true })
         } else {
-            this.setState({ userSchoolName: school.name });
-            helper.setUserSchools(school)
+            helper.setUserSchools(school);
+            this.setState({
+                userSchoolName: '',
+                userSchoolDepartment: '',
+                userSchoolCity: '',
+                userSchoolStartDate: '',
+                userSchoolFinishDate: '',
+
+                warningSchoolName: false,
+                warningSchoolDepartment: false,
+                warningSchoolCity: false,
+                warningSchoolDate: false,
+            });
+            school.schoolName = '';
+            school.schoolDepartment = '';
+            school.schoolCity = '';
+            school.schoolStartDate = '';
+            school.schoolFinishDate = '';
         }
     }
     controlCommunity() {
@@ -752,7 +800,22 @@ class CVForm extends React.Component {
             if (community.communityStartDate === '' || community.communityFinishDate === '') this.setState({ warningCommunityDate: true })
         } else {
             helper.setUserCommunities(community);
-            this.setState({ userCommunityName: community.communityName })
+            this.setState({
+                userCommunityName: '',
+                userCommunityTitle: '',
+                userCommunityStartDate: '',
+                userCommunityFinishDate: '',
+                userCommunityDescription: '',
+
+                warningCommunityName: false,
+                warningCommunityTitle: false,
+                warningCommunityDate: false
+            });
+            community.communityName = '';
+            community.communityTitle = '';
+            community.communityStartDate = '';
+            community.communityFinishDate = '';
+            community.communityDescription = '';
         }
     }
     /////////////////////////////////////////////////
