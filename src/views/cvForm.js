@@ -247,7 +247,7 @@ class CVForm extends React.Component {
                     this.setState({ color: '#ff5cb6' });
                     break;
                 case 2:
-                    this.setState({ color: '#00f078' });
+                    this.setState({ color: '#f133ff' });
                     break;
                 case 3:
                     this.setState({ color: '#ffda47' });
@@ -859,6 +859,9 @@ class CVForm extends React.Component {
             community.communityDescription = '';
         }
     }
+    pushdrivingLicence(v) {
+
+    }
     /////////////////////////////////////////////////
     ////////////////////////////////////////////////
 
@@ -1025,27 +1028,26 @@ class CVForm extends React.Component {
                             </View>
 
                             <Text style={styles.inputTitle}>Sürücü ehliyeti</Text>
-                            <View style={[styles.inputView, { width: '90%', height: 'auto' }]}>
-                                <View style={{ margin: 10 }}>
-                                    <Text style={styles.drivingLicence}>+ A</Text>
-                                    <Text style={styles.drivingLicence}>+ AM</Text>
-                                    <Text style={styles.drivingLicence}>+ B</Text>
-                                    <Text style={styles.drivingLicence}>+ A</Text>
-                                </View>
-                                <View style={{ margin: 10 }}>
-                                    <Text style={styles.drivingLicence}>+ BE</Text>
-                                    <Text style={styles.drivingLicence}>+ C</Text>
-                                    <Text style={styles.drivingLicence}>+ CE</Text>
-                                    <Text style={styles.drivingLicence}>+ C1</Text>
-                                </View>
-                                <View style={{ margin: 10 }}>
-                                    <Text style={styles.drivingLicence}>+ C1E</Text>
-                                    <Text style={styles.drivingLicence}>+ D</Text>
-                                    <Text style={styles.drivingLicence}>+ DE</Text>
-                                    <Text style={styles.drivingLicence}>+ D1</Text>
-                                </View>
-                                <View style={{ margin: 10 }}>
-                                    <Text style={styles.drivingLicence}>+ D1E</Text>
+                            <View style={[styles.inputView, { width: '90%', height: 'auto', flexDirection: 'column', padding: 10 }]}>
+                                <View>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('A')}><Text style={styles.drivingLicence}>+ A</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('AM')}><Text style={styles.drivingLicence}>+ AM</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('B')}><Text style={styles.drivingLicence}>+ B</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('BE')}><Text style={styles.drivingLicence}>+ BE</Text></TouchableOpacity>
+                                    </View>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('C')}><Text style={styles.drivingLicence}>+ C</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('CE')}><Text style={styles.drivingLicence}>+ CE</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('C1')}><Text style={styles.drivingLicence}>+ C1</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('C1E')}><Text style={styles.drivingLicence}>+ C1E</Text></TouchableOpacity>
+                                    </View>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('D')}><Text style={styles.drivingLicence}>+ D</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('DE')}><Text style={styles.drivingLicence}>+ DE</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('D1')}><Text style={styles.drivingLicence}>+ D1</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushdrivingLicence('D1E')}><Text style={styles.drivingLicence}>+ D1E</Text></TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
 

@@ -393,9 +393,7 @@ const styles = StyleSheet.create({
     },
 
     drivingLicence: {
-
-        paddingLeft: 15,
-        paddingRight: 15,
+        width: 70,
         height: 35,
         borderRadius: 100,
         backgroundColor: '#f133ff',
@@ -404,7 +402,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textAlignVertical: 'center',
         fontSize: 18
-
     }
 
 

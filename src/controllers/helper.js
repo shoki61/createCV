@@ -17,6 +17,13 @@ class helper {
     userCompanies = []
     userProjects = []
     userCommunities = []
+    userDrivingLicencies = []
+
+    setUserDrivingLicencies(v) {
+        this.userDrivingLicencies.push({
+            licence: v
+        })
+    }
 
     setUserCommunities(v, color) {
         this.userCommunities.push({
@@ -139,6 +146,7 @@ decorate(
         userCompanies: observable,
         userProjects: observable,
         userCommunities: observable,
+        userDrivingLicencies: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
@@ -149,7 +157,8 @@ decorate(
         setUserSchools: action,
         setUserCompanies: action,
         setUserProjects: action,
-        setUserCommunities: action
+        setUserCommunities: action,
+        setUserDrivingLicencies: action
 
     }
 );
