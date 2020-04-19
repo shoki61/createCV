@@ -19,9 +19,10 @@ class helper {
     userCommunities = []
     userDrivingLicencies = []
 
-    setUserDrivingLicencies(v) {
+    setUserDrivingLicencies(v, color) {
         this.userDrivingLicencies.push({
-            licence: v
+            licence: v,
+            color: color
         })
     }
 

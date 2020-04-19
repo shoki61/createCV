@@ -238,7 +238,7 @@ class CVForm extends React.Component {
 
     componentWillMount() {
         setInterval(() => {
-            let color = Math.floor(Math.random() * 4)
+            let color = Math.floor(Math.random() * 5)
             switch (color) {
                 case 0:
                     this.setState({ color: '#47ceff' });
@@ -367,7 +367,20 @@ class CVForm extends React.Component {
             warningReferenceEmail: false,
 
 
-            color: '#47ceff'
+            color: '#47ceff',
+
+            A: false,
+            AM: false,
+            B: false,
+            BE: false,
+            C: false,
+            CE: false,
+            C1: false,
+            C1E: false,
+            D: false,
+            DE: false,
+            D1: false,
+            D1E: false
         }
     }
 
@@ -641,7 +654,7 @@ class CVForm extends React.Component {
         return (
             <View>
                 <TouchableOpacity>
-                    <Text style={styles.drivingLicence}>{item.item.licence}</Text>
+                    <Text style={[styles.drivingLicence, { borderColor: item.item.color, color: item.item.color }]}>{item.item.licence}</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -868,8 +881,8 @@ class CVForm extends React.Component {
             community.communityDescription = '';
         }
     }
-    pushDrivingLicence(v) {
-        helper.setUserDrivingLicencies(v);
+    pushDrivingLicence(v, color) {
+        helper.setUserDrivingLicencies(v, color);
         this.setState({ userDrivingLicence: v })
     }
     /////////////////////////////////////////////////
@@ -1039,32 +1052,34 @@ class CVForm extends React.Component {
 
                             <Text style={styles.inputTitle}>Sürücü ehliyeti</Text>
                             <View style={[styles.inputView, { width: '90%', height: 'auto', flexDirection: 'column', padding: 10 }]}>
-
+                                <Text style={styles.infoTitle}>Çıkar</Text>
                                 <FlatList
-                                    contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}
-                                    style={{ width: '100%' }}
+                                    contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', }}
+                                    style={{ marginBottom: 15, borderBottomColor: 'lightgrey', borderBottomWidth: 1, paddingBottom: 10 }}
                                     data={helper.userDrivingLicencies}
                                     renderItem={data => this.setDrivingLicencies(data)}
                                     showsVerticalScrollIndicator={false}
                                 />
+
+                                <Text style={styles.infoTitle}>Ekle</Text>
                                 <View>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('A')}><Text style={styles.drivingLicence}>+ A</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('AM')}><Text style={styles.drivingLicence}>+ AM</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('B')}><Text style={styles.drivingLicence}>+ B</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('BE')}><Text style={styles.drivingLicence}>+ BE</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('A', this.state.color); this.setState({ A: true }) }} disabled={this.state.A}><Text style={styles.drivingLicence}>A</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('AM', this.state.color)}><Text style={styles.drivingLicence}>AM</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('B', this.state.color)}><Text style={styles.drivingLicence}>B</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('BE', this.state.color)}><Text style={styles.drivingLicence}>BE</Text></TouchableOpacity>
                                     </View>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('C')}><Text style={styles.drivingLicence}>+ C</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('CE')}><Text style={styles.drivingLicence}>+ CE</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('C1')}><Text style={styles.drivingLicence}>+ C1</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('C1E')}><Text style={styles.drivingLicence}>+ C1E</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('C', this.state.color)}><Text style={styles.drivingLicence}>C</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('CE', this.state.color)}><Text style={styles.drivingLicence}>CE</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('C1', this.state.color)}><Text style={styles.drivingLicence}>C1</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('C1E', this.state.color)}><Text style={styles.drivingLicence}>C1E</Text></TouchableOpacity>
                                     </View>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('D')}><Text style={styles.drivingLicence}>+ D</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('DE')}><Text style={styles.drivingLicence}>+ DE</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('D1')}><Text style={styles.drivingLicence}>+ D1</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('D1E')}><Text style={styles.drivingLicence}>+ D1E</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('D', this.state.color)}><Text style={styles.drivingLicence}>D</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('DE', this.state.color)}><Text style={styles.drivingLicence}>DE</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('D1', this.state.color)}><Text style={styles.drivingLicence}>D1</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('D1E', this.state.color)}><Text style={styles.drivingLicence}>D1E</Text></TouchableOpacity>
                                     </View>
                                 </View>
                             </View>
