@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, CheckBox, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
 import ImagePicker from 'react-native-image-picker';
@@ -161,6 +161,7 @@ let community = {
     communityDescription: '',
 }
 
+
 function Ability() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
     ability.level = selectedValue;
@@ -231,18 +232,6 @@ function SchoolGrade() {
         </View>
     )
 }
-function DrivingLicence() {
-    const [isSelected, setSelection] = useState(false);
-
-    return (
-        <View>
-            <CheckBox
-                value={isSelected}
-                onValueChange={setSelection}
-            />
-        </View>
-    );
-};
 
 
 class CVForm extends React.Component {
@@ -338,7 +327,7 @@ class CVForm extends React.Component {
             userReferenceEmail: '',
             userReferenceCompanyName: '',
 
-            hidden: true,
+            hidden: false,
             showPersonalInformation: true,
             showExperiences: false,
             showResultCV: false,
@@ -1036,14 +1025,28 @@ class CVForm extends React.Component {
                             </View>
 
                             <Text style={styles.inputTitle}>Sürücü ehliyeti</Text>
-                            <DrivingLicence />
-                            <View style={[styles.inputView, { width: '90%' }]}>
-                                <SImage width={20} source={require('../images/drivingLicense.png')} />
-                                <TextInput
-                                    value={this.state.userDrivingLicence}
-                                    onChangeText={(text) => this.setState({ userDrivingLicence: text })}
-                                    placeholder='...'
-                                    style={[styles.inputStyle, { width: '90%' }]} />
+                            <View style={[styles.inputView, { width: '90%', height: 'auto' }]}>
+                                <View style={{ margin: 10 }}>
+                                    <Text style={styles.drivingLicence}>+ A</Text>
+                                    <Text style={styles.drivingLicence}>+ AM</Text>
+                                    <Text style={styles.drivingLicence}>+ B</Text>
+                                    <Text style={styles.drivingLicence}>+ A</Text>
+                                </View>
+                                <View style={{ margin: 10 }}>
+                                    <Text style={styles.drivingLicence}>+ BE</Text>
+                                    <Text style={styles.drivingLicence}>+ C</Text>
+                                    <Text style={styles.drivingLicence}>+ CE</Text>
+                                    <Text style={styles.drivingLicence}>+ C1</Text>
+                                </View>
+                                <View style={{ margin: 10 }}>
+                                    <Text style={styles.drivingLicence}>+ C1E</Text>
+                                    <Text style={styles.drivingLicence}>+ D</Text>
+                                    <Text style={styles.drivingLicence}>+ DE</Text>
+                                    <Text style={styles.drivingLicence}>+ D1</Text>
+                                </View>
+                                <View style={{ margin: 10 }}>
+                                    <Text style={styles.drivingLicence}>+ D1E</Text>
+                                </View>
                             </View>
 
                             <Text style={styles.inputTitle}>Linkler</Text>

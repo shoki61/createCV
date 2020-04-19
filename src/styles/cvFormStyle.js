@@ -392,7 +392,20 @@ const styles = StyleSheet.create({
         zIndex: 100
     },
 
+    drivingLicence: {
 
+        paddingLeft: 15,
+        paddingRight: 15,
+        height: 35,
+        borderRadius: 100,
+        backgroundColor: '#f133ff',
+        color: '#fff',
+        margin: 5,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+        fontSize: 18
+
+    }
 
 
 })
