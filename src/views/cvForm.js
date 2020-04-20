@@ -330,8 +330,8 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: true,
-            showExperiences: false,
+            showPersonalInformation: false,
+            showExperiences: true,
             showResultCV: false,
 
             minDate: '01-01-1950',
@@ -573,7 +573,7 @@ class CVForm extends React.Component {
     }
     setSchools(item) {
         return (
-            <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={[{ width: '100%', justifyContent: 'center', alignItems: 'center' }, helper.userSchools && { marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, }]}>
                 <Text style={[styles.SchoolListNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolName}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolDepartment}</Text>
@@ -1149,7 +1149,7 @@ class CVForm extends React.Component {
 
                 <TouchableOpacity onPress={() => this.deleteMore()} style={styles.moreButton}>
                     <SImage width={35} source={this.state.hidden ? require('../images/plusIcon.png') : require('../images/minusIcon.png')} />
-                    <Text style={{ color: '#B0B0B0' }}>Daha fazla...</Text>
+                    <Text style={{ color: '#B0B0B0' }}>{this.state.hidden ? 'Daha fazla...' : 'Daha az...'}</Text>
                 </TouchableOpacity>
 
                 <View style={{ width: '100%', alignItems: 'center', marginBottom: 20 }}>
@@ -1178,13 +1178,13 @@ class CVForm extends React.Component {
                 <View style={styles.infoContainer}>
 
                     <FlatList
-                        style={{ width: '100%', marginTop: 5, }}
+                        style={[{ width: '100%' }, helper.userSchools.length > 0 && { marginBottom: 20, marginTop: 10 }]}
                         data={helper.userSchools}
                         renderItem={data => this.setSchools(data)}
                         showsVerticalScrollIndicator={false}
                     />
 
-                    <View style={{ width: '90%', alignItems: 'center' }}>
+                    <View style={{ width: '90%', alignItems: 'center', paddingTop: 10 }}>
                         <Text style={styles.infoTitle}>Okul/Fakülte</Text>
                         <View style={[styles.experiencesInputView, this.state.warningSchoolName && school.schoolName === '' && { borderColor: 'red' }]}>
                             <SImage width={23} source={require('../images/school.png')} />
@@ -1304,7 +1304,7 @@ class CVForm extends React.Component {
                 </View>
                 <View style={styles.infoContainer}>
                     <FlatList
-                        style={{ width: '100%', marginTop: 5, }}
+                        style={[{ width: '100%' }, helper.userCompanies.length > 0 && { marginBottom: 15 }]}
                         data={helper.userCompanies}
                         renderItem={data => this.setCompanies(data)}
                         showsVerticalScrollIndicator={false}
