@@ -160,6 +160,7 @@ let community = {
     communityFinishDate: '',
     communityDescription: '',
 }
+let licence = ''
 
 
 function Ability() {
@@ -237,6 +238,7 @@ function SchoolGrade() {
 class CVForm extends React.Component {
 
     componentWillMount() {
+        licence = helper.userDrivingLicencies.map(el => el.licence);
         setInterval(() => {
             let color = Math.floor(Math.random() * 5)
             switch (color) {
@@ -653,7 +655,7 @@ class CVForm extends React.Component {
     setDrivingLicencies(item) {
         return (
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => this.removeDrivingLicence(item)}>
                     <Text style={[styles.drivingLicence, { borderColor: item.item.color, color: item.item.color }]}>{item.item.licence}</Text>
                 </TouchableOpacity>
             </View>
@@ -666,6 +668,11 @@ class CVForm extends React.Component {
     removeHobby(v) {
         helper.userHobbies.splice(v.index, 1)
         this.setState({ userHobby: hobby })
+    }
+    removeDrivingLicence(v) {
+        helper.userDrivingLicencies.splice(v.index, 1)
+        licence = helper.userDrivingLicencies.map(el => el.licence);
+        this.setState({ userDrivingLicence: '' })
     }
     removeReference(v) {
         helper.userReferences.splice(v.index, 1)
@@ -884,6 +891,7 @@ class CVForm extends React.Component {
     pushDrivingLicence(v, color) {
         helper.setUserDrivingLicencies(v, color);
         this.setState({ userDrivingLicence: v })
+        licence = helper.userDrivingLicencies.map(el => el.licence);
     }
     /////////////////////////////////////////////////
     ////////////////////////////////////////////////
@@ -1052,7 +1060,10 @@ class CVForm extends React.Component {
 
                             <Text style={styles.inputTitle}>Sürücü ehliyeti</Text>
                             <View style={[styles.inputView, { width: '90%', height: 'auto', flexDirection: 'column', padding: 10 }]}>
-                                <Text style={styles.infoTitle}>Çıkar</Text>
+                                {
+                                    licence.length > 0 &&
+                                    <Text style={styles.infoTitle}>Çıkar</Text>
+                                }
                                 <FlatList
                                     contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', }}
                                     style={{ marginBottom: 15, borderBottomColor: 'lightgrey', borderBottomWidth: 1, paddingBottom: 10 }}
@@ -1064,22 +1075,22 @@ class CVForm extends React.Component {
                                 <Text style={styles.infoTitle}>Ekle</Text>
                                 <View>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('A', this.state.color); this.setState({ A: true }) }} disabled={this.state.A}><Text style={styles.drivingLicence}>A</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('AM', this.state.color)}><Text style={styles.drivingLicence}>AM</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('B', this.state.color)}><Text style={styles.drivingLicence}>B</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('BE', this.state.color)}><Text style={styles.drivingLicence}>BE</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('A', this.state.color) }} disabled={licence.includes('A')}><Text style={[styles.drivingLicence, licence.includes('A') && styles.addedDrivingLicence]}>A</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('AM', this.state.color) }} disabled={licence.includes('AM')}><Text style={[styles.drivingLicence, licence.includes('AM') && styles.addedDrivingLicence]}>AM</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('B', this.state.color) }} disabled={licence.includes('B')}><Text style={[styles.drivingLicence, licence.includes('B') && styles.addedDrivingLicence]} >B</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('BE', this.state.color) }} disabled={licence.includes('BE')}><Text style={[styles.drivingLicence, licence.includes('BE') && styles.addedDrivingLicence]} >BE</Text></TouchableOpacity>
                                     </View>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('C', this.state.color)}><Text style={styles.drivingLicence}>C</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('CE', this.state.color)}><Text style={styles.drivingLicence}>CE</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('C1', this.state.color)}><Text style={styles.drivingLicence}>C1</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('C1E', this.state.color)}><Text style={styles.drivingLicence}>C1E</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('C', this.state.color) }} disabled={licence.includes('C')}><Text style={[styles.drivingLicence, licence.includes('C') && styles.addedDrivingLicence]}>C</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('CE', this.state.color) }} disabled={licence.includes('CE')}><Text style={[styles.drivingLicence, licence.includes('CE') && styles.addedDrivingLicence]} >CE</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('C1', this.state.color) }} disabled={licence.includes('C1')}><Text style={[styles.drivingLicence, licence.includes('C1') && styles.addedDrivingLicence]} >C1</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('C1E', this.state.color) }} disabled={licence.includes('C1E')}><Text style={[styles.drivingLicence, licence.includes('C1E') && styles.addedDrivingLicence]} >C1E</Text></TouchableOpacity>
                                     </View>
                                     <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('D', this.state.color)}><Text style={styles.drivingLicence}>D</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('DE', this.state.color)}><Text style={styles.drivingLicence}>DE</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('D1', this.state.color)}><Text style={styles.drivingLicence}>D1</Text></TouchableOpacity>
-                                        <TouchableOpacity onPress={() => this.pushDrivingLicence('D1E', this.state.color)}><Text style={styles.drivingLicence}>D1E</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('D', this.state.color) }} disabled={licence.includes('D')}><Text style={[styles.drivingLicence, licence.includes('D') && styles.addedDrivingLicence]} >D</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('DE', this.state.color) }} disabled={licence.includes('DE')}><Text style={[styles.drivingLicence, licence.includes('DE') && styles.addedDrivingLicence]}>DE</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('D1', this.state.color) }} disabled={licence.includes('D1')}><Text style={[styles.drivingLicence, licence.includes('D1') && styles.addedDrivingLicence]} >D1</Text></TouchableOpacity>
+                                        <TouchableOpacity onPress={() => { this.pushDrivingLicence('D1E', this.state.color) }} disabled={licence.includes('D1E')}><Text style={[styles.drivingLicence, licence.includes('D1E') && styles.addedDrivingLicence]} >D1E</Text></TouchableOpacity>
                                     </View>
                                 </View>
                             </View>
