@@ -13,14 +13,15 @@ import helper from '../controllers/helper';
 
 const h = Dimensions.get('window').height;
 
-
+let yol = ''
 
 class Example extends React.Component {
-    state = {
-        filePath: ''
-    };
+
     constructor(props) {
         super(props);
+        this.state = {
+            ad: 'murtiiii',
+        };
     }
 
     askPermission() {
@@ -59,10 +60,13 @@ class Example extends React.Component {
 
         let options = {
             //Content to print
-            html: '<img src=${`${this.state.photoSource}`} width="500" height="333"/>'
+            html: `<div style="width:450px;height: 600px;border-color: antiquewhite;border:1px solid lavender">
+    <h1>salam</h1>
+    <img src="${yol.uri}" />
+</div> <h1>${this.state.ad}</h1></div>`
             ,
             //File Name
-            fileName: 'denesene',
+            fileName: 'deneme1',
             //File directory
             directory: 'docs',
         };
@@ -330,8 +334,8 @@ class CVForm extends React.Component {
             userReferenceCompanyName: '',
 
             hidden: true,
-            showPersonalInformation: false,
-            showExperiences: true,
+            showPersonalInformation: true,
+            showExperiences: false,
             showResultCV: false,
 
             minDate: '01-01-1950',
@@ -498,8 +502,9 @@ class CVForm extends React.Component {
                 // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
                 this.setState({
-                    photoSource: source,
+                    photoSource: source
                 });
+                yol = source
 
             }
         });
@@ -895,6 +900,7 @@ class CVForm extends React.Component {
             <View style={{ width: '100%', marginTop: 100 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View >
+
                         <View style={styles.photoContainer}>
                             <Image style={styles.photoStyle} source={this.state.photoSource === null ? require('../images/defaultPhoto.png') : this.state.photoSource} />
                         </View>
@@ -947,6 +953,7 @@ class CVForm extends React.Component {
                     </View>
                 </View>
 
+                <Example />
                 <View style={{ width: '100%', alignItems: 'center' }}>
                     <Text style={styles.inputTitle}>Meslek <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                     <View style={[styles.inputView, { width: '90%' }]}>
