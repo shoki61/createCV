@@ -404,10 +404,6 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         fontSize: 18
     },
-    addedDrivingLicence: {
-        borderColor: '#c4c4c4',
-        color: '#c4c4c4',
-    }
 
 
 
