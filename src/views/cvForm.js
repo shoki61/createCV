@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList, } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
 import ImagePicker from 'react-native-image-picker';
@@ -273,7 +273,7 @@ class CVForm extends React.Component {
             userCity: '',
             userPostalCode: '',
             userBirthDay: '',
-            userGender: 'Erkek',
+            userGender: '',
             userDrivingLicence: '',
             userLink: '',
 
@@ -329,7 +329,7 @@ class CVForm extends React.Component {
             userReferenceEmail: '',
             userReferenceCompanyName: '',
 
-            hidden: false,
+            hidden: true,
             showPersonalInformation: true,
             showExperiences: false,
             showResultCV: false,
@@ -370,19 +370,6 @@ class CVForm extends React.Component {
 
 
             color: '#47ceff',
-
-            A: false,
-            AM: false,
-            B: false,
-            BE: false,
-            C: false,
-            CE: false,
-            C1: false,
-            C1E: false,
-            D: false,
-            DE: false,
-            D1: false,
-            D1E: false
         }
     }
 
@@ -432,13 +419,19 @@ class CVForm extends React.Component {
         )
     }
     deleteMore() {
-        RNHTMLtoPDF.convert
-        this.setState({ hidden: !this.state.hidden })
+        this.setState({ hidden: !this.state.hidden });
         if (this.state.hidden) {
-            this.setState({ userBirthDay: '' })
-            this.setState({ userGender: '' })
-            this.setState({ userDrivingLicence: '' })
-            this.setState({ userLink: '' })
+            this.setState({
+                userGender: 'Erkek',
+            });
+        } else {
+            this.setState({
+                userGender: '',
+                userBirthDay: ''
+            });
+            helper.userLinks = [];
+            helper.userDrivingLicencies = [];
+            licence = [];
         }
     }
     getFoto = async () => {
@@ -955,7 +948,6 @@ class CVForm extends React.Component {
                 </View>
 
                 <View style={{ width: '100%', alignItems: 'center' }}>
-
                     <Text style={styles.inputTitle}>Meslek <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                     <View style={[styles.inputView, { width: '90%' }]}>
                         <SImage width={20} source={require('../images/manager.png')} />
@@ -1066,7 +1058,7 @@ class CVForm extends React.Component {
                                 }
                                 <FlatList
                                     contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', }}
-                                    style={[licence.length > 0 && { marginBottom: 10, paddingBottom: 10 }, licence.length !== 12 && { borderBottomColor: 'lightgrey', borderBottomWidth: 1 }]}
+                                    style={[licence.length > 0 && { marginBottom: 10, paddingBottom: 10, width: '100%' }, licence.length !== 12 && { borderBottomColor: 'lightgrey', borderBottomWidth: 1 }]}
                                     data={helper.userDrivingLicencies}
                                     renderItem={data => this.setDrivingLicencies(data)}
                                     showsVerticalScrollIndicator={false}
