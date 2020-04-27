@@ -11,6 +11,8 @@ import AlertPro from "react-native-alert-pro";
 import styles from '../styles/cvFormStyle';
 import helper from '../controllers/helper';
 
+import CV1 from '../cvs/cv1';
+
 const h = Dimensions.get('window').height;
 
 let yol = ''
@@ -24,56 +26,7 @@ class Example extends React.Component {
         };
     }
 
-    askPermission() {
-        var that = this;
-        async function requestExternalWritePermission() {
-            try {
-                const granted = await PermissionsAndroid.request(
-                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-                    {
-                        title: 'CameraExample App External Storage Write Permission',
-                        message:
-                            'CameraExample App needs access to Storage data in your SD Card ',
-                    }
-                );
-                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                    //If WRITE_EXTERNAL_STORAGE Permission is granted
-                    //changing the state to show Create PDF option
-                    that.createPDF();
-                } else {
-                    alert('WRITE_EXTERNAL_STORAGE permission denied');
-                }
-            } catch (err) {
-                alert('Write permission err', err);
-                console.warn(err);
-            }
-        }
-        //Calling the External Write permission function
-        if (Platform.OS === 'android') {
-            requestExternalWritePermission();
-        } else {
-            this.createPDF();
-        }
-    }
 
-    async createPDF() {
-
-        let options = {
-            //Content to print
-            html: `<div style="width:450px;height: 600px;border-color: antiquewhite;border:1px solid lavender">
-    <h1>salam</h1>
-    <img src="${yol.uri}" />
-</div> <h1>${this.state.ad}</h1></div>`
-            ,
-            //File Name
-            fileName: 'deneme1',
-            //File directory
-            directory: 'docs',
-        };
-        let file = await RNHTMLtoPDF.convert(options);
-        alert(file.filePath);
-        this.setState({ filePath: file.filePath });
-    }
     render() {
         return (
             <View style={styles.MainContainer}>
@@ -97,6 +50,9 @@ class Example extends React.Component {
         );
     }
 }
+
+
+
 const styless = StyleSheet.create({
     MainContainer: {
         flex: 1,
@@ -378,6 +334,334 @@ class CVForm extends React.Component {
     }
 
 
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////
+    askPermission() {
+        var that = this;
+        async function requestExternalWritePermission() {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                    {
+                        title: 'CameraExample App External Storage Write Permission',
+                        message:
+                            'CameraExample App needs access to Storage data in your SD Card ',
+                    }
+                );
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    //If WRITE_EXTERNAL_STORAGE Permission is granted
+                    //changing the state to show Create PDF option
+                    that.createPDF();
+                } else {
+                    alert('WRITE_EXTERNAL_STORAGE permission denied');
+                }
+            } catch (err) {
+                alert('Write permission err', err);
+                console.warn(err);
+            }
+        }
+        //Calling the External Write permission function
+        if (Platform.OS === 'android') {
+            requestExternalWritePermission();
+        } else {
+            this.createPDF();
+            alert('tamamdır')
+        }
+    }
+
+    async createPDF() {
+
+        let options = {
+            html: `<div style="width:650px;min-height: 700px;padding-top: 15px;background-color: #2A2A2A">
+
+
+        <div style="width: 100%;min-height: 170px;display: flex;border-bottom: 4px solid #707070">
+            <div style="width: 35%;min-height: 100%;display: flex;justify-content: center;align-items: center">
+                <div style="width: 120px;height: 120px;border:3px solid #707070;border-radius: 100px;align-items: center;display: flex;justify-content: center;background: url('${yol.uri}') no-repeat center;background-size: cover"></div>
+            </div>
+            <div style="width: 65%;min-height: 100%">
+                <p style="font-family: Calibri;font-size: 28px;text-align: center;color:#E4E4E4;margin: 15px 0 10px;">Ract Native Developer</p>
+                <div style="display: flex;width: 100%;justify-content: space-between">
+                    <div>
+                        <p style="color:#E4E4E4;margin:3px;font-family: Calibri"><i style="font-size: 13px;margin-right: 5px;width: 13px;text-align: center" class="fas fa-user"></i>${this.state.userName}</p>
+                        <p style="color:#E4E4E4;margin:3px;font-family: Calibri"><i style="font-size: 13px;margin-right: 5px;width: 13px;text-align: center" class="fas fa-phone-alt"></i>${this.state.userNumber}</p>
+                        <p style="color:#E4E4E4;margin:3px;font-family: Calibri"><i style="font-size: 13px;margin-right: 5px;width: 13px;text-align: center" class="fas fa-envelope"></i>${this.state.userEmail}</p>
+                        <p style="color:#E4E4E4;margin:3px;font-family: Calibri"><i style="font-size: 13px;margin-right: 5px;width: 13px;text-align: center" class="fas fa-map-marker-alt"></i>${this.state.userCity}</p>
+                    </div>
+                    <div style="margin-right: 15px">
+                        ${ helper.userLinks.map((item, i) => `<p style="color:#E4E4E4;margin:3px;font-family: Calibri"><i style="font-size: 13px;margin-right: 5px;width: 13px;text-align: center" class="fab fa-github-square"></i>${item.link}</p>`.trim()).join('')}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <div style="width: 100%;min-height: 530px;display: flex">
+            <div style="width: 40%;min-height: 100%;border-right: 2px solid #707070">
+                <div style="margin-bottom: 30px">
+                    <p style="font-size: 18px;margin:0;margin-top: 20px;color:#E4E4E4;font-family: Calibri;margin-left: 15px">Bildiği Diller</p>
+                    <div style="display: flex;margin-left: 25px">
+                       <div style="margin-right: 10px">
+                           <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Türkçe</p>
+                           <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- İngilizce</p>
+                           <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Fransızca</p>
+                       </div>
+                       <div>
+                           <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                           </div>
+                           <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                               <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                               <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+
+                           </div>
+                           <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                               <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                               <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                               <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                               <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+
+                           </div>
+                       </div>
+                    </div>
+                </div>
+
+
+                <div style="margin-bottom: 30px">
+                    <p style="font-size: 18px;margin:0;margin-top: 20px;color:#E4E4E4;font-family: Calibri;margin-left: 15px">Yetenekler</p>
+                    <div style="display: flex;margin-left: 25px">
+                        <div style="margin-right: 10px">
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- JavaScript</p>
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Vue.js</p>
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- React.js</p>
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- React Native</p>
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Git</p>
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Python</p>
+                        </div>
+                        <div>
+                            <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                            </div>
+                            <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                            </div>
+                            <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                            </div>
+                            <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                            </div>
+                            <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                            </div>
+                            <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div>
+                    <p style="font-size: 18px;margin:0;margin-top: 20px;color:#E4E4E4;font-family: Calibri;margin-left: 15px">İlgi Alanları</p>
+                    <div style="margin-left: 25px">
+                        <div style="margin-right: 10px">
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Kapmçılık</p>
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Film</p>
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Kitap</p>
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Oyun</p>
+                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Doğa yürüyüşü</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+            <div style="width: 60%;min-height: 100%;border-left: 2px solid #707070;padding-bottom: 25px">
+
+                <div>
+                    <p style="font-size: 20px;color:#E4E4E4;font-family: Calibri;margin: 20px 0 0 15px;"><i class='fas fa-graduation-cap'></i> Eğitim</p>
+                    <div style="width: 90%;margin-left: 25px;margin-top: 5px">
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin:0">Gaziantep Üniversitesi/Fen Edebiyat Fakültesi</p>
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin:0">Biyoloji Bölümü</p>
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin:0">09.2013-06.2020</p>
+                    </div>
+                </div>
+
+                <div>
+                    <p style="font-size: 20px;color:#E4E4E4;font-family: Calibri;margin: 20px 0 0 15px;display:flex;align-items:center">
+                        <img height="23px" style="margin-right: 5px" src="data:image/svg+xml;base64,
+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTMxIDUxMiA1MTIiIHdpZHRoPSI1MTIiIGhlaWdodD0iNTEyIj48Zz48cGF0aCBkPSJtMjExIDI0MGg5MHYzMGgtOTB6bTAgMCIgZGF0YS1vcmlnaW5hbD0
+iIzAwMDAwMCIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBzdHlsZT0iZmlsbDojRTRFNEU0IiBkYXRhLW9sZF9jb2xvcj0iIzAwMDAwMCI+PC9wYXRoPjxwYXRoIGQ9Im00MTUuMzc4OTA2IDI3MGgtODQuMzc4OTA2djE1YzAgOC4yODkwNjItNi43MTA5Mz
+ggMTUtMTUgMTVoLTEyMGMtOC4yODkwNjIgMC0xNS02LjcxMDkzOC0xNS0xNXYtMTVoLTg0LjM3ODkwNmMtMTkuMzk0NTMyIDAtMzYuNTQ2ODc1LTEyLjM2MzI4MS00Mi42ODc1LTMwLjc2MTcxOWwtNTMuOTMzNTk0LTE2MS44MjgxMjV2MzI3LjU4O
+Tg0NGMwIDI0LjgxMjUgMjAuMTg3NSA0NSA0NSA0NWg0MjJjMjQuODEyNSAwIDQ1LTIwLjE4NzUgNDUtNDV2LTMyNy41NzgxMjVsLTUzLjkzNzUgMTYxLjgxNjQwNmMtNi4xMzY3MTkgMTguMzk4NDM4LTIzLjI4OTA2MiAzMC43NjE3MTktNDIuNjgz
+NTk0IDMwLjc2MTcxOXptMCAwIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBjbGFzcz0iYWN0aXZlLXBhdGgiIHN0eWxlPSJmaWxsOiNFNEU0RTQiIGRhdGEtb2xkX2NvbG9yPSIjMDAwMDAwIj48L3BhdGg+PHBhdGggZD0ibTMxNiAwaC0xMjBjLTI
+0LjgxMjUgMC00NSAyMC4xODc1LTQ1IDQ1djE1aC0xMjUuMTkxNDA2bDU2LjU3NDIxOCAxNjkuNzQ2MDk0YzIuMDUwNzgyIDYuMTM2NzE4IDcuNzc3MzQ0IDEwLjI1MzkwNiAxNC4yMzgyODIgMTAuMjUzOTA2aDg0LjM3ODkwNnYtMTVjMC04LjI4OT
+A2MiA2LjcxMDkzOC0xNSAxNS0xNWgxMjBjOC4yODkwNjIgMCAxNSA2LjcxMDkzOCAxNSAxNXYxNWg4NC4zNzg5MDZjNi40NjA5MzggMCAxMi4xODc1LTQuMTE3MTg4IDE0LjIzODI4Mi0xMC4yNTM5MDZsNTYuNTc4MTI0LTE2OS43NDYwOTRoLTEyN
+S4xOTUzMTJ2LTE1YzAtMjQuODEyNS0yMC4xODc1LTQ1LTQ1LTQ1em0tMTM1IDYwdi0xNWMwLTguMjc3MzQ0IDYuNzIyNjU2LTE1IDE1LTE1aDEyMGM4LjI3NzM0NCAwIDE1IDYuNzIyNjU2IDE1IDE1djE1em0wIDAiIGRhdGEtb3JpZ2luYWw9IiMw
+MDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgc3R5bGU9ImZpbGw6I0U0RTRFNCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiPjwvcGF0aD48L2c+IDwvc3ZnPg==" /> İş Deneyimi</p>
+                    <p style="color: #E4E4E4;font-family: Calibri;font-size:16px;margin: 5px 0 0 18px;">- Rat Yazılım</p>
+                    <div style="width: 90%;margin-left: 25px;margin-top: 3px">
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin: 2px 0 0;">React Native Developer</p>
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin: 2px 0 0;">05.2018-09.2020</p>
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin: 2px 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    </div>
+                </div>
+                <div>
+                    <p style="font-size: 20px;color:#E4E4E4;font-family: Calibri;margin: 20px 0 0 15px;display: flex;align-items: center">
+                        <img style="margin-right: 5px" height="25px" src="data:image/svg+xml;base64,
+                        PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHg9IjBweCIgeT0iMHB4IiB2a
+                        WV3Qm94PSIwIDAgNDY1Ljk4NyA0NjUuOTg3IiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA0NjUuOTg3IDQ2NS45ODc7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgY2
+                        xhc3M9IiI+PGc+PGc+Cgk8Zz4KCQk8cGF0aCBkPSJNMzcyLjczNSwyMzYuNTQ3Yy0yLjY1MS0zLjUzNS03LjY2NS00LjI1MS0xMS4yLTEuNmMtMS42OTgsMS4yNzQtMi44MjEsMy4xNy0zLjEyLDUuMjcybC00LjQ0LDMxLjE
+                        yICAgIGMtMC4xMDcsMC40LTAuMjQ3LDAuNzktMC40MTYsMS4xNjhjOC4xNTktMTAuODM0LDE0Ljc0NC0yMi43NjksMTkuNTYtMzUuNDQ4TDM3Mi43MzUsMjM2LjU0N3oiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNz
+                        PSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmaWxsOiNFNEU0RTQiPjwvcGF0aD4KCTwvZz4KPC9nPjxnPgoJPGc+CgkJPHBhdGggZD0iTTM0Ni4wNDcsMjc4LjIwM2MtMC4zNzcsMC0wL
+                        jc1NC0wLjAyNC0xLjEyOC0wLjA3MmwtNDcuNTItNi43OTJjLTQuMzc0LTAuNjI3LTcuNDExLTQuNjgtNi43ODQtOS4wNTQgICAgYzAtMC4wMDEsMC0wLjAwMSwwLTAuMDAybDQuNDQtMzEuMTJjMC42MTktNC4zNzUtMi40MjU
+                        tOC40MjMtNi44LTkuMDQyYy0yLjA5My0wLjI5Ni00LjIxOSwwLjI0OC01LjkxMiwxLjUxNGwtMjUuMTUyLDE4Ljg1NiAgICBjLTMuNTM1LDIuNjUxLTguNTQ5LDEuOTM1LTExLjItMS42djBsLTI4LjgtMzguNGMtMi42NTEtMy4
+                        1MzUtMS45MzUtOC41NDksMS42LTExLjJsMjUuMTQ0LTE4Ljg1NiAgICBjMy41MzUtMi42NTEsNC4yNTEtNy42NjUsMS42LTExLjJjLTEuMjc0LTEuNjk4LTMuMTctMi44MjEtNS4yNzItMy4xMmwtMzEuMTItNC40NDhjLTQuMzc
+                        0LTAuNjIyLTcuNDE2LTQuNjczLTYuNzkzLTkuMDQ3ICAgIGMwLTAuMDAzLDAuMDAxLTAuMDA2LDAuMDAxLTAuMDA5bDYuNzkyLTQ3LjUxMmMwLjYyMi00LjM3NCw0LjY3My03LjQxNiw5LjA0Ny02Ljc5M2MwLjAwMywwLDAuMDA
+                        2LDAuMDAxLDAuMDA5LDAuMDAxbDMxLjEyLDQuNDQ4ICAgIGMzLjIwMSwwLjQ2NCw2LjM2NC0xLjA1OCw4LTMuODQ4YzEuNjk5LTIuNzczLDEuNTA4LTYuMzA3LTAuNDgtOC44OGwtMTguODQtMjUuMTM2Yy0yLjY1MS0zLjUzNS0xL
+                        jkzNS04LjU0OSwxLjYtMTEuMmw0LjUzNi0zLjQgICAgYy03LjM0OC0wLjM1NS0xNC43MTMtMC4xNTgtMjIuMDMyLDAuNTkyQzE0My4wODcsNTEuOTA1LDg2LjM0NywxMjMuMjc0LDk1LjM2OSwyMDIuMjljNC45MTUsNDMuMDQ1LDI4
+                        Ljk0OSw4MS41ODksNjUuNDM4LDEwNC45NDUgICAgYzEzLjMyMiw4LjI2LDIxLjUwNCwyMi43NSwyMS42OTYsMzguNDI0djMyLjMyOGMwLDEzLjI1NSwxMC43NDUsMjQsMjQsMjRoNjRjMTMuMjU1LDAsMjQtMTAuNzQ1LDI0LTI0di
+                        0zMS42NjQgICAgYzAuMjAzLTE2LjA0Miw4LjU1My0zMC44NzgsMjIuMTYtMzkuMzc2YzEyLjYxMi04LjE4MiwyMy44NzUtMTguMjc2LDMzLjM4NC0yOS45MiAgICBDMzQ4Ljg0MSwyNzcuNzY2LDM0Ny40NjEsMjc4LjE3MiwzNDYuM
+                        DQ3LDI3OC4yMDN6IE0yNDYuNTAzLDM3Ny45ODdoLTE2di0yNGgxNlYzNzcuOTg3eiBNMjMwLjUwMywzMzcuOTg3ICAgIGMtMC4wMDUtMjEuMTUyLTEzLjA0OC00MC4xMTItMzIuOC00Ny42OGMtNTcuNjA5LTIyLjUyNi04Ni4wNDktO
+                        DcuNDg3LTYzLjUyMy0xNDUuMDk2YzguNzIyLTIyLjMwNywyNC4zNjYtNDEuMjMsNDQuNjM1LTUzLjk5MiAgICBsOC40ODgsMTMuNTM2Yy00NC44NzUsMjguMjM3LTU4LjM2Miw4Ny41MDUtMzAuMTI1LDEzMi4zOGMxMC45NCwxNy4zOD
+                        YsMjcuMTY5LDMwLjgwNSw0Ni4zMDEsMzguMjg0ICAgIGMyNS45MjgsOS45MTcsNDMuMDQ0LDM0LjgwOCw0My4wMjQsNjIuNTY4SDIzMC41MDN6IiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBjbGFzcz0iYWN0aXZlLXBhdGgiIGRhdGEtb
+                        2xkX2NvbG9yPSIjMDAwMDAwIiBzdHlsZT0iZmlsbDojRTRFNEU0Ij48L3BhdGg+Cgk8L2c+CjwvZz48Zz4KCTxnPgoJCTxwYXRoIGQ9Ik0yMDYuNTAzLDQ0MS45ODd2OGMwLDguODM3LDcuMTYzLDE2LDE2LDE2aDMyYzguODM3LDAsMTYt
+                        Ny4xNjMsMTYtMTZ2LThIMjA2LjUwM3oiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmaWxsOiNFNEU0RTQiPjwvcGF0aD4KCTwvZz4KPC9nPjxnPgo
+                        JPGc+CgkJPHBhdGggZD0iTTE1Ni40ODcsMzEzLjk4N2MtNC43NC0zLjA3My05LjMwNS02LjQwOS0xMy42NzItOS45OTJjLTEyLjA3NywyMy41MS00MC45MjUsMzIuNzc4LTY0LjQzNSwyMC43MDIgICAgYy0xNi4wMDItOC4yMi0yNi4wNDI
+                        tMjQuNzItMjUuOTg5LTQyLjcxYzAuMDM3LTI0LjE4NywxOC4wNS00NC41NzUsNDIuMDQ4LTQ3LjU5MmMtMi45MzYtOC44My01LjA1Ny0xNy45MTEtNi4zMzYtMjcuMTI4ICAgIGwtMS40LDYuNjU2Yy0xLjgxOCw4LjY0Ny0xMC4zMDMsMTQuM
+                        TgzLTE4Ljk1LDEyLjM2NWMtMi4wNzEtMC40MzUtNC4wMzUtMS4yNzctNS43NzgtMi40NzdsLTE2LjY0LTExLjQyNGwtMTQuNTc2LDE0LjU0NCAgICBsMTEuNDU2LDE2LjY1NmM1LjAxNCw3LjI3NiwzLjE4LDE3LjI0LTQuMDk2LDIyLjI1NGMt
+                        MS43NDUsMS4yMDItMy43MTEsMi4wNDYtNS43ODQsMi40ODJsLTE5Ljk0NCw0LjJ2MTkuMDA4bDE5Ljk0NCw0LjIgICAgYzguNjQ3LDEuODIxLDE0LjE4MSwxMC4zMDcsMTIuMzYsMTguOTU0Yy0wLjQzNywyLjA3Ni0xLjI4Myw0LjA0NC0yLjQ4
+                        OCw1Ljc5bC0xMS40NDgsMTYuNTY4bDE0LjU3NiwxNC41NDRsMTYuNjI0LTExLjQ1NiAgICBjNy4yNzYtNS4wMTQsMTcuMjQtMy4xOCwyMi4yNTQsNC4wOTZjMS4yMDIsMS43NDUsMi4wNDYsMy43MTEsMi40ODIsNS43ODRsNC4xOTIsMTku
+                        OTc2aDE5LjAxNmw0LjE5Mi0xOS45NDQgICAgYzEuODItOC42NDcsMTAuMzA1LTE0LjE4MiwxOC45NTItMTIuMzYyYzIuMDczLDAuNDM2LDQuMDM5LDEuMjgsNS43ODQsMi40ODJsMTYuNjE2LDExLjQyNGwxNy4xNi0xNy4xNiAgICBDMTY5L
+                        jczLDMyNS45NzEsMTY0LjA0LDMxOC43NTYsMTU2LjQ4NywzMTMuOTg3eiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBkYXRhLW9sZF9jb2xvcj0iIzAwMDAwMCIgc3R5bGU9ImZpbGw6I0U0RTRFNCI+PC9w
+                        YXRoPgoJPC9nPgo8L2c+PGc+Cgk8Zz4KCQk8cmVjdCB4PSIyMDYuNTAzIiB5PSI0MDkuOTg3IiB3aWR0aD0iNjQiIGhlaWdodD0iMTYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9I
+                        iMwMDAwMDAiIHN0eWxlPSJmaWxsOiNFNEU0RTQiPjwvcmVjdD4KCTwvZz4KPC9nPjxnPgoJPGc+CgkJPHBhdGggZD0iTTQzOC4yNTUsMTM3LjkxNWMtMTMuMTIxLTEuODc2LTIyLjIzNy0xNC4wMzUtMjAuMzYxLTI3LjE1NmMwLjkwMS02LjMwMS
+                        w0LjI2OC0xMS45ODYsOS4zNjEtMTUuODA0bDE4Ljc0NC0xNC4wNjQgICAgbC0xOS4yLTI1LjZsLTE4Ljc0NCwxNC4wNTZjLTEwLjYwMiw3Ljk1Ni0yNS42NDYsNS44MS0zMy42MDEtNC43OTFjLTMuODE1LTUuMDg0LTUuNDU4LTExLjQ3NS00LjU2
+                        Ny0xNy43NjlsMy4zMTItMjMuMiAgICBsLTMxLjY3Mi00LjUybC0zLjMxMiwyMy4yYy0xLjg3NywxMy4xMjEtMTQuMDM1LDIyLjIzNy0yNy4xNTYsMjAuMzYxYy02LjMwMS0wLjkwMS0xMS45ODYtNC4yNjgtMTUuODA0LTkuMzYxbC0xNC4wNjQtM
+                        TguNzc2ICAgIGwtMjUuNiwxOS4ybDE0LjA1NiwxOC43NDRjNy45NTQsMTAuNjAzLDUuODA3LDI1LjY0Ni00Ljc5NiwzMy42MDFjLTUuMDk1LDMuODIyLTExLjQ5OSw1LjQ2Mi0xNy44MDQsNC41NTlsLTIzLjItMy4zMTIgICAgbC00LjU0NCwzMS4
+                        2OGwyMy4yLDMuMzEyYzEzLjEyMSwxLjg3NywyMi4yMzcsMTQuMDM1LDIwLjM2MSwyNy4xNTZjLTAuOTAxLDYuMzAxLTQuMjY4LDExLjk4Ni05LjM2MSwxNS44MDRsLTE4LjczNiwxNC4wNjQgICAgbDE5LjIsMjUuNmwxOC43NDQtMTQuMDU2YzEwL
+                        jYwMy03Ljk1NCwyNS42NDYtNS44MDcsMzMuNjAxLDQuNzk2YzMuODIyLDUuMDk1LDUuNDYyLDExLjUsNC41NTksMTcuODA0bC0zLjMxMiwyMy4ybDMxLjc0NCw0LjU0NCAgICBsMy4zMTItMjMuMmMxLjg3Ny0xMy4xMjEsMTQuMDM1LTIyLjIzNywy
+                        Ny4xNTYtMjAuMzYxYzYuMzAxLDAuOTAxLDExLjk4Niw0LjI2OCwxNS44MDQsOS4zNjFsMTQuMDY0LDE4LjczNmwyNS42LTE5LjIgICAgbC0xNC4xMDQtMTguNzc2Yy03Ljk1MS0xMC42MDUtNS44LTI1LjY0OCw0LjgwNS0zMy41OTljNS4wODQtM
+                        y44MTIsMTEuNDcyLTUuNDUyLDE3Ljc2My00LjU2MWwyMy4yLDMuMzEybDQuNTItMzEuNjcyICAgIEw0MzguMjU1LDEzNy45MTV6IE0zNDAuMzkxLDE4OC4wOTljLTI2LjUxLDAtNDgtMjEuNDktNDgtNDhzMjEuNDktNDgsNDgtNDhjMjYuNTEsMCw0
+                        OCwyMS40OSw0OCw0OCAgICBDMzg4LjM2LDE2Ni41OTYsMzY2Ljg4OCwxODguMDY4LDM0MC4zOTEsMTg4LjA5OXoiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiIHN0eWx
+                        lPSJmaWxsOiNFNEU0RTQiPjwvcGF0aD4KCTwvZz4KPC9nPjxnPgoJPGc+CgkJPHJlY3QgeD0iMzkwLjUwMyIgeT0iMjk3Ljk4NyIgd2lkdGg9IjU2IiBoZWlnaHQ9IjE2IiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBjbGFzcz0iYWN0aXZlLXBhdGgi
+                        IGRhdGEtb2xkX2NvbG9yPSIjMDAwMDAwIiBzdHlsZT0iZmlsbDojRTRFNEU0Ij48L3JlY3Q+Cgk8L2c+CjwvZz48Zz4KCTxnPgoJCTxyZWN0IHg9IjM5OC41MDQiIHk9IjMzNC43NSIgdHJhbnNmb3JtPSJtYXRyaXgoMC42NDAxIC0wLjc2ODMgMC
+                        43NjgzIDAuNjQwMSAtMTM0Ljg4NzYgNDQ0LjAyNTQpIiB3aWR0aD0iMTYiIGhlaWdodD0iNjIuNDgiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmaWxsOiNFN
+                        EU0RTQiPjwvcmVjdD4KCTwvZz4KPC9nPjxnPgoJPGc+CgkJPHJlY3QgeD0iMzQyLjUwMyIgeT0iMzYxLjk4NyIgd2lkdGg9IjE2IiBoZWlnaHQ9IjU2IiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBjbGFzcz0iYWN0aXZlLXBhdGgiIGRhdGEtb2x
+                        kX2NvbG9yPSIjMDAwMDAwIiBzdHlsZT0iZmlsbDojRTRFNEU0Ij48L3JlY3Q+Cgk8L2c+CjwvZz48Zz4KCTxnPgoJCTxyZWN0IHg9IjUuNTE5IiB5PSIxMjkuOTg3IiB0cmFuc2Zvcm09Im1hdHJpeCgwLjk3MDEgLTAuMjQyNSAwLjI0MjUgMC45NzAx
+                        IC0zMi4zMTU1IDEzLjQ1NzcpIiB3aWR0aD0iNjUuOTY4IiBoZWlnaHQ9IjE1Ljk5MiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBkYXRhLW9sZF9jb2xvcj0iIzAwMDAwMCIgc3R5bGU9ImZpbGw6I0U0RTRFN
+                        CI+PC9yZWN0PgoJPC9nPgo8L2c+PGc+Cgk8Zz4KCQk8cmVjdCB4PSI0Mi41MDIiIHk9IjM1LjU4NSIgdHJhbnNmb3JtPSJtYXRyaXgoMC41ODEyIC0wLjgxMzcgMC44MTM3IDAuNTgxMiAtMzUuODA4OCA3MC40MDIxKSIgd2lkdGg9IjE1Ljk5MiI
+                        gaGVpZ2h0PSI2OC44MTYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmaWxsOiNFNEU0RTQiPjwvcmVjdD4KCTwvZz4KPC9nPjxnPgoJPGc+CgkJPHJl
+                        Y3QgeD0iOTQuMzI5IiB5PSIwLjk1MiIgdHJhbnNmb3JtPSJtYXRyaXgoMC45Njg4IC0wLjI0NzcgMC4yNDc3IDAuOTY4OCAtNS4yMjc3IDI2LjQwMSkiIHdpZHRoPSIxNiIgaGVpZ2h0PSI2Ni4wNTYiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIG
+                        NsYXNzPSJhY3RpdmUtcGF0aCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiIHN0eWxlPSJmaWxsOiNFNEU0RTQiPjwvcmVjdD4KCTwvZz4KPC9nPjwvZz4gPC9zdmc+" /> Projeler</p>
+                    <p style="color: #E4E4E4;font-family: Calibri;font-size:16px;margin: 5px 0 0 18px;">- WeatherApp</p>
+                    <div style="width: 90%;margin-left: 25px;margin-top: 3px">
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin: 2px 0 0;">Araçlar: Vue.js, Vue-Router, Vuex, Firebase, Bootstrap</p>
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin: 2px 0 0;">kuzeydev-weather.wep.app</p>
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin: 2px 0 0;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    </div>
+                </div>
+                <div>
+                    <p style="font-size: 20px;margin:0;margin-top: 20px;color:#E4E4E4;font-family: Calibri;margin-left: 15px;display:flex;align-items:center">
+                        <img height="27px" style="margin-right: 5px" src="data:image/svg+xml;base64,
+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHg9IjBweCIgeT0iMHB4Ii
+B2aWV3Qm94PSIwIDAgNDg4LjQgNDg4LjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQ4OC40IDQ4OC40OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGNsYXNzP
+SIiPjxnPjxnPgoJPGc+CgkJPHBhdGggZD0iTTI0My44LDI0MS4xMTNMMjQzLjgsMjQxLjExM2MwLjEsMCwwLjIsMCwwLjQsMGMwLjEsMCwwLjIsMCwwLjQsMGwwLDBjNjQuMS0wLjcsNTQuOC04Ni4zLDU0LjgtODYuMyAgIC
+BjLTIuNi01Ny4yLTUwLjUtNTYuNy01NS4yLTU2LjVjLTQuNy0wLjItNTIuNS0wLjctNTUuMiw1Ni41QzE4OSwxNTQuOTEzLDE3OS43LDI0MC41MTMsMjQzLjgsMjQxLjExM3oiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNs
+YXNzPSJhY3RpdmUtcGF0aCIgc3R5bGU9ImZpbGw6I0U0RTRFNCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiPjwvcGF0aD4KCQk8cGF0aCBkPSJNMzkzLjgsMjcwLjMxM0wzOTMuOCwyNzAuMzEzYzAuMSwwLDAuMiwwLDAuM
+ywwYzAuMSwwLDAuMiwwLDAuMywwbDAsMGM1MS41LTAuNSw0NC4xLTY5LjQsNDQuMS02OS40ICAgIGMtMi4xLTQ2LTQwLjYtNDUuNi00NC40LTQ1LjVjLTMuOC0wLjItNDIuMy0wLjUtNDQuNCw0NS41QzM0OS43LDIwMS4wMTMsM
+zQyLjIsMjY5LjgxMywzOTMuOCwyNzAuMzEzeiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBzdHlsZT0iZmlsbDojRTRFNEU0IiBkYXRhLW9sZF9jb2xvcj0iIzAwMDAwMCI+PC9wYXRoPgoJC
+TxwYXRoIGQ9Ik00ODguMywzNDAuMTEzYy0wLjQtMTQuOC0zLjMtMjUuMS0xOC40LTM0LjZjLTIwLjEtMTIuNi00Mi42LTIzLjUtNDIuNi0yMy41bC0xNy45LDU2LjZsLTEwLjQtMjkuNyAgICBjMTguMy0yNS42LTEuMy0yNi45LTQ
+uOC0yNi45bDAsMGgtMC4xSDM5NGwwLDBjLTMuNSwwLTIzLjEsMS4zLTQuOCwyNi45bC0xMC40LDI5LjZsLTE3LjktNTYuNmMwLDAtNi40LDMuMS0xNS40LDcuOSAgICBjLTIuMS0xLjctNC40LTMuNC03LTVjLTI1LTE1LjctNTIu
+OS0yOS4zLTUyLjktMjkuM2wtMjIuMiw3MC4zbC0xMy0zNi45YzIyLjgtMzEuOC0xLjYtMzMuNC02LTMzLjVsMCwwaC0wLjFoLTAuMWwwLDAgICAgYy00LjQsMC0yOC44LDEuNi02LDMzLjVsLTEzLDM2LjlsLTIyLjItNzAuM2MwLDA
+tMjcuOSwxMy42LTUyLjksMjkuM2MtMi43LDEuNy01LDMuNC03LjEsNS4xYy05LjEtNC45LTE1LjYtOC0xNS42LThsLTE3LjksNTYuNiAgICBsLTEwLjQtMjkuNmMxOC4zLTI1LjYtMS4zLTI2LjktNC44LTI2LjlsMCwwaC0wLjFoLT
+AuMWwwLDBjLTMuNSwwLTIzLjEsMS4zLTQuOCwyNi45bC0xMC40LDI5LjZsLTE3LjktNTYuNiAgICBjMCwwLTIyLjUsMTAuOS00Mi42LDIzLjVjLTE1LjIsOS41LTE4LDE5LjgtMTguNCwzNC42djUwLjFoOTRoMzIuOWg2MS4zSDI0NG
+g1NS44aDYxLjVIMzk0aDk0LjRMNDg4LjMsMzQwLjExM3oiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgc3R5bGU9ImZpbGw6I0U0RTRFNCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiPjwvcGF0a
+D4KCQk8cGF0aCBkPSJNOTMuNiwyNzAuMzEzTDkzLjYsMjcwLjMxM2MwLjEsMCwwLjIsMCwwLjMsMGMwLjEsMCwwLjIsMCwwLjMsMGwwLDBjNTEuNi0wLjUsNDQuMS02OS40LDQ0LjEtNjkuNCAgICBjLTIuMS00Ni00MC42LTQ1LjYt
+NDQuNC00NS41Yy0zLjgtMC4yLTQyLjMtMC41LTQ0LjQsNDUuNUM0OS41LDIwMS4wMTMsNDIuMSwyNjkuODEzLDkzLjYsMjcwLjMxM3oiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgc3R5bGU9ImZ
+pbGw6I0U0RTRFNCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiPjwvcGF0aD4KCTwvZz4KPC9nPjwvZz4gPC9zdmc+" />Topluluk</p>
+                    <p style="color: #E4E4E4;font-family: Calibri;font-size:16px;margin: 3px 0 0 25px;">GAÜN YAZILIM TOPLULUĞU / <i style="font-size: 14px">üye</i></p>
+                    <p style="color: #E4E4E4;font-family: Calibri;font-size:16px;margin: 3px 0 0 25px;">KODLUYORUZ / <i style="font-size: 14px">mezun</i></p>
+                </div>
+                <div>
+                    <p style="font-size: 20px;color:#E4E4E4;font-family: Calibri;margin: 20px 0 0 15px">
+                        <img height="25px" style="margin-right: 5px" src="data:image/svg+xml;base64,
+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgY2xhc3M9IiI+PGc+PGc+Cgk8Zz4KCQk8cGF0aCBkPSJNNTExLjU2Myw0MzQuMjU5Yy0xLjcyOC0xNDIuMzI5LTEyNC40Mi0yNTguMjQyLTI3Ny4wODctMjYzLjQxOVY5NS45OTljMC0xNy42NDUtMTQuMzQyLTMxLjk5OS0zMS45NzQtMzEuOTk5ICAgIGMtNy45MzEsMC0xNS41OTEsMy4wNDItMjEuNTI0LDguNTYyYzAsMC0xMzQuODI4LDEyNC44MjktMTczLjYwOSwxNjMuNzU1QzIuNjIzLDI0MS4xMDksMCwyNDguMDg4LDAsMjU1Ljk5NCAgICBjMCw3LjkwNiwyLjYyMywxNC44ODUsNy4zNjksMTkuNjg3YzM4Ljc4MSwzOC45MTUsMTczLjYwOSwxNjMuNzQ1LDE3My42MDksMTYzLjc0NWM1LjkzMyw1LjUyMSwxMy41OTMsOC41NjIsMjEuNTI0LDguNTYyICAgIGMxNy42MzEsMCwzMS45NzQtMTQuMzU0LDMxLjk3NC0zMS45OTl2LTc0LjU5MWMxNTMuNDc5LDIuMTU2LDI1NS43OTIsNTAuNjAzLDI1NS43OTIsOTUuOTI0YzAsNS44OTYsNC43NjcsMTAuNjY2LDEwLjY1OCwxMC42NjYgICAgYzAuMTY3LDAuMDIxLDAuMzMzLDAuMDEsMC40MTYsMGM1Ljg5MSwwLDEwLjY1OC00Ljc3MSwxMC42NTgtMTAuNjY2QzUxMiw0MzYuMjU5LDUxMS44NTQsNDM1LjIyOCw1MTEuNTYzLDQzNC4yNTl6IiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBjbGFzcz0iYWN0aXZlLXBhdGgiIHN0eWxlPSJmaWxsOiNFNEU0RTQiIGRhdGEtb2xkX2NvbG9yPSIjMDAwMDAwIj48L3BhdGg+Cgk8L2c+CjwvZz48L2c+IDwvc3ZnPg==" />Referans</p>
+                    <p style="color: #E4E4E4;font-family: Calibri;font-size:16px;margin: 5px 0 0 35px;">Sohrat Jumadurdyyev</p>
+                    <div style="width: 90%;margin-left: 25px;margin-top: 3px">
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin: 2px 0 0 25px;"><i style="font-size: 12px;margin-right: 5px;width: 13px;text-align: center" class="fas fa-phone-alt"></i> 0 555 666 2233</p>
+                        <p style="color:#E4E4E4;font-family: Calibri;font-size: 14px;margin: 2px 0 0 25px;"><i style="font-size: 12px;margin-right: 5px;width: 13px;text-align: center" class="fas fa-envelope"></i> shoki61@gmail.com</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+            `
+            ,
+            fileName: 'deneme1',
+            directory: 'docs',
+        };
+        let file = await RNHTMLtoPDF.convert(options);
+        this.setState({ filePath: file.filePath });
+    }
+
+    //////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////
     showPersonalInformation() {
         this.setState({ showPersonalInformation: true })
         this.setState({ showExperiences: false })
@@ -900,7 +1184,6 @@ class CVForm extends React.Component {
             <View style={{ width: '100%', marginTop: 100 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View >
-
                         <View style={styles.photoContainer}>
                             <Image style={styles.photoStyle} source={this.state.photoSource === null ? require('../images/defaultPhoto.png') : this.state.photoSource} />
                         </View>
@@ -952,8 +1235,9 @@ class CVForm extends React.Component {
                         </View>
                     </View>
                 </View>
-
-                <Example />
+                <TouchableOpacity onPress={this.askPermission.bind(this)}>
+                    <Text>pdfe dönüştür</Text>
+                </TouchableOpacity>
                 <View style={{ width: '100%', alignItems: 'center' }}>
                     <Text style={styles.inputTitle}>Meslek <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                     <View style={[styles.inputView, { width: '90%' }]}>

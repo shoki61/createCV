@@ -22,7 +22,7 @@ class Home extends React.Component {
             <View style={styles.body}>
                 <Image style={styles.backImage} source={require('../images/homeBackImage.png')} />
                 <View style={{ position: 'absolute', alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('cvForm')} style={styles.createCVButton}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('cvExamples')} style={styles.createCVButton}>
                         <Text style={styles.createText}>
                             {
                                 helper.userToken === null ?

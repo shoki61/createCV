@@ -6,6 +6,8 @@ import CVForm from './views/cvForm';
 import LoginPage from './views/loginPage';
 import SignInPage from './views/signInPage';
 import MyCVs from './views/myCVs';
+import CVExamples from './views/cvExamples';
+import ShowCV from './views/showCV';
 
 const settings = {
     header: null
@@ -17,7 +19,8 @@ const pages = createStackNavigator(
         cvForm: { screen: CVForm, navigationOptions: settings },
         loginPage: { screen: LoginPage, navigationOptions: settings },
         signInPage: { screen: SignInPage, navigationOptions: settings },
-        myCVs: { screen: MyCVs, navigationOptions: settings }
+        cvExamples: { screen: CVExamples, navigationOptions: settings },
+        showCV: { screen: ShowCV, navigationOptions: settings }
     }
 
 );
