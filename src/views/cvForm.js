@@ -368,8 +368,9 @@ class CVForm extends React.Component {
         if (Platform.OS === 'android') {
             requestExternalWritePermission();
         } else {
-            this.createPDF();
             alert('tamamdır')
+            this.createPDF();
+
         }
     }
 
@@ -377,7 +378,7 @@ class CVForm extends React.Component {
 
         let options = {
             html: `
-            <div style="width: 800;min-height: 1000;background-color: white">
+            <div style="width: 800;min-height: 1000;background-color:${helper.selectedCVColor}">
 
 
         <div style="width: 100%;height: 40px;background-color: #12A3D0;display: flex;justify-content: space-between;align-items: center;flex-wrap: wrap;padding:0 25px 0 25px;box-sizing: border-box">
@@ -857,7 +858,7 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTI4IDUxMi4w
                         <Text style={[styles.schoolInfoText, { width: '75%' }]}>{item.item.projectLink}</Text>
                     }
                     <TouchableOpacity onPress={() => this.removeProject(item)} style={styles.removeAbilityButton}>
-                        <Text style={styles.buttonText}>Çıkar</Text>
+                        <Text style={styles.buttoknText}>Çıkar</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -1183,9 +1184,30 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTI4IDUxMi4w
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity onPress={this.askPermission.bind(this)}>
-                    <Text>pdfe dönüştür</Text>
-                </TouchableOpacity>
+                {
+                    helper.selectedOrderCV === 1 &&
+                    <TouchableOpacity onPress={this.askPermission.bind(this)}>
+                        <Text>pdf 1</Text>
+                    </TouchableOpacity>
+                }
+                {
+                    helper.selectedOrderCV === 2 &&
+                    <TouchableOpacity onPress={this.askPermission.bind(this)}>
+                        <Text>pdf 2</Text>
+                    </TouchableOpacity>
+                }
+                {
+                    helper.selectedOrderCV === 3 &&
+                    <TouchableOpacity onPress={this.askPermission.bind(this)}>
+                        <Text>pdf 3</Text>
+                    </TouchableOpacity>
+                }
+                {
+                    helper.selectedOrderCV === 4 &&
+                    <TouchableOpacity onPress={this.askPermission.bind(this)}>
+                        <Text>pdf 4</Text>
+                    </TouchableOpacity>
+                }
                 <View style={{ width: '100%', alignItems: 'center' }}>
                     <Text style={styles.inputTitle}>Meslek <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                     <View style={[styles.inputView, { width: '90%' }]}>
