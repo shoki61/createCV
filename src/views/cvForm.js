@@ -603,7 +603,7 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTI4IDUxMi4w
             `
             ,
             fileName: 'deneme1',
-            directory: 'docs',
+            directory: 'docs'
         };
         let file = await RNHTMLtoPDF.convert(options);
         this.setState({ filePath: file.filePath });
@@ -1184,30 +1184,11 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTI4IDUxMi4w
                         </View>
                     </View>
                 </View>
-                {
-                    helper.selectedOrderCV === 1 &&
-                    <TouchableOpacity onPress={this.askPermission.bind(this)}>
-                        <Text>pdf 1</Text>
-                    </TouchableOpacity>
-                }
-                {
-                    helper.selectedOrderCV === 2 &&
-                    <TouchableOpacity onPress={this.askPermission.bind(this)}>
-                        <Text>pdf 2</Text>
-                    </TouchableOpacity>
-                }
-                {
-                    helper.selectedOrderCV === 3 &&
-                    <TouchableOpacity onPress={this.askPermission.bind(this)}>
-                        <Text>pdf 3</Text>
-                    </TouchableOpacity>
-                }
-                {
-                    helper.selectedOrderCV === 4 &&
-                    <TouchableOpacity onPress={this.askPermission.bind(this)}>
-                        <Text>pdf 4</Text>
-                    </TouchableOpacity>
-                }
+
+                <TouchableOpacity onPress={this.askPermission.bind(this)}>
+                    <Text>pdf dönüştür</Text>
+                </TouchableOpacity>
+
                 <View style={{ width: '100%', alignItems: 'center' }}>
                     <Text style={styles.inputTitle}>Meslek <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                     <View style={[styles.inputView, { width: '90%' }]}>
