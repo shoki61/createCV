@@ -12,6 +12,7 @@ class CVExamples extends React.Component {
     goSelectedColor(v, n) {
         helper.selectedCV = v
         helper.selectedOrderCV = n
+        helper.selectedCVColor = '#2A2A2A'
         this.props.navigation.navigate('showCV')
     }
 

@@ -22,26 +22,32 @@ class ShowCV extends React.Component {
             switch (v) {
                 case '#2A2A2A':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1.png'))
+                    helper.selectedCVColor = '#2A2A2A'
                     this.setState({ selectedColor: v })
                     break;
                 case '#FFFFFF':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1A.png'))
+                    helper.selectedCVColor = '#FFFFFF'
                     this.setState({ selectedColor: v })
                     break;
                 case '#12A3D0':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1B.png'))
+                    helper.selectedCVColor = '#12A3D0'
                     this.setState({ selectedColor: v })
                     break;
                 case '#FF7373':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1C.png'))
+                    helper.selectedCVColor = '#FF7373'
                     this.setState({ selectedColor: v })
                     break;
                 case '#299BE8':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1D.png'))
+                    helper.selectedCVColor = '#299BE8'
                     this.setState({ selectedColor: v })
                     break;
                 case '#407F92':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1E.png'))
+                    helper.selectedCVColor = '#407F92'
                     this.setState({ selectedColor: v })
                     break;
             }
@@ -50,26 +56,32 @@ class ShowCV extends React.Component {
             switch (v) {
                 case '#2A2A2A':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2.png'))
+                    helper.selectedCVColor = '#2A2A2A'
                     this.setState({ selectedColor: v })
                     break;
                 case '#FFFFFF':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2A.png'))
+                    helper.selectedCVColor = '#FFFFFF'
                     this.setState({ selectedColor: v })
                     break;
                 case '#12A3D0':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2B.png'))
+                    helper.selectedCVColor = '#12A3D0'
                     this.setState({ selectedColor: v })
                     break;
                 case '#FF7373':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2C.png'))
+                    helper.selectedCVColor = '#FF7373'
                     this.setState({ selectedColor: v })
                     break;
                 case '#299BE8':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2D.png'))
+                    helper.selectedCVColor = '#299BE8'
                     this.setState({ selectedColor: v })
                     break;
                 case '#407F92':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2E.png'))
+                    helper.selectedCVColor = '#407F92'
                     this.setState({ selectedColor: v })
                     break;
             }
@@ -78,26 +90,32 @@ class ShowCV extends React.Component {
             switch (v) {
                 case '#2A2A2A':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3.png'))
+                    helper.selectedCVColor = '#2A2A2A'
                     this.setState({ selectedColor: v })
                     break;
                 case '#FFFFFF':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3A.png'))
+                    helper.selectedCVColor = '#FFFFFF'
                     this.setState({ selectedColor: v })
                     break;
                 case '#12A3D0':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3B.png'))
+                    helper.selectedCVColor = '#12A3D0'
                     this.setState({ selectedColor: v })
                     break;
                 case '#FF7373':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3C.png'))
+                    helper.selectedCVColor = '#FF7373'
                     this.setState({ selectedColor: v })
                     break;
                 case '#299BE8':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3D.png'))
+                    helper.selectedCVColor = '#299BE8'
                     this.setState({ selectedColor: v })
                     break;
                 case '#407F92':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3E.png'))
+                    helper.selectedCVColor = '#407F92'
                     this.setState({ selectedColor: v })
                     break;
             }
@@ -106,26 +124,32 @@ class ShowCV extends React.Component {
             switch (v) {
                 case '#2A2A2A':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4.png'))
+                    helper.selectedCVColor = '#2A2A2A'
                     this.setState({ selectedColor: v })
                     break;
                 case '#FFFFFF':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4A.png'))
+                    helper.selectedCVColor = '#FFFFFF'
                     this.setState({ selectedColor: v })
                     break;
                 case '#12A3D0':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4B.png'))
+                    helper.selectedCVColor = '#12A3D0'
                     this.setState({ selectedColor: v })
                     break;
                 case '#FF7373':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4C.png'))
+                    helper.selectedCVColor = '#FF7373'
                     this.setState({ selectedColor: v })
                     break;
                 case '#299BE8':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4D.png'))
+                    helper.selectedCVColor = '#299BE8'
                     this.setState({ selectedColor: v })
                     break;
                 case '#407F92':
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4E.png'))
+                    helper.selectedCVColor = '#407F92'
                     this.setState({ selectedColor: v })
                     break;
             }
@@ -183,7 +207,7 @@ class ShowCV extends React.Component {
 
                     </View>
                     <View style={styles.buttonContainer}>
-                        <Text>{helper.selectedColor}</Text>
+                        <Text>{helper.selectedCVColor}</Text>
                         <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={[styles.buttonStyle, { backgroundColor: '#40c9de' }]}><Text style={styles.buttonText}>Geri</Text></TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('cvForm')} style={styles.buttonStyle}><Text style={styles.buttonText}>Seç</Text></TouchableOpacity>
                     </View>

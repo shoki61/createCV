@@ -21,6 +21,8 @@ class helper {
 
     selectedCV = []
 
+    selectedCVColor = ''
+
     selectedOrderCV = ''
 
     setSelectedOrderCV(v) {
@@ -158,6 +160,7 @@ decorate(
         userDrivingLicencies: observable,
         selectedCV: observable,
         selectedOrderCV: observable,
+        selectedCVColor: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
