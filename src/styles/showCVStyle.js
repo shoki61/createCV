@@ -1,10 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const w = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     body: {
         flex: 1,
-        alignItems: 'center',
-        paddingTop: 20
+        alignItems: 'center'
     },
     changeColorButton: {
         width: 35,
@@ -21,10 +22,12 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 20
     },
     buttonStyle: {
-        width: 150,
+        width: w / 3 + 25,
         height: 45,
         backgroundColor: '#34d198',
         alignItems: 'center',

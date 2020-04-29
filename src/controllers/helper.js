@@ -19,6 +19,14 @@ class helper {
     userCommunities = []
     userDrivingLicencies = []
 
+    selectedCV = []
+
+    selectedOrderCV = ''
+
+    setSelectedOrderCV(v) {
+        this.selectedCV = v
+    }
+
     setUserDrivingLicencies(v, color) {
         this.userDrivingLicencies.push({
             licence: v,
@@ -148,6 +156,8 @@ decorate(
         userProjects: observable,
         userCommunities: observable,
         userDrivingLicencies: observable,
+        selectedCV: observable,
+        selectedOrderCV: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
@@ -159,7 +169,8 @@ decorate(
         setUserCompanies: action,
         setUserProjects: action,
         setUserCommunities: action,
-        setUserDrivingLicencies: action
+        setUserDrivingLicencies: action,
+        setSelectedOrderCV: action
 
     }
 );
