@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Image, TextInput, AsyncStorage } from 'react-native';
 import axios from 'axios';
 import AlertPro from "react-native-alert-pro";
+import SImage from 'react-native-scalable-image';
 
 import styles from '../styles/loginPageStyle';
 import helper from '../controllers/helper';
@@ -41,7 +42,9 @@ class LoginPage extends React.Component {
         return (
             <View style={styles.Container}>
                 <Image style={styles.backImage} source={require('../images/homeBackImage.png')} />
-
+                <TouchableOpacity onPress={() => this.props.navigation.navigate('home')} style={{ position: 'absolute', top: 15, left: 15 }}>
+                    <SImage width={20} source={require('../images/backIcon.png')} />
+                </TouchableOpacity>
                 <View style={styles.inputContainer}>
                     <TextInput
                         placeholder='e-postanız...'
