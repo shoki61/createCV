@@ -126,11 +126,13 @@ class helper {
         )
     }
 
-    setUserLinks(v, color) {
+    setUserLinks(v, color, i, iCV) {
         this.userLinks.push(
             {
                 link: v,
-                listNumberColor: color
+                listNumberColor: color,
+                linkIcon: i,
+                linkIconCV: iCV
             }
         )
     }

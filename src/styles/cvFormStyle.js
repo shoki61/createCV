@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
         width: '90%',
         height: 10,
         marginBottom: 20,
-        marginTop: 20
+        marginTop: 10
     },
     linkNameStyle: {
         borderRadius: 3,
