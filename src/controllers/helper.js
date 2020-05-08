@@ -8,6 +8,17 @@ class helper {
     userToken = null;
     splashState = true;
 
+    userGithubLink = ''
+    userLinkedInLink = ''
+    userPinterestLink = ''
+    userInstagramLink = ''
+    userSkypeLink = ''
+    userTelegramLink = ''
+    userFacebookLink = ''
+    userTwitterLink = ''
+    userYoutubeLink = ''
+    userPersonalLink = ''
+
     userLinks = []
     userHobbies = []
     userAbilities = []
@@ -163,6 +174,15 @@ decorate(
         selectedCV: observable,
         selectedOrderCV: observable,
         selectedCVColor: observable,
+        userGithubLink: observable,
+        userLinkedInLink: observable,
+        userPinterestLink: observable,
+        userInstagramLink: observable,
+        userSkypLink: observable,
+        userTelegramLink: observable,
+        userFacebookLink: observable,
+        userTwitterLink: observable,
+        userYoutubeLink: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
