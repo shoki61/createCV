@@ -17,7 +17,7 @@ class helper {
     userFacebookLink = ''
     userTwitterLink = ''
     userYoutubeLink = ''
-    userPersonalLink = ''
+    userPersonalLink = []
 
     userLinks = []
     userHobbies = []
