@@ -388,9 +388,9 @@ class CVForm extends React.Component {
                 html: `<div style="width:650px;min-height: 700px;padding-top: 15px;background-color: ${helper.selectedCVColor}">
 
 
-        <div style="width: 100%;min-height: 170px;display: flex;border-bottom: 4px solid #707070">
+        <div style="width: 100%;min-height: 170px;display: flex;border-bottom: 4px solid ${helper.selectedCVColor === '#2A2A2A' ? '#707070' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'}`}">
             <div style="width: 35%;min-height: 100%;display: flex;justify-content: center;align-items: center">
-                <div style="width: 120px;height: 120px;border:3px solid ${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'};border-radius: 100px;background: url(${this.state.photoSource.uri}) no-repeat center;background-size: cover"></div>
+                <div style="width: 120px;height: 120px;border:3px solid ${helper.selectedCVColor === '#2A2A2A' ? '#707070' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'}`};border-radius: 100px;background: url(${this.state.photoSource.uri}) no-repeat center;background-size: cover"></div>
             </div>
             <div style="width: 65%;min-height: 100%">
                 <p style="font-family: Calibri;font-size: 28px;text-align: center;color:${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'};margin: 15px 0 10px;">${this.state.userJob}</p>
@@ -464,12 +464,12 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8v
 
 
         <div style="width: 100%;min-height: 530px;display: flex">
-            <div style="width: 40%;min-height: 100%;border-right: 2px solid ${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'};background-color:${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'}">
+            <div style="width: 40%;min-height: 100%;border-right: 2px solid ${helper.selectedCVColor === '#2A2A2A' ? '#707070' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'}`};background-color:${helper.selectedCVColor === '#2A2A2A' ? '#2A2A2A' : '#fff'}">
                 <div style="margin-bottom: 30px">
-                    <p style="font-size: 18px;margin:0;margin-top: 20px;color:${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'};font-family: Calibri;margin-left: 15px">Bildiği Diller</p>
+                    <p style="font-size: 18px;margin:0;margin-top: 20px;color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : `${helper.selectedCVColor}`}`};font-family: Calibri;margin-left: 15px">Bildiği Diller</p>
                     <div style="display: flex;margin-left: 25px">
                        <div style="margin-right: 10px">
-                           <p style="color:${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'};font-size: 15px;font-family: Calibri;margin:0">- Türkçe</p>
+                           <p style="color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : `${helper.selectedCVColor}`}`};font-size: 15px;font-family: Calibri;margin:0">- Türkçe</p>
                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- İngilizce</p>
                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Fransızca</p>
                        </div>
@@ -503,15 +503,10 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8v
 
 
                 <div style="margin-bottom: 30px">
-                    <p style="font-size: 18px;margin:0;margin-top: 20px;color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : '#5E5E5E'};font-family: Calibri;margin-left: 15px">Yetenekler</p>
-                    <div style="display: flex;margin-left: 25px">
+                    <p style="font-size: 18px;margin:0;margin-top: 20px;color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : `${helper.selectedCVColor}`}`};font-family: Calibri;margin-left: 15px">Yetenekler</p>
+                    ${helper.UserLanguages.map((item, i) => `<div style="display: flex;margin-left: 25px">
                         <div style="margin-right: 10px">
-                            <p style="color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : '#5E5E5E'};font-size: 15px;font-family: Calibri;margin:0">- JavaScript</p>
-                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Vue.js</p>
-                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- React.js</p>
-                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- React Native</p>
-                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Git</p>
-                            <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Python</p>
+                            <p style="color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : `${helper.selectedCVColor}`}`};font-size: 15px;font-family: Calibri;margin:0">- ${item.name}</p>
                         </div>
                         <div>
                             <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
@@ -531,41 +526,34 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8v
                             <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
                                 <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
                                 <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
-                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>               
                                 <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
                                 <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
                             </div>
                             <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
                                 <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
                                 <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
-                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
-                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
                                 <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
-                            </div>
-                            <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
-                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
-                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
-                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
                                 <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
                                 <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
                             </div>
                             <div style="display: flex;align-items: center;width: 75px;justify-content: space-between;margin:5px">
                                 <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
-                                <p style="margin:0;width: 12px;height: 12px;border-radius: 100px;background-color: #E4E4E4"></p>
+                                <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
                                 <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
                                 <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
                                 <p style="margin:0;width: 9px;height: 9px;border-radius: 100px;border:2px solid #E4E4E4"></p>
                             </div>
                         </div>
-                    </div>
+                    </div>`.trim()).join('')}
                 </div>
 
 
                 <div>
-                    <p style="font-size: 18px;margin:0;margin-top: 20px;color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : '#5E5E5E'};font-family: Calibri;margin-left: 15px">İlgi Alanları</p>
+                    <p style="font-size: 18px;margin:0;margin-top: 20px;color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : `${helper.selectedCVColor}`}`};font-family: Calibri;margin-left: 15px">İlgi Alanları</p>
                     <div style="margin-left: 25px">
                         <div style="margin-right: 10px">
-                            <p style="color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : '#5E5E5E'};font-size: 15px;font-family: Calibri;margin:0">- Kapmçılık</p>
+                            <p style="color:${helper.selectedCVColor === '#2A2A2A' ? '#fff' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : `${helper.selectedCVColor}`}`};font-size: 15px;font-family: Calibri;margin:0">- Kapmçılık</p>
                             <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Film</p>
                             <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Kitap</p>
                             <p style="color:#E4E4E4;font-size: 15px;font-family: Calibri;margin:0">- Oyun</p>
@@ -577,7 +565,7 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8v
             </div>
 
 
-            <div style="width: 60%;min-height: 100%;border-left: 2px solid #707070;padding-bottom: 25px">
+            <div style="width: 60%;min-height: 100%;border-left: 2px solid ${helper.selectedCVColor === '#2A2A2A' ? '#707070' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'}`};padding-bottom: 25px">
 
                 <div>
                     <p style="font-size: 20px;color:${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'};font-family: Calibri;margin: 20px 0 0 15px;display:flex;align-items:center">
@@ -2616,7 +2604,9 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgLTI4IDUxMi4w
                     </View>
                 </View>
 
-
+                <TouchableOpacity onPress={this.askPermission.bind(this)}>
+                    <Text>pdf dönüştür/////{helper.selectedOrderCV}</Text>
+                </TouchableOpacity>
                 {/*Bildiği diller kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
                     <SImage width={40} source={require('../images/languageTitle.png')} />
