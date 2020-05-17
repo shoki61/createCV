@@ -99,7 +99,6 @@ class helper {
                 schoolName: v.schoolName,
                 schoolDepartment: v.schoolDepartment,
                 schoolGrade: v.schoolGrade,
-                schoolCity: v.schoolCity,
                 schoolStartDate: v.schoolStartDate,
                 schoolFinishDate: v.schoolFinishDate,
                 listNumberColor: color
