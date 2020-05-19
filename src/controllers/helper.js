@@ -182,6 +182,7 @@ decorate(
         userFacebookLink: observable,
         userTwitterLink: observable,
         userYoutubeLink: observable,
+        userPersonalLink: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
