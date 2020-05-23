@@ -1592,12 +1592,12 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8v
                             </div>
 
                             <div>
-                                <div style="width: 100%;height:30px;position: relative;background-color:${helper.selectedCVColor === '#FFFFFF' ? '#fff' : helper.selectedCVColor};display: flex;margin-top: 30px;justify-content: center;align-items: center">
+                                <div style="width: 100%;margin-bottom:20px;height:30px;position: relative;background-color:${helper.selectedCVColor === '#FFFFFF' ? '#fff' : helper.selectedCVColor};display: flex;margin-top: 30px;justify-content: center;align-items: center">
                                     <p style="color:${helper.selectedCVColor === '#FFFFFF' ? '#407F92' : '#fff'};font-family: Calibri;font-size: 25px;margin: 0">İlgi Alanları</p>
                                     <div style="width:0;height: 0;border-color: ${helper.selectedCVColor === '#FFFFFF' ? '#fff' : helper.selectedCVColor} transparent transparent transparent;border-style: solid;position:absolute;bottom: -13px;border-width: 13px 141px 0 141px;"></div>
                                 </div>
 
-                                ${helper.userHobbies.map((item, i) => `<div style="padding-left: 20px;margin-top: 25px;margin-left: 25px">
+                                ${helper.userHobbies.map((item, i) => `<div style="padding-left: 10px;margin-left: 25px">
                                     <div style="display: flex;align-items: center">
                                         <div style="width: 3px;height: 3px;border-radius: 100px;background-color: ${helper.selectedCVColor === '#FFFFFF' ? '#fff' : helper.selectedCVColor};margin-right: 3px"></div><p style="color:${helper.selectedCVColor === '#FFFFFF' ? '#fff' : '#858B8A'};font-family: Calibri;font-size: 15px;margin:2px">${item.hobby}</p>
                                     </div>
@@ -1614,11 +1614,14 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8v
                                 <p style="margin:0;font-size: 25px;color:${helper.selectedCVColor === '#FFFFFF' ? '#fff' : helper.selectedCVColor};font-family: Calibri">Eğitim</p>
                                 <div style="width: 0;height: 0;position: absolute;right: -80px;border-color: transparent transparent transparent ${helper.selectedCVColor === '#FFFFFF' ? '#407F92' : '#fff'};border-style: solid;border-width: 20px 40px 20px 40px;"></div>
                             </div>
-                            <div style="padding-left: 30px;padding-right: 30px;margin-top:15px">
-                                <p style="font-family: Calibri;margin:0;font-size: 19px;color:${helper.selectedCVColor === '#FFFFFF' ? '#606060' : '#fff'};margin-bottom: 5px">Gaziantep Üniversitesi/Fen Edebiyat Fakültesi</p>
-                                <p style="font-family: Calibri;margin:0;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">Biyoloji Bölümü</p>
-                                <p style="font-family: Calibri;margin:0;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">09.2013-06.2020</p>
-                            </div>
+                            ${helper.userSchools.map((item, i) => `<div style="padding-left: 30px;padding-right: 30px;margin-top:15px">
+                                <p style="font-family: Calibri;margin:0;font-size: 19px;color:${helper.selectedCVColor === '#FFFFFF' ? '#606060' : '#fff'};margin-bottom: 0 0 5px">${item.schoolName}</p>
+                                <div style="margin-left: 20px">
+                                  <p style="font-family: Calibri;margin:0;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">${item.schoolDepartment}</p>
+                                  <p style="font-family: Calibri;margin:0;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">${item.schoolGrade}</p>
+                                  <p style="font-family: Calibri;margin:0;font-size: 15px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">${item.schoolStartDate} - ${item.schoolFinishDate}</p>
+                                </div>
+                            </div>`.trim()).join('')}
                         </div>
 
 
@@ -1627,14 +1630,14 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8v
                                 <p style="margin:0;font-size: 25px;color:${helper.selectedCVColor === '#FFFFFF' ? '#fff' : helper.selectedCVColor};font-family: Calibri">İş Deneyimi</p>
                                 <div style="width: 0;height: 0;position: absolute;right: -80px;border-color: transparent transparent transparent ${helper.selectedCVColor === '#FFFFFF' ? '#407F92' : '#fff'};border-style: solid;border-width: 20px 40px 20px 40px;"></div>
                             </div>
-                            <div style="padding-left: 30px;padding-right: 30px;margin-top:15px">
-                                <p style="font-family: Calibri;font-size: 19px;color:${helper.selectedCVColor === '#FFFFFF' ? '#606060' : '#fff'};margin: 0 0 5px;">Logo Yazılım</p>
+                            ${helper.userCompanies.map((item, i) => `<div style="padding-left: 30px;padding-right: 30px;margin-top:15px">
+                                <p style="font-family: Calibri;font-size: 19px;color:${helper.selectedCVColor === '#FFFFFF' ? '#606060' : '#fff'};margin: 0 0 5px;">${item.companyName}</p>
                                 <div style="margin-left: 20px">
-                                    <p style="font-family: Calibri;margin:2px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">Frontend Developer</p>
-                                    <p style="font-family: Calibri;margin:2px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">09.2013-06.2020</p>
-                                    <p style="font-family: Calibri;margin:2px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                                    <p style="font-family: Calibri;margin:2px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">${item.companyJob}</p>
+                                    <p style="font-family: Calibri;margin:2px;font-size: 15px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">${item.companyStartDate} - ${item.companyFinishDate}</p>
+                                    <p style="font-family: Calibri;margin:2px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">${item.companyDescription}</p>
                                 </div>
-                            </div>
+                            </div>`.trim()).join('')}
                         </div>
 
                         <div style="margin-bottom: 35px">
@@ -1642,17 +1645,17 @@ PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8v
                                 <p style="margin:0;font-size: 25px;color:${helper.selectedCVColor === '#FFFFFF' ? '#fff' : helper.selectedCVColor};font-family: Calibri">Projeler</p>
                                 <div style="width: 0;height: 0;position: absolute;right: -80px;border-color: transparent transparent transparent ${helper.selectedCVColor === '#FFFFFF' ? '#407F92' : '#fff'};border-style: solid;border-width: 20px 40px 20px 40px;"></div>
                             </div>
-                            <div style="padding-left: 30px;padding-right: 30px;margin-top:15px">
-                                <p style="font-family: Calibri;font-size: 19px;color:${helper.selectedCVColor === '#FFFFFF' ? '#606060' : '#fff'};margin: 0 0 5px;">MovieApp</p>
+                            ${helper.userProjects.map((item, i) => `<div style="padding-left: 30px;padding-right: 30px;margin-top:15px">
+                                <p style="font-family: Calibri;font-size: 19px;color:${helper.selectedCVColor === '#FFFFFF' ? '#606060' : '#fff'};margin: 0 0 5px;">${item.projectName}</p>
                                 <div style="margin-left: 20px">
-                                    <p style="font-family: Calibri;margin: 2px 2px 10px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                    <p style="font-family: Calibri;margin:2px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">Araçlar: Vue.js, Firebase, Bootstarp, Git, Vuex, Vue-Router</p>
+                                    <p style="font-family: Calibri;margin: 2px 2px 10px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">${item.projectDescription}</p>
+                                    <p style="font-family: Calibri;margin:2px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">Araçlar: ${item.projectTools}</p>
                                     <div style="display: flex;align-items: center">
                                         <img height="15px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMi4wOTIgNTEyLjA5MiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyLjA5MiA1MTIuMDkyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGNsYXNzPSIiPjxnPjxnPgoJPGc+CgkJPHBhdGggZD0iTTMxMi40NTMsMTk5LjYwMWMtNi4wNjYtNi4xMDItMTIuNzkyLTExLjUxMS0yMC4wNTMtMTYuMTI4Yy0xOS4yMzItMTIuMzE1LTQxLjU5LTE4Ljg1OS02NC40MjctMTguODU5ICAgIGMtMzEuNjk3LTAuMDU5LTYyLjEwNiwxMi41MzUtODQuNDgsMzQuOTg3TDM0Ljk0OSwzMDguMjNjLTIyLjMzNiwyMi4zNzktMzQuODksNTIuNy0zNC45MSw4NC4zMTggICAgYy0wLjA0Miw2NS45OCw1My40MSwxMTkuNTAxLDExOS4zOSwxMTkuNTQzYzMxLjY0OCwwLjExLDYyLjAyOS0xMi40MjQsODQuMzk1LTM0LjgxNmw4OS42LTg5LjYgICAgYzEuNjI4LTEuNjE0LDIuNTM3LTMuODE2LDIuNTI0LTYuMTA4Yy0wLjAyNy00LjcxMy0zLjg3LTguNTExLTguNTgzLTguNDg0aC0zLjQxM2MtMTguNzIsMC4wNjYtMzcuMjczLTMuNTI5LTU0LjYxMy0xMC41ODEgICAgYy0zLjE5NS0xLjMxNS02Ljg2Ny0wLjU3My05LjMwMSwxLjg3N2wtNjQuNDI3LDY0LjUxMmMtMjAuMDA2LDIwLjAwNi01Mi40NDIsMjAuMDA2LTcyLjQ0OCwwICAgIGMtMjAuMDA2LTIwLjAwNi0yMC4wMDYtNTIuNDQyLDAtNzIuNDQ4bDEwOC45NzEtMTA4Ljg4NWMxOS45OS0xOS45NjUsNTIuMzczLTE5Ljk2NSw3Mi4zNjMsMCAgICBjMTMuNDcyLDEyLjY3OSwzNC40ODYsMTIuNjc5LDQ3Ljk1NywwYzUuNzk2LTUuODAxLDkuMzEtMTMuNDk1LDkuODk5LTIxLjY3NUMzMjIuOTc2LDIxNi4xMDgsMzE5LjM3MSwyMDYuNTM1LDMxMi40NTMsMTk5LjYwMXoiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgc3R5bGU9ImZpbGw6IzI5OUJFOCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiPjwvcGF0aD4KCTwvZz4KPC9nPjxnPgoJPGc+CgkJPHBhdGggZD0iTTQ3Ny4wNjEsMzQuOTkzYy00Ni42NTctNDYuNjU3LTEyMi4zMDMtNDYuNjU3LTE2OC45NiwwbC04OS41MTUsODkuNDI5Yy0yLjQ1OCwyLjQ3LTMuMTY3LDYuMTg1LTEuNzkyLDkuMzg3ICAgIGMxLjM1OSwzLjIxMSw0LjUzNSw1LjI3Miw4LjAyMSw1LjIwNWgzLjE1N2MxOC42OTgtMC4wMzQsMzcuMjIxLDMuNTg5LDU0LjUyOCwxMC42NjdjMy4xOTUsMS4zMTUsNi44NjcsMC41NzMsOS4zMDEtMS44NzcgICAgbDY0LjI1Ni02NC4xNzFjMjAuMDA2LTIwLjAwNiw1Mi40NDItMjAuMDA2LDcyLjQ0OCwwYzIwLjAwNiwyMC4wMDYsMjAuMDA2LDUyLjQ0MiwwLDcyLjQ0OGwtODAuMDQzLDc5Ljk1N2wtMC42ODMsMC43NjggICAgbC0yNy45ODksMjcuODE5Yy0xOS45OSwxOS45NjUtNTIuMzczLDE5Ljk2NS03Mi4zNjMsMGMtMTMuNDcyLTEyLjY3OS0zNC40ODYtMTIuNjc5LTQ3Ljk1NywwICAgIGMtNS44MzMsNS44NDUtOS4zNSwxMy42MDYtOS44OTksMjEuODQ1Yy0wLjYyNCw5Ljc3NSwyLjk4MSwxOS4zNDgsOS44OTksMjYuMjgzYzkuODc3LDkuOTE5LDIxLjQzMywxOC4wMDgsMzQuMTMzLDIzLjg5MyAgICBjMS43OTIsMC44NTMsMy41ODQsMS41MzYsNS4zNzYsMi4zMDRjMS43OTIsMC43NjgsMy42NjksMS4zNjUsNS40NjEsMi4wNDhjMS43OTIsMC42ODMsMy42NjksMS4yOCw1LjQ2MSwxLjc5Mmw1LjAzNSwxLjM2NSAgICBjMy40MTMsMC44NTMsNi44MjcsMS41MzYsMTAuMzI1LDIuMTMzYzQuMjE0LDAuNjI2LDguNDU4LDEuMDI1LDEyLjcxNSwxLjE5NWg1Ljk3M2gwLjUxMmw1LjEyLTAuNTk3ICAgIGMxLjg3Ny0wLjA4NSwzLjg0LTAuNTEyLDYuMDU5LTAuNTEyaDIuOTAxbDUuODg4LTAuODUzbDIuNzMxLTAuNTEybDQuOTQ5LTEuMDI0aDAuOTM5YzIwLjk2MS01LjI2NSw0MC4xMDEtMTYuMTE4LDU1LjM4MS0zMS40MDMgICAgbDEwOC42MjktMTA4LjYyOUM1MjMuNzE4LDE1Ny4yOTYsNTIzLjcxOCw4MS42NSw0NzcuMDYxLDM0Ljk5M3oiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIGNsYXNzPSJhY3RpdmUtcGF0aCIgc3R5bGU9ImZpbGw6IzI5OUJFOCIgZGF0YS1vbGRfY29sb3I9IiMwMDAwMDAiPjwvcGF0aD4KCTwvZz4KPC9nPjwvZz4gPC9zdmc+" />
-                                        <p style="font-family: Calibri;margin:2px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">shokidev-movie.web.app</p>
+                                        <p style="font-family: Calibri;margin:2px;font-size: 17px;color:${helper.selectedCVColor === '#FFFFFF' ? '#7D7D7D' : '#fff'}">${item.projectDescription}</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div>`.trim()).join('')}
                         </div>
 
                         <div style="margin-bottom: 35px">
