@@ -19,6 +19,12 @@ class helper {
     userYoutubeLink = ''
     userPersonalLink = []
 
+    userName = '';
+    userTel = '';
+    userEmail = '';
+    userCity = '';
+    userJob = '';
+
     userLinks = []
     userHobbies = []
     userAbilities = []
@@ -183,6 +189,11 @@ decorate(
         userTwitterLink: observable,
         userYoutubeLink: observable,
         userPersonalLink: observable,
+        userName: observable,
+        userTel: observable,
+        userEmail: observable,
+        userCity: observable,
+        userJob: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
