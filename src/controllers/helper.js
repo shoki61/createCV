@@ -24,6 +24,11 @@ class helper {
     userEmail = '';
     userCity = '';
     userJob = '';
+    userPhoto = '';
+
+    userPostalCode = '';
+    userBirthDay = '';
+    userGender = '';
 
     userLinks = []
     userHobbies = []
@@ -194,6 +199,10 @@ decorate(
         userEmail: observable,
         userCity: observable,
         userJob: observable,
+        userPhoto: observable,
+        userPostalCode:observable,
+        userBirthDay:observable,
+        userGender:observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
