@@ -56,6 +56,8 @@ class helper {
             licence: v,
             color: color
         })
+        alert(this.userDrivingLicencies.indexOf())
+
     }
 
     setUserCommunities(v, color) {
@@ -200,9 +202,9 @@ decorate(
         userCity: observable,
         userJob: observable,
         userPhoto: observable,
-        userPostalCode:observable,
-        userBirthDay:observable,
-        userGender:observable,
+        userPostalCode: observable,
+        userBirthDay: observable,
+        userGender: observable,
 
         setUserAbilities: action,
         setUserLanguages: action,
