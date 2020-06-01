@@ -56,7 +56,6 @@ class helper {
             licence: v,
             color: color
         })
-        alert(this.userDrivingLicencies.indexOf())
 
     }
 
