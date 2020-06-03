@@ -54,6 +54,7 @@ class SignInPage extends React.Component {
                     <TextInput
                         placeholderTextColor='#c4c4c4'
                         placeholder='şifreniz...'
+                        placeholderTextColor='#fff'
                         onChangeText={(text) => this.setState({ userPassword: text })}
                         style={[styles.inputStyle, this.state.warningPassword && this.state.userPassword === '' && styles.backRed]} />
                     <TouchableOpacity onPress={() => this.signInFunc()} style={styles.loginButton}>

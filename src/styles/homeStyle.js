@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         elevation: 10,
         width: w / 2,
         height: 55,
-        borderRadius: 8,
+        borderRadius: 6,
         backgroundColor: '#3088DC',
         alignItems: 'center',
         justifyContent: 'center'
@@ -26,16 +26,22 @@ const styles = StyleSheet.create({
     loginText: {
         fontSize: 18,
         color: '#e3e3e3',
-        textDecorationLine: "underline",
-        textDecorationStyle: "solid",
-        textDecorationColor: "#f5f5f5"
+        borderColor: '#bababa',
+        borderWidth: 1,
+        paddingBottom: 3,
+        paddingTop: 3,
+        paddingLeft: 15,
+        paddingRight: 15
     },
     signInText: {
         fontSize: 18,
         color: '#e3e3e3',
-        textDecorationLine: "underline",
-        textDecorationStyle: "solid",
-        textDecorationColor: "#f5f5f5"
+        borderColor: '#bababa',
+        borderWidth: 1,
+        paddingBottom: 3,
+        paddingTop: 3,
+        paddingLeft: 15,
+        paddingRight: 15
     },
     backImage: {
         flex: 1,

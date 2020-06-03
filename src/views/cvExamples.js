@@ -22,7 +22,7 @@ class CVExamples extends React.Component {
         return (
             <View style={styles.body}>
                 <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', marginBottom: 15, alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => this.props.navigation.navigate('home')} style={{ position: 'absolute', left: 15 }}>
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ position: 'absolute', left: 15 }}>
                         <SImage width={20} source={require('../images/backIcon.png')} />
                     </TouchableOpacity>
                     <Text style={{ color: '#fff', fontSize: 20 }}>CV örnekleri</Text>

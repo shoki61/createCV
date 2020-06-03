@@ -23,13 +23,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        marginTop: 20,
-        marginBottom: 20
+        marginTop: 7
     },
     buttonStyle: {
-        width: w / 3 + 25,
-        height: 45,
-        backgroundColor: '#34d198',
+        width: w / 2,
+        height: 40,
+        backgroundColor: '#ff9157',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 100

@@ -161,13 +161,17 @@ class ShowCV extends React.Component {
         return (
             <View style={styles.body}>
                 <ScrollView contentContainerStyle={{ alignItems: "center" }}>
-                    <View style={{ elevation: 5, borderWidth: 0, marginTop: 20 }}>
+                    <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', marginBottom: 15, alignItems: 'center', justifyContent: 'center' }}>
+                        <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ position: 'absolute', left: 15 }}>
+                            <SImage width={20} source={require('../images/backIcon.png')} />
+                        </TouchableOpacity>
+                        <Text style={{ color: '#fff', fontSize: 20 }}>Renk seçenekleri</Text>
+                    </View>
+                    <View style={{ elevation: 5, borderWidth: 0 }}>
                         <SImage width={w - 60} source={helper.selectedCV} />
                     </View>
-                    <Text>
-                    </Text>
 
-                    <View style={{ flexDirection: 'row' }}>
+                    <View style={{ flexDirection: 'row', marginTop: 5 }}>
                         <TouchableOpacity onPress={() => this.changeColorCV('#2A2A2A')} style={[styles.changeColorButton, { backgroundColor: '#2A2A2A' }]}>
                             {
                                 this.state.selectedColor === '#2A2A2A' &&
@@ -207,7 +211,6 @@ class ShowCV extends React.Component {
 
                     </View>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={[styles.buttonStyle, { backgroundColor: '#40c9de' }]}><Text style={styles.buttonText}>Geri</Text></TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('cvForm')} style={styles.buttonStyle}><Text style={styles.buttonText}>İleri</Text></TouchableOpacity>
                     </View>
                 </ScrollView>
