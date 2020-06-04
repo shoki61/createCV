@@ -231,7 +231,6 @@ class CVForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            height: '',
             photoSource: null,
 
             userName: '',
@@ -250,6 +249,8 @@ class CVForm extends React.Component {
             userSchoolDepartment: '',
             userSchoolStartDate: '',
             userSchoolFinishDate: '',
+            showSchoolInput: true,
+            autoSchool: false,
 
             userJob: '',
 
@@ -258,11 +259,15 @@ class CVForm extends React.Component {
             userCompanyStartDate: '',
             userCompanyFinishDate: '',
             userCompanyDescription: '',
+            showCompanyInput: true,
+            autoCompany: false,
 
             userProjectName: '',
             userProjectTools: '',
             userProjectLink: '',
             userProjectDescription: '',
+            showProjectInput: true,
+            autoProject: false,
 
             userAbility: '',
             userAbilityLevel: '',
@@ -291,11 +296,15 @@ class CVForm extends React.Component {
             userCommunityStartDate: '',
             userCommunityFinishDate: '',
             userCommunityDescription: '',
+            showCommunityInput: true,
+            autoCommunity: false,
 
             userReferenceName: '',
             userReferenceNumber: '',
             userReferenceEmail: '',
             userReferenceCompanyName: '',
+            showReferenceInput: true,
+            autoReference: false,
 
             hidden: true,
             linksShow: true,
@@ -2263,7 +2272,7 @@ class CVForm extends React.Component {
         }
     }
     conrtolShowResultCV() {
-        if (helper.userSchools.length <= 0) {
+        if (helper.userSchools.length <= 0 || helper.userAbilities.length <= 0) {
             this.AlertPro.open();
         }
         else {
@@ -2666,6 +2675,7 @@ class CVForm extends React.Component {
                 userReferenceNumber: '',
                 userReferenceEmail: '',
                 userReferenceCompanyName: '',
+                showReferenceInput: false,
 
                 warningReferenceName: false,
                 warningReferenceTel: false,
@@ -2688,6 +2698,7 @@ class CVForm extends React.Component {
                 userProjectLink: '',
                 userProjectTools: '',
                 userProjectDescription: '',
+                showProjectInput: false,
 
                 warningProjectName: false,
                 warningProjectDescription: false
@@ -2712,6 +2723,7 @@ class CVForm extends React.Component {
                 userCompanyStartDate: '',
                 userCompanyFinishDate: '',
                 userCompanyDescription: '',
+                showCompanyInput: false,
 
                 warningCompanyName: false,
                 warningCompanyJob: false,
@@ -2738,6 +2750,7 @@ class CVForm extends React.Component {
                 userSchoolDepartment: '',
                 userSchoolStartDate: '',
                 userSchoolFinishDate: '',
+                showSchoolInput: false,
 
                 warningSchoolName: false,
                 warningSchoolDepartment: false,
@@ -2763,6 +2776,7 @@ class CVForm extends React.Component {
                 userCommunityStartDate: '',
                 userCommunityFinishDate: '',
                 userCommunityDescription: '',
+                showCommunityInput: false,
 
                 warningCommunityName: false,
                 warningCommunityTitle: false,
@@ -2798,8 +2812,9 @@ class CVForm extends React.Component {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                     <View >
                         <View style={styles.photoContainer}>
-                            <Image style={styles.photoStyle} source={this.state.photoSource === null ? require('../images/defaultPhoto.png') : this.state.photoSource} />
+                            <Image style={styles.photoStyle} source={this.state.photoSource === null ? { uri: 'https://firebasestorage.googleapis.com/v0/b/createresume-cv.appspot.com/o/defaultPhoto.png?alt=media&token=aafeaaee-88d9-4311-8981-f01dc9b59d52' } : this.state.photoSource} />
                         </View>
+                        <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/createresume-cv.appspot.com/o/defaultPhoto.png?alt=media&token=aafeaaee-88d9-4311-8981-f01dc9b59d52' }} />
 
                         <TouchableOpacity onPress={() => this.getFoto()} style={styles.selectButton}>
                             <Text style={styles.photoButtonText}>{this.state.photoSource === null ? 'Fotograf yükle' : 'Fotografı değiştir'}</Text>
@@ -2852,7 +2867,6 @@ class CVForm extends React.Component {
                 <TouchableOpacity onPress={this.askPermission.bind(this)}>
                     <Text>pdf dönüştür/////{helper.selectedOrderCV}</Text>
                 </TouchableOpacity>
-                <Text>{height}</Text>
 
 
                 <View style={{ width: '100%', alignItems: 'center' }}>
@@ -3087,6 +3101,7 @@ class CVForm extends React.Component {
                                                 <TextInput
                                                     value={this.state.userLink}
                                                     placeholder='...'
+                                                    autoFocus
                                                     onChangeText={text => { link = text; this.setState({ userLink: text }) }}
                                                     style={[styles.linkInputStyle, this.state.warningLink && link === '' && { borderColor: 'red' }]} />
                                                 <TouchableOpacity onPress={() => this.controlLink()} style={styles.linkAddButton}>
@@ -3138,108 +3153,116 @@ class CVForm extends React.Component {
                         showsVerticalScrollIndicator={false}
                     />
 
-                    <View style={{ width: '90%', alignItems: 'center', paddingTop: 10 }}>
-                        <Text style={styles.infoTitle}>Okul/Fakülte</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningSchoolName && school.schoolName === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/school.png')} />
-                            <TextInput
-                                value={this.state.userSchoolName}
-                                placeholder='...'
-                                onChangeText={(text) => { school.schoolName = text; this.setState({ userSchoolName: text }) }}
-                                style={styles.infoInput} />
+                    {
+                        !this.state.showSchoolInput &&
+                        <TouchableOpacity onPress={() => this.setState({ showSchoolInput: true, autoSchool: true })}>
+                            <SImage width={35} source={require('../images/addIcon.png')} />
+                        </TouchableOpacity>
+                    }
+                    {
+                        this.state.showSchoolInput &&
+
+                        <View style={{ width: '90%', alignItems: 'center', paddingTop: 10 }}>
+                            <Text style={styles.infoTitle}>Okul/Fakülte</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningSchoolName && school.schoolName === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/school.png')} />
+                                <TextInput
+                                    autoFocus={this.state.autoSchool}
+                                    value={this.state.userSchoolName}
+                                    placeholder='...'
+                                    onChangeText={(text) => { school.schoolName = text; this.setState({ userSchoolName: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
+
+                            <Text style={styles.infoTitle}>Bölüm</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningSchoolDepartment && school.schoolDepartment === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/department.png')} />
+                                <TextInput
+                                    placeholder='...'
+                                    value={this.state.userSchoolDepartment}
+                                    onChangeText={(text) => { school.schoolDepartment = text; this.setState({ userSchoolDepartment: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
+
+                            <Text style={styles.infoTitle}>Derece</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningSchoolGrade && school.schoolGrade === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/degree.png')} />
+
+                                <SchoolGrade />
+                            </View>
+
+
+                            <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningSchoolDate && school.schoolStartDate === '' && { borderColor: 'red' }, this.state.warningSchoolDate && school.schoolFinishDate === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/calendar.png')} />
+                                <DatePicker
+                                    androidMode='spinner'
+                                    style={[styles.infoInput, { width: 65, marginBottom: 5, padding: 0 }]}
+                                    date={this.state.userSchoolStartDate}
+                                    showIcon={false}
+                                    placeholder='aa.yyyy'
+                                    mode="date"
+                                    format="MM.YYYY"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        placeholderText: {
+                                            color: '#8D8D8D',
+                                            fontSize: 15
+                                        },
+                                        dateInput: {
+                                            borderWidth: 0
+                                        },
+                                        dateText: {
+                                            width: '100%',
+                                            color: '#8D8D8D',
+                                        }
+                                    }}
+                                    onDateChange={(date) => { school.schoolStartDate = date; this.setState({ userSchoolStartDate: date }) }}
+                                />
+                                <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
+                                <DatePicker
+                                    androidMode='spinner'
+                                    style={[styles.infoInput, { width: 100, marginBottom: 5, paddingLeft: 0 }]}
+                                    date={this.state.userSchoolFinishDate}
+                                    showIcon={false}
+                                    placeholder='aa.yyyy'
+                                    mode="date"
+                                    format="MM.YYYY"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        placeholderText: {
+                                            color: '#8D8D8D',
+                                            fontSize: 15,
+                                            width: '100%'
+                                        },
+                                        dateInput: {
+                                            borderWidth: 0,
+                                        },
+                                        dateText: {
+                                            width: '100%',
+                                            color: '#8D8D8D',
+                                            paddingLeft: 5
+                                        }
+                                    }}
+                                    onDateChange={(date) => { school.schoolFinishDate = date; this.setState({ userSchoolFinishDate: date }) }}
+                                />
+
+                            </View>
+
                         </View>
 
 
-                        <Text style={styles.infoTitle}>Bölüm</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningSchoolDepartment && school.schoolDepartment === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/department.png')} />
-                            <TextInput
-                                placeholder='...'
-                                value={this.state.userSchoolDepartment}
-                                onChangeText={(text) => { school.schoolDepartment = text; this.setState({ userSchoolDepartment: text }) }}
-                                style={styles.infoInput} />
-                        </View>
 
 
-
-
-
-                        <Text style={styles.infoTitle}>Derece</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningSchoolGrade && school.schoolGrade === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/degree.png')} />
-
-                            <SchoolGrade />
-                        </View>
-
-
-                        <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningSchoolDate && school.schoolStartDate === '' && { borderColor: 'red' }, this.state.warningSchoolDate && school.schoolFinishDate === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/calendar.png')} />
-                            <DatePicker
-                                androidMode='spinner'
-                                style={[styles.infoInput, { width: 65, marginBottom: 5, padding: 0 }]}
-                                date={this.state.userSchoolStartDate}
-                                showIcon={false}
-                                placeholder='aa.yyyy'
-                                mode="date"
-                                format="MM.YYYY"
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                customStyles={{
-                                    placeholderText: {
-                                        color: '#8D8D8D',
-                                        fontSize: 15
-                                    },
-                                    dateInput: {
-                                        borderWidth: 0
-                                    },
-                                    dateText: {
-                                        width: '100%',
-                                        color: '#8D8D8D',
-                                    }
-                                }}
-                                onDateChange={(date) => { school.schoolStartDate = date; this.setState({ userSchoolStartDate: date }) }}
-                            />
-                            <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
-                            <DatePicker
-                                androidMode='spinner'
-                                style={[styles.infoInput, { width: 100, marginBottom: 5, paddingLeft: 0 }]}
-                                date={this.state.userSchoolFinishDate}
-                                showIcon={false}
-                                placeholder='aa.yyyy'
-                                mode="date"
-                                format="MM.YYYY"
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                customStyles={{
-                                    placeholderText: {
-                                        color: '#8D8D8D',
-                                        fontSize: 15,
-                                        width: '100%'
-                                    },
-                                    dateInput: {
-                                        borderWidth: 0,
-                                    },
-                                    dateText: {
-                                        width: '100%',
-                                        color: '#8D8D8D',
-                                        paddingLeft: 5
-                                    }
-                                }}
-                                onDateChange={(date) => { school.schoolFinishDate = date; this.setState({ userSchoolFinishDate: date }) }}
-                            />
-
-                        </View>
-
-
-
-
-                    </View>
+                    }
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
                         <TouchableOpacity onPress={() => this.controlSchool()} style={[styles.linkAddButton, { marginTop: 10, right: 0 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
                         </TouchableOpacity>
                     </View>
+
                 </View>
 
                 {/*Iş deneyimi kısmı*/}
@@ -3255,99 +3278,110 @@ class CVForm extends React.Component {
                         showsVerticalScrollIndicator={false}
                     />
 
-                    <View style={{ width: '90%', alignItems: 'center' }}>
-                        <Text style={styles.infoTitle}>İş yeri</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningCompanyName && this.state.userCompanyName === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/workplace.png')} />
-                            <TextInput
-                                value={this.state.userCompanyName}
-                                placeholder='...'
-                                onChangeText={(text) => { company.companyName = text; this.setState({ userCompanyName: text }) }}
-                                style={styles.infoInput} />
+                    {
+                        !this.state.showCompanyInput &&
+                        <TouchableOpacity onPress={() => this.setState({ showCompanyInput: true, autoCompany: true })}>
+                            <SImage width={35} source={require('../images/addIcon.png')} />
+                        </TouchableOpacity>
+                    }
+                    {
+                        this.state.showCompanyInput &&
+
+                        <View style={{ width: '90%', alignItems: 'center' }}>
+                            <Text style={styles.infoTitle}>İş yeri</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningCompanyName && this.state.userCompanyName === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/workplace.png')} />
+                                <TextInput
+                                    autoFocus={this.state.autoCompany}
+                                    value={this.state.userCompanyName}
+                                    placeholder='...'
+                                    onChangeText={(text) => { company.companyName = text; this.setState({ userCompanyName: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
+
+                            <Text style={styles.infoTitle}>Meslek</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningCompanyJob && this.state.userCompanyJob === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/manager.png')} />
+                                <TextInput
+                                    placeholder='...'
+                                    value={this.state.userCompanyJob}
+                                    onChangeText={(text) => { company.companyJob = text; this.setState({ userCompanyJob: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
+
+
+                            <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningCompanyDate && this.state.userCompanyStartDate === '' && { borderColor: 'red' }, this.state.warningCompanyDate && this.state.userCompanyFinishDate === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/calendar.png')} />
+                                <DatePicker
+                                    androidMode='spinner'
+                                    style={[styles.infoInput, { width: 65, marginBottom: 5, padding: 0 }]}
+                                    date={this.state.userCompanyStartDate}
+                                    showIcon={false}
+                                    placeholder='aa.yyyy'
+                                    mode="date"
+                                    format="MM.YYYY"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        placeholderText: {
+                                            color: '#8D8D8D',
+                                            fontSize: 15
+                                        },
+                                        dateInput: {
+                                            borderWidth: 0
+                                        },
+                                        dateText: {
+                                            width: '100%',
+                                            color: '#8D8D8D',
+                                        }
+                                    }}
+                                    onDateChange={(date) => { company.companyStartDate = date; this.setState({ userCompanyStartDate: date }) }}
+                                />
+                                <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
+                                <DatePicker
+                                    androidMode='spinner'
+                                    style={[styles.infoInput, { width: 100, marginBottom: 5, paddingLeft: 0 }]}
+                                    date={this.state.userCompanyFinishDate}
+                                    showIcon={false}
+                                    placeholder='aa.yyyy'
+                                    mode="date"
+                                    format="MM.YYYY"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        placeholderText: {
+                                            color: '#8D8D8D',
+                                            fontSize: 15,
+                                            width: '100%'
+                                        },
+                                        dateInput: {
+                                            borderWidth: 0,
+                                        },
+                                        dateText: {
+                                            width: '100%',
+                                            color: '#8D8D8D',
+                                            paddingLeft: 5
+                                        }
+                                    }}
+                                    onDateChange={(date) => { company.companyFinishDate = date; this.setState({ userCompanyFinishDate: date }) }}
+                                />
+                            </View>
+
+
+                            <Text style={styles.infoTitle}>Açıklama</Text>
+                            <View style={[styles.experiencesDescInputView, this.state.warningCompanyDescription && this.state.userCompanyDescription === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/comment.png')} />
+                                <TextInput
+                                    value={this.state.userCompanyDescription}
+                                    onChangeText={(text) => { company.companyDescription = text; this.setState({ userCompanyDescription: text }) }}
+                                    multiline={true}
+                                    numberOfLines={4}
+                                    placeholder={'...'}
+                                    style={styles.descriptionInput} />
+                            </View>
                         </View>
-
-                        <Text style={styles.infoTitle}>Meslek</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningCompanyJob && this.state.userCompanyJob === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/manager.png')} />
-                            <TextInput
-                                placeholder='...'
-                                value={this.state.userCompanyJob}
-                                onChangeText={(text) => { company.companyJob = text; this.setState({ userCompanyJob: text }) }}
-                                style={styles.infoInput} />
-                        </View>
-
-
-                        <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningCompanyDate && this.state.userCompanyStartDate === '' && { borderColor: 'red' }, this.state.warningCompanyDate && this.state.userCompanyFinishDate === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/calendar.png')} />
-                            <DatePicker
-                                androidMode='spinner'
-                                style={[styles.infoInput, { width: 65, marginBottom: 5, padding: 0 }]}
-                                date={this.state.userCompanyStartDate}
-                                showIcon={false}
-                                placeholder='aa.yyyy'
-                                mode="date"
-                                format="MM.YYYY"
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                customStyles={{
-                                    placeholderText: {
-                                        color: '#8D8D8D',
-                                        fontSize: 15
-                                    },
-                                    dateInput: {
-                                        borderWidth: 0
-                                    },
-                                    dateText: {
-                                        width: '100%',
-                                        color: '#8D8D8D',
-                                    }
-                                }}
-                                onDateChange={(date) => { company.companyStartDate = date; this.setState({ userCompanyStartDate: date }) }}
-                            />
-                            <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
-                            <DatePicker
-                                androidMode='spinner'
-                                style={[styles.infoInput, { width: 100, marginBottom: 5, paddingLeft: 0 }]}
-                                date={this.state.userCompanyFinishDate}
-                                showIcon={false}
-                                placeholder='aa.yyyy'
-                                mode="date"
-                                format="MM.YYYY"
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                customStyles={{
-                                    placeholderText: {
-                                        color: '#8D8D8D',
-                                        fontSize: 15,
-                                        width: '100%'
-                                    },
-                                    dateInput: {
-                                        borderWidth: 0,
-                                    },
-                                    dateText: {
-                                        width: '100%',
-                                        color: '#8D8D8D',
-                                        paddingLeft: 5
-                                    }
-                                }}
-                                onDateChange={(date) => { company.companyFinishDate = date; this.setState({ userCompanyFinishDate: date }) }}
-                            />
-                        </View>
-
-
-                        <Text style={styles.infoTitle}>Açıklama</Text>
-                        <View style={[styles.experiencesDescInputView, this.state.warningCompanyDescription && this.state.userCompanyDescription === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/comment.png')} />
-                            <TextInput
-                                value={this.state.userCompanyDescription}
-                                onChangeText={(text) => { company.companyDescription = text; this.setState({ userCompanyDescription: text }) }}
-                                multiline={true}
-                                numberOfLines={4}
-                                placeholder={'...'}
-                                style={styles.descriptionInput} />
-                        </View>
-                    </View>
+                    }
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
                         <TouchableOpacity onPress={() => this.controlCompany()} style={[styles.linkAddButton, { marginTop: 10 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
@@ -3368,55 +3402,59 @@ class CVForm extends React.Component {
                         showsVerticalScrollIndicator={false}
                     />
 
-                    <View style={{ width: '90%', alignItems: 'center' }}>
-                        <Text style={styles.infoTitle}>Proje adı</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningProjectName && project.projectName === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/projectName.png')} />
-                            <TextInput
-                                placeholder='...'
-                                value={this.state.userProjectName}
-                                onChangeText={(text) => { project.projectName = text; this.setState({ userProjectName: text }) }}
-                                style={styles.infoInput} />
+                    {
+                        !this.state.showProjectInput &&
+                        <TouchableOpacity onPress={() => this.setState({ showProjectInput: true, autoProject: true })}>
+                            <SImage width={35} source={require('../images/addIcon.png')} />
+                        </TouchableOpacity>
+                    }
+                    {
+                        this.state.showProjectInput &&
+                        <View style={{ width: '90%', alignItems: 'center' }}>
+                            <Text style={styles.infoTitle}>Proje adı</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningProjectName && project.projectName === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/projectName.png')} />
+                                <TextInput
+                                    autoFocus={this.state.autoProject}
+                                    placeholder='...'
+                                    value={this.state.userProjectName}
+                                    onChangeText={(text) => { project.projectName = text; this.setState({ userProjectName: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
+
+                            <Text style={styles.infoTitle}>Araçlar</Text>
+                            <View style={styles.experiencesInputView}>
+                                <SImage width={23} source={require('../images/tools.png')} />
+                                <TextInput
+                                    placeholder='...'
+                                    value={this.state.userProjectTools}
+                                    onChangeText={(text) => { project.projectTools = text; this.setState({ userProjectTools: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
+
+                            <Text style={styles.infoTitle}>Link</Text>
+                            <View style={styles.experiencesInputView}>
+                                <SImage width={20} source={require('../images/linkIcon.png')} />
+                                <TextInput
+                                    placeholder='...'
+                                    value={this.state.userProjectLink}
+                                    onChangeText={(text) => { project.projectLink = text; this.setState({ userProjectLink: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
+
+                            <Text style={styles.infoTitle}>Açıklama</Text>
+                            <View style={[styles.experiencesDescInputView, this.state.warningProjectDescription && project.projectDescription === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/comment.png')} />
+                                <TextInput
+                                    value={this.state.userProjectDescription}
+                                    onChangeText={(text) => { project.projectDescription = text; this.setState({ userProjectDescription: text }) }}
+                                    multiline={true}
+                                    numberOfLines={4}
+                                    placeholder={'...'}
+                                    style={styles.descriptionInput} />
+                            </View>
                         </View>
-
-
-
-                        <Text style={styles.infoTitle}>Araçlar</Text>
-                        <View style={styles.experiencesInputView}>
-                            <SImage width={23} source={require('../images/tools.png')} />
-                            <TextInput
-                                placeholder='...'
-                                value={this.state.userProjectTools}
-                                onChangeText={(text) => { project.projectTools = text; this.setState({ userProjectTools: text }) }}
-                                style={styles.infoInput} />
-                        </View>
-
-
-
-                        <Text style={styles.infoTitle}>Link</Text>
-                        <View style={styles.experiencesInputView}>
-                            <SImage width={20} source={require('../images/linkIcon.png')} />
-                            <TextInput
-                                placeholder='...'
-                                value={this.state.userProjectLink}
-                                onChangeText={(text) => { project.projectLink = text; this.setState({ userProjectLink: text }) }}
-                                style={styles.infoInput} />
-                        </View>
-
-
-
-                        <Text style={styles.infoTitle}>Açıklama</Text>
-                        <View style={[styles.experiencesDescInputView, this.state.warningProjectDescription && project.projectDescription === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/comment.png')} />
-                            <TextInput
-                                value={this.state.userProjectDescription}
-                                onChangeText={(text) => { project.projectDescription = text; this.setState({ userProjectDescription: text }) }}
-                                multiline={true}
-                                numberOfLines={4}
-                                placeholder={'...'}
-                                style={styles.descriptionInput} />
-                        </View>
-                    </View>
+                    }
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
                         <TouchableOpacity onPress={() => this.controlProject()} style={[styles.linkAddButton, { marginTop: 10 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
@@ -3428,7 +3466,7 @@ class CVForm extends React.Component {
                 {/*Yetenekler kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
                     <SImage width={40} source={require('../images/abilityTitle.png')} />
-                    <Text style={styles.inputTitle}>Yetenekler</Text>
+                    <Text style={styles.inputTitle}>Yetenekler <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                 </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
@@ -3478,6 +3516,8 @@ class CVForm extends React.Component {
                             renderItem={data => this.setLanguage(data)}
                             showsVerticalScrollIndicator={false}
                         />
+
+
                         <View style={styles.chooseTalentContainer}>
                             <View style={{ width: '35%' }}>
                                 <Text style={styles.chooseTalentTitle}>Dil gir</Text>
@@ -3545,97 +3585,107 @@ class CVForm extends React.Component {
                         renderItem={data => this.setCommunities(data)}
                         showsVerticalScrollIndicator={false}
                     />
-                    <View style={{ width: '90%', alignItems: 'center' }}>
-                        <Text style={styles.infoTitle}>Topluluk adı</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningCommunityName && community.communityName === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/community.png')} />
-                            <TextInput
-                                placeholder='...'
-                                value={this.state.userCommunityName}
-                                onChangeText={(text) => { community.communityName = text; this.setState({ userCommunityName: text }) }}
-                                style={styles.infoInput} />
-                        </View>
+                    {
+                        !this.state.showCommunityInput &&
+                        <TouchableOpacity onPress={() => this.setState({ showCommunityInput: true, autoCommunity: true })}>
+                            <SImage width={35} source={require('../images/addIcon.png')} />
+                        </TouchableOpacity>
+                    }
+                    {
+                        this.state.showCommunityInput &&
+                        <View style={{ width: '90%', alignItems: 'center' }}>
+                            <Text style={styles.infoTitle}>Topluluk adı</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningCommunityName && community.communityName === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/community.png')} />
+                                <TextInput
+                                    autoFocus={this.state.autoCommunity}
+                                    placeholder='...'
+                                    value={this.state.userCommunityName}
+                                    onChangeText={(text) => { community.communityName = text; this.setState({ userCommunityName: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
 
-                        <Text style={styles.infoTitle}>Ünvan</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningCommunityTitle && community.communityTitle === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/manager.png')} />
-                            <TextInput
-                                placeholder='...'
-                                value={this.state.userCommunityTitle}
-                                onChangeText={(text) => { community.communityTitle = text; this.setState({ userCommunityTitle: text }) }}
-                                style={styles.infoInput} />
-                        </View>
+                            <Text style={styles.infoTitle}>Ünvan</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningCommunityTitle && community.communityTitle === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/manager.png')} />
+                                <TextInput
+                                    placeholder='...'
+                                    value={this.state.userCommunityTitle}
+                                    onChangeText={(text) => { community.communityTitle = text; this.setState({ userCommunityTitle: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
 
-                        <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningCommunityDate && community.communityStartDate === '' && { borderColor: 'red' }, this.state.warningCommunityDate && community.communityFinishDate === '' && { borderColor: 'red' }]}>
-                            <SImage width={23} source={require('../images/calendar.png')} />
-                            <DatePicker
-                                androidMode='spinner'
-                                style={[styles.infoInput, { width: 65, marginBottom: 5, padding: 0 }]}
-                                date={this.state.userCommunityStartDate}
-                                showIcon={false}
-                                placeholder='aa.yyyy'
-                                mode="date"
-                                format="MM.YYYY"
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                customStyles={{
-                                    placeholderText: {
-                                        color: '#8D8D8D',
-                                        fontSize: 15
-                                    },
-                                    dateInput: {
-                                        borderWidth: 0
-                                    },
-                                    dateText: {
-                                        width: '100%',
-                                        color: '#8D8D8D',
-                                    }
-                                }}
-                                onDateChange={(date) => { community.communityStartDate = date; this.setState({ userCommunityStartDate: date }) }}
-                            />
-                            <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
-                            <DatePicker
-                                androidMode='spinner'
-                                style={[styles.infoInput, { width: 100, marginBottom: 5, paddingLeft: 0 }]}
-                                date={this.state.userCommunityFinishDate}
-                                showIcon={false}
-                                placeholder='aa.yyyy'
-                                mode="date"
-                                format="MM.YYYY"
-                                confirmBtnText="Confirm"
-                                cancelBtnText="Cancel"
-                                customStyles={{
-                                    placeholderText: {
-                                        color: '#8D8D8D',
-                                        fontSize: 15,
-                                        width: '100%'
-                                    },
-                                    dateInput: {
-                                        borderWidth: 0,
-                                    },
-                                    dateText: {
-                                        width: '100%',
-                                        color: '#8D8D8D',
-                                        paddingLeft: 5
-                                    }
-                                }}
-                                onDateChange={(date) => { community.communityFinishDate = date; this.setState({ userCommunityFinishDate: date }) }}
-                            />
-                        </View>
+                            <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningCommunityDate && community.communityStartDate === '' && { borderColor: 'red' }, this.state.warningCommunityDate && community.communityFinishDate === '' && { borderColor: 'red' }]}>
+                                <SImage width={23} source={require('../images/calendar.png')} />
+                                <DatePicker
+                                    androidMode='spinner'
+                                    style={[styles.infoInput, { width: 65, marginBottom: 5, padding: 0 }]}
+                                    date={this.state.userCommunityStartDate}
+                                    showIcon={false}
+                                    placeholder='aa.yyyy'
+                                    mode="date"
+                                    format="MM.YYYY"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        placeholderText: {
+                                            color: '#8D8D8D',
+                                            fontSize: 15
+                                        },
+                                        dateInput: {
+                                            borderWidth: 0
+                                        },
+                                        dateText: {
+                                            width: '100%',
+                                            color: '#8D8D8D',
+                                        }
+                                    }}
+                                    onDateChange={(date) => { community.communityStartDate = date; this.setState({ userCommunityStartDate: date }) }}
+                                />
+                                <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
+                                <DatePicker
+                                    androidMode='spinner'
+                                    style={[styles.infoInput, { width: 100, marginBottom: 5, paddingLeft: 0 }]}
+                                    date={this.state.userCommunityFinishDate}
+                                    showIcon={false}
+                                    placeholder='aa.yyyy'
+                                    mode="date"
+                                    format="MM.YYYY"
+                                    confirmBtnText="Confirm"
+                                    cancelBtnText="Cancel"
+                                    customStyles={{
+                                        placeholderText: {
+                                            color: '#8D8D8D',
+                                            fontSize: 15,
+                                            width: '100%'
+                                        },
+                                        dateInput: {
+                                            borderWidth: 0,
+                                        },
+                                        dateText: {
+                                            width: '100%',
+                                            color: '#8D8D8D',
+                                            paddingLeft: 5
+                                        }
+                                    }}
+                                    onDateChange={(date) => { community.communityFinishDate = date; this.setState({ userCommunityFinishDate: date }) }}
+                                />
+                            </View>
 
-                        <Text style={styles.infoTitle}>Açıklama</Text>
-                        <View style={styles.experiencesDescInputView}>
-                            <SImage width={23} source={require('../images/comment.png')} />
-                            <TextInput
-                                value={this.state.userCommunityDescription}
-                                onChangeText={(text) => { community.communityDescription = text; this.setState({ userCommunityDescription: text }) }}
-                                multiline={true}
-                                numberOfLines={4}
-                                placeholder={'...'}
-                                style={styles.descriptionInput} />
+                            <Text style={styles.infoTitle}>Açıklama</Text>
+                            <View style={styles.experiencesDescInputView}>
+                                <SImage width={23} source={require('../images/comment.png')} />
+                                <TextInput
+                                    value={this.state.userCommunityDescription}
+                                    onChangeText={(text) => { community.communityDescription = text; this.setState({ userCommunityDescription: text }) }}
+                                    multiline={true}
+                                    numberOfLines={4}
+                                    placeholder={'...'}
+                                    style={styles.descriptionInput} />
+                            </View>
                         </View>
-                    </View>
+                    }
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
                         <TouchableOpacity onPress={() => this.controlCommunity()} style={[styles.linkAddButton, { marginTop: 10 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
@@ -3656,53 +3706,62 @@ class CVForm extends React.Component {
                         renderItem={data => this.setReferences(data)}
                         showsVerticalScrollIndicator={false}
                     />
+                    {
+                        !this.state.showReferenceInput &&
+                        <TouchableOpacity onPress={() => this.setState({ showReferenceInput: true, autoReference: true })}>
+                            <SImage width={35} source={require('../images/addIcon.png')} />
+                        </TouchableOpacity>
+                    }
+                    {
+                        this.state.showReferenceInput &&
+                        <View style={{ width: '90%', alignItems: 'center', marginTop: 40, }}>
+                            <Text style={styles.infoTitle}>İsim, soy isim</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningReferenceName && reference.name === '' && { borderColor: 'red' }]}>
+                                <SImage width={20} source={require('../images/userForm.png')} />
+                                <TextInput
+                                    autoFocus={this.state.autoReference}
+                                    placeholder='...'
+                                    value={this.state.userReferenceName}
+                                    onChangeText={(text) => { reference.name = text; this.setState({ userReferenceName: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
 
-                    <View style={{ width: '90%', alignItems: 'center', marginTop: 40, }}>
-                        <Text style={styles.infoTitle}>İsim, soy isim</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningReferenceName && reference.name === '' && { borderColor: 'red' }]}>
-                            <SImage width={20} source={require('../images/userForm.png')} />
-                            <TextInput
-                                placeholder='...'
-                                value={this.state.userReferenceName}
-                                onChangeText={(text) => { reference.name = text; this.setState({ userReferenceName: text }) }}
-                                style={styles.infoInput} />
+
+                            <Text style={styles.infoTitle}>Telefon numarası</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningReferenceTel && reference.tel === '' && { borderColor: 'red' }]}>
+                                <SImage width={20} source={require('../images/phone.png')} />
+                                <TextInput
+                                    placeholder='...'
+                                    keyboardType='numeric'
+                                    value={this.state.userReferenceNumber}
+                                    onChangeText={(text) => { reference.tel = text; this.setState({ userReferenceNumber: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
+
+
+                            <Text style={styles.infoTitle}>E-posta</Text>
+                            <View style={[styles.experiencesInputView, this.state.warningReferenceEmail && reference.email === '' && { borderColor: 'red' }]}>
+                                <SImage width={20} source={require('../images/mail.png')} />
+                                <TextInput
+                                    placeholder='...'
+                                    keyboardType='email-address'
+                                    value={this.state.userReferenceEmail}
+                                    onChangeText={(text) => { reference.email = text; this.setState({ userReferenceEmail: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
+
+
+                            <Text style={styles.infoTitle}>İş yeri</Text>
+                            <View style={styles.experiencesInputView}>
+                                <SImage width={20} source={require('../images/workplace.png')} />
+                                <TextInput
+                                    placeholder='...'
+                                    value={this.state.userReferenceCompanyName}
+                                    onChangeText={(text) => { reference.companyName = text; this.setState({ userReferenceCompanyName: text }) }}
+                                    style={styles.infoInput} />
+                            </View>
                         </View>
-
-
-                        <Text style={styles.infoTitle}>Telefon numarası</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningReferenceTel && reference.tel === '' && { borderColor: 'red' }]}>
-                            <SImage width={20} source={require('../images/phone.png')} />
-                            <TextInput
-                                placeholder='...'
-                                keyboardType='numeric'
-                                value={this.state.userReferenceNumber}
-                                onChangeText={(text) => { reference.tel = text; this.setState({ userReferenceNumber: text }) }}
-                                style={styles.infoInput} />
-                        </View>
-
-
-                        <Text style={styles.infoTitle}>E-posta</Text>
-                        <View style={[styles.experiencesInputView, this.state.warningReferenceEmail && reference.email === '' && { borderColor: 'red' }]}>
-                            <SImage width={20} source={require('../images/mail.png')} />
-                            <TextInput
-                                placeholder='...'
-                                keyboardType='email-address'
-                                value={this.state.userReferenceEmail}
-                                onChangeText={(text) => { reference.email = text; this.setState({ userReferenceEmail: text }) }}
-                                style={styles.infoInput} />
-                        </View>
-
-
-                        <Text style={styles.infoTitle}>İş yeri</Text>
-                        <View style={styles.experiencesInputView}>
-                            <SImage width={20} source={require('../images/workplace.png')} />
-                            <TextInput
-                                placeholder='...'
-                                value={this.state.userReferenceCompanyName}
-                                onChangeText={(text) => { reference.companyName = text; this.setState({ userReferenceCompanyName: text }) }}
-                                style={styles.infoInput} />
-                        </View>
-                    </View>
+                    }
                     <View style={{ width: '90%', alignItems: 'flex-end' }}>
                         <TouchableOpacity onPress={() => this.controlReference()} style={[styles.linkAddButton, { marginTop: 10 }]}>
                             <Text style={styles.buttonText}>Ekle</Text>
