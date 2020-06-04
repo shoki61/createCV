@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#399EFF',
         alignItems: 'center',
         borderRadius: 5,
-        marginTop: 10,
+        marginTop: 20,
         marginBottom: 10,
         elevation: 5,
     },
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     downloadText: {
         margin: 5,
         marginBottom: 10,
-        fontSize: 15,
+        fontSize: 18,
         color: '#12A3D0'
     },
 
@@ -344,6 +344,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#6E6E6E',
         paddingLeft: 10,
+        paddingRight: 5,
         textAlignVertical: 'center'
     },
     selectHobbyButton: {
@@ -355,7 +356,7 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     referansText: {
-        width: '100%',
+        width: '38%',
         borderRadius: 3,
         borderWidth: 1,
         borderColor: '#DADADA',

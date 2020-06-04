@@ -34,9 +34,6 @@ class CVExamples extends React.Component {
                         <TouchableOpacity onPress={() => this.goSelectedColor(require('../images/cvExamplesImg/templateCV3.png'), 3)}><SImage width={160} style={{ margin: 10 }} source={require('../images/cvExamplesImg/templateCV3.png')} /></TouchableOpacity>
                         <TouchableOpacity onPress={() => this.goSelectedColor(require('../images/cvExamplesImg/templateCV4.png'), 4)}><SImage width={160} style={{ margin: 10 }} source={require('../images/cvExamplesImg/templateCV4.png')} /></TouchableOpacity>
                         <SImage style={{ margin: 10 }} source={require('../images/yakındaResim.png')} width={160} />
-                        <SImage style={{ margin: 10 }} source={require('../images/yakındaResim.png')} width={160} />
-                        <SImage style={{ margin: 10 }} source={require('../images/yakındaResim.png')} width={160} />
-                        <SImage style={{ margin: 10 }} source={require('../images/yakındaResim.png')} width={160} />
                     </View>
                 </ScrollView>
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList, } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList, SafeAreaView, } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
 import ImagePicker from 'react-native-image-picker';
@@ -11,11 +11,7 @@ import AlertPro from "react-native-alert-pro";
 import styles from '../styles/cvFormStyle';
 import helper from '../controllers/helper';
 
-import CV1 from '../views/convertCV1';
-import CV2 from '../views/convertCV2';
-import CV3 from '../views/convertCV3';
-import CV4 from '../views/convertCV4';
-import convertCV1 from '../views/convertCV1';
+const h = Dimensions.get('window').height;
 
 
 class Example extends React.Component {
@@ -199,7 +195,6 @@ function SchoolGrade() {
     )
 }
 
-let height = ''
 
 class CVForm extends React.Component {
 
@@ -232,6 +227,7 @@ class CVForm extends React.Component {
         super(props);
         this.state = {
             photoSource: null,
+            filePath: '',
 
             userName: '',
             userNumber: '',
@@ -310,8 +306,8 @@ class CVForm extends React.Component {
             linksShow: true,
             selectedLinkIcon: '',
             showPersonalInformation: false,
-            showExperiences: true,
-            showResultCV: false,
+            showExperiences: false,
+            showResultCV: true,
 
             minDate: '01-01-1950',
             maxDate: '01-01-2016',
@@ -2251,7 +2247,7 @@ class CVForm extends React.Component {
 
         let file = await RNHTMLtoPDF.convert(options);
         this.setState({ filePath: file.filePath });
-        alert(this.state.filePath)
+        //alert(this.state.filePath)
 
 
     }
@@ -2394,20 +2390,23 @@ class CVForm extends React.Component {
         return (
             <View style={{ width: '100%', borderBottomColor: 'lightgrey', borderBottomWidth: 1, paddingBottom: 10, marginBottom: 10, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 10, paddingLeft: 15, paddingRight: 15 }}>
                 <Text style={[styles.SchoolListNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
-                <View style={{ width: '36%' }}>
-                    <Text style={styles.referansText} numberOfLines={1} >{item.item.name}</Text>
-                    <Text style={styles.referansText} numberOfLines={1} >{item.item.tel}</Text>
+                <View style={{ width: '100%' }}>
+                    <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                        <Text style={[styles.referansText, { width: '49%' }]} numberOfLines={1} >{item.item.name}</Text>
+                        <Text style={[styles.referansText, { width: '49%' }]} numberOfLines={1} >{item.item.tel}</Text>
+                    </View>
+                    <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between' }}>
+                        {
+                            item.item.companyName !== '' &&
+                            <Text style={styles.referansText} numberOfLines={1} >{item.item.companyName}</Text>
+                        }
+                        <Text style={[styles.referansText, item.item.companyName === '' && { width: '78%' }]} numberOfLines={1} >{item.item.email}</Text>
+                        <TouchableOpacity onPress={() => this.removeReference(item)} style={[styles.removeAbilityButton, { marginTop: 7 }]}>
+                            <Text style={styles.buttonText}>Çıkar</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={{ width: '36%' }}>
-                    {
-                        item.item.companyName !== '' &&
-                        <Text style={styles.referansText} numberOfLines={1} >{item.item.companyName}</Text>
-                    }
-                    <Text style={styles.referansText} numberOfLines={1} >{item.item.email}</Text>
-                </View>
-                <TouchableOpacity onPress={() => this.removeReference(item)} style={styles.removeAbilityButton}>
-                    <Text style={styles.buttonText}>Çıkar</Text>
-                </TouchableOpacity>
+
             </View>
         )
     }
@@ -2425,7 +2424,7 @@ class CVForm extends React.Component {
         return (
             <View style={styles.abilityContainer}>
                 <Text style={[styles.listNumber, { left: 0, backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
-                <Text style={styles.hobbyText}>{item.item.hobby}</Text>
+                <Text style={styles.hobbyText} numberOfLines={1}>{item.item.hobby}</Text>
                 <TouchableOpacity onPress={() => this.removeHobby(item)} style={styles.removeAbilityButton}>
                     <Text style={styles.buttonText}>Çıkar</Text>
                 </TouchableOpacity>
@@ -2436,7 +2435,7 @@ class CVForm extends React.Component {
         return (
             <View style={styles.abilityContainer}>
                 <Text style={[styles.listNumber, { left: 0, backgroundColor: v.item.listNumberColor }]}>{v.index + 1}</Text>
-                <Text style={styles.abilityText}>{v.item.name}</Text>
+                <Text style={styles.abilityText} numberOfLines={1}>{v.item.name}</Text>
                 <Text style={styles.abilityGradeText}>{v.item.level}</Text>
                 <TouchableOpacity onPress={() => this.removeAbility(v)} style={styles.removeAbilityButton}>
                     <Text style={styles.buttonText}>Çıkar</Text>
@@ -2448,7 +2447,7 @@ class CVForm extends React.Component {
         return (
             <View style={styles.abilityContainer}>
                 <Text style={[styles.listNumber, { left: 0, backgroundColor: v.item.listNumberColor }]}>{v.index + 1}</Text>
-                <Text style={styles.abilityText}>{v.item.name}</Text>
+                <Text style={styles.abilityText} numberOfLines={1}>{v.item.name}</Text>
                 <Text style={styles.abilityGradeText}>{v.item.level}</Text>
                 <TouchableOpacity onPress={() => this.removeLanguage(v)} style={styles.removeAbilityButton}>
                     <Text style={styles.buttonText}>Çıkar</Text>
@@ -2478,7 +2477,14 @@ class CVForm extends React.Component {
                 <Text style={[styles.SchoolListNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyName}</Text>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyJob}</Text>
-                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.companyDescription}</Text>
+                <ScrollView style={{
+                    width: '90%',
+                    borderRadius: 3,
+                    borderWidth: 1,
+                    borderColor: '#DADADA',
+                    padding: 10,
+                    marginBottom: 10,
+                }}><Text style={{ textAlignVertical: 'top', color: '#6b6b6b' }}>{item.item.companyDescription}</Text></ScrollView>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
                     <Text style={[styles.schoolInfoText, { width: '75%' }]}>{item.item.companyStartDate} / {item.item.companyFinishDate}</Text>
                     <TouchableOpacity onPress={() => this.removeCompany(item)} style={styles.removeAbilityButton}>
@@ -2497,11 +2503,18 @@ class CVForm extends React.Component {
                     item.item.projectTools !== '' &&
                     <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectTools}</Text>
                 }
-                <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.projectDescription}</Text>
+                <ScrollView style={{
+                    width: '90%',
+                    borderRadius: 3,
+                    borderWidth: 1,
+                    borderColor: '#DADADA',
+                    padding: 10,
+                    marginBottom: 10,
+                }}><Text style={{ textAlignVertical: 'top', color: '#6b6b6b' }}>{item.item.projectDescription}</Text></ScrollView>
                 <View style={[{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }, item.item.projectLink === '' && { justifyContent: 'flex-end', paddingBottom: 10 }]}>
                     {
                         item.item.projectLink !== '' &&
-                        <Text style={[styles.schoolInfoText, { width: '75%' }]}>{item.item.projectLink}</Text>
+                        <Text style={[styles.schoolInfoText, { width: '75%' }]} numberOfLines={1}>{item.item.projectLink}</Text>
                     }
                     <TouchableOpacity onPress={() => this.removeProject(item)} style={styles.removeAbilityButton}>
                         <Text style={styles.buttonText}>Çıkar</Text>
@@ -2518,7 +2531,14 @@ class CVForm extends React.Component {
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityTitle}</Text>
                 {
                     item.item.communityDescription !== '' &&
-                    <Text style={[styles.schoolInfoText, { textAlignVertical: 'top', height: 80, paddingTop: 7 }]}>{item.item.communityDescription}</Text>
+                    <ScrollView style={{
+                        width: '90%',
+                        borderRadius: 3,
+                        borderWidth: 1,
+                        borderColor: '#DADADA',
+                        padding: 10,
+                        marginBottom: 10,
+                    }}><Text style={{ textAlignVertical: 'top', color: '#6b6b6b' }}>{item.item.communityDescription}</Text></ScrollView>
                 }
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '90%' }}>
                     <Text style={[styles.schoolInfoText, { width: '75%' }]}>{item.item.communityStartDate} / {item.item.communityFinishDate}</Text>
@@ -3784,18 +3804,23 @@ class CVForm extends React.Component {
 
     renderResultCV() {
         return (
-            <View style={{ width: '100%', marginTop: 60, alignItems: 'center' }}>
-                <View style={{ width: 280, height: 380, backgroundColor: '#3ef08b', marginBottom: 10 }}>
+            <View style={{ marginTop: 100, alignItems: 'center', height: 500 }}>
 
-                </View>
+                <Text style={{ fontSize: 40, margin: 30, color: '#1b84a1' }}>CV'niz hazır</Text>
 
-                <TouchableOpacity style={styles.downloadButton}>
-                    <SImage width={40} source={require('../images/download.png')} />
-                    <Text style={styles.downloadText}>PDF oarak indir</Text>
+                <TouchableOpacity style={styles.downloadButton} onPress={this.askPermission.bind(this)}>
+                    <SImage width={45} source={require('../images/download.png')} />
+                    <Text style={styles.downloadText}>Kaydet</Text>
                 </TouchableOpacity>
+                {
+                    this.state.filePath !== '' &&
+                    <View style={{ alignItems: 'center', marginBottom: 130, marginTop: 30 }}>
+                        <Text>CV'niz başarılı bir şekilde oluştu.</Text>
+                        <Text> Dosya yolu: {this.state.filePath}</Text>
+                    </View>
+                }
 
-
-                <TouchableOpacity onPress={() => this.showExperiences()} style={styles.selectButton}>
+                <TouchableOpacity onPress={() => this.showExperiences()} style={[styles.selectButton, { position: 'absolute', bottom: 10 }]}>
                     <Text style={styles.buttonText}>Geri</Text>
                 </TouchableOpacity>
 
@@ -3808,7 +3833,7 @@ class CVForm extends React.Component {
     render() {
         return (
             <ScrollView style={{ backgroundColor: '#fff' }}>
-                <View style={{ alignItems: 'center', backgroundColor: '#fff' }}>
+                <View style={{ alignItems: 'center' }}>
                     {this.renderProgressBar()}
                     {
                         this.state.showPersonalInformation &&
