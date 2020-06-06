@@ -4,8 +4,7 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
     progressBarView: {
         width: 330,
-        backgroundColor: '#399EFF',
-        height: 5,
+        backgroundColor: 'grey',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -14,10 +13,12 @@ const styles = StyleSheet.create({
     progressBarIconContainer: {
         width: 40,
         height: 40,
+        position: 'absolute',
         borderRadius: 100,
         backgroundColor: '#399EFF',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        zIndex: 100
     },
     photoContainer: {
         width: 120,
@@ -44,21 +45,17 @@ const styles = StyleSheet.create({
         padding: 8,
         backgroundColor: '#399EFF',
         alignItems: 'center',
-        borderRadius: 5,
-        marginTop: 20,
-        marginBottom: 10,
-        elevation: 5,
+        marginTop: 10
     },
     removeButton: {
         width: 120,
         padding: 8,
-        backgroundColor: '#FC4B4B',
+        backgroundColor: '#ff6969',
         alignItems: 'center',
-        borderRadius: 5,
-        elevation: 5
+        marginTop: 10
     },
     inputTitle: {
-        color: '#399EFF',
+        color: '#6a6a6a',
         width: '90%',
         fontSize: 25,
         marginLeft: 10,
@@ -75,8 +72,8 @@ const styles = StyleSheet.create({
     },
 
     inputView: {
-        borderRadius: 5,
-        elevation: 3,
+        borderRadius: 3,
+        elevation: 2,
         backgroundColor: '#fff',
         marginBottom: 15,
         height: 35,
@@ -223,10 +220,9 @@ const styles = StyleSheet.create({
     linkAddButton: {
         width: '25%',
         height: 35,
-        backgroundColor: '#399EFF',
+        backgroundColor: '#4a4a4a',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 3
     },
     linkInputStyle: {
         borderRadius: 3,
@@ -289,10 +285,9 @@ const styles = StyleSheet.create({
     removeAbilityButton: {
         width: '20%',
         height: 35,
-        backgroundColor: '#FC4B4B',
+        backgroundColor: '#ff6969',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 5
     },
     chooseTalentContainer: {
         width: '100%',
@@ -326,10 +321,9 @@ const styles = StyleSheet.create({
     selectAbilityButton: {
         width: '20%',
         height: 35,
-        backgroundColor: '#399EFF',
+        backgroundColor: '#4a4a4a',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 5
     },
     chooseTalentTitle: {
         color: '#8D8D8D',
@@ -350,10 +344,9 @@ const styles = StyleSheet.create({
     selectHobbyButton: {
         width: '25%',
         height: 35,
-        backgroundColor: '#399EFF',
+        backgroundColor: '#4a4a4a',
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 5
     },
     referansText: {
         width: '38%',

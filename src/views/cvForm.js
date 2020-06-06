@@ -6,6 +6,7 @@ import ImagePicker from 'react-native-image-picker';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
 import { observer } from 'mobx-react';
 import AlertPro from "react-native-alert-pro";
+import { ProgressSteps, ProgressStep } from 'react-native-progress-steps';
 
 
 import styles from '../styles/cvFormStyle';
@@ -194,7 +195,32 @@ function SchoolGrade() {
         </View>
     )
 }
-
+const progressSteps = {
+    borderWidth: 4,
+    activeStepIconBorderColor: '#616161',
+    completedProgressBarColor: '#616161',
+    activeStepIconColor: '#fff',
+    activeLabelColor: '#616161',
+    completedLabelColor: '#616161',
+    completedStepIconColor: '#616161',
+    activeStepNumColor: '#616161',
+    topOffset: 20
+};
+const progressStep = {
+    nextBtnText: 'Sonraki  >',
+    previousBtnText: '<  Önceki',
+    finishBtnText: 'Kaydet',
+    nextBtnStyle: `${helper.username === '' || helper.userTel === '' || helper.userJob === '' ? styles.displayNone : styles.selectButton}`,
+    previousBtnStyle: styles.selectButton,
+    nextBtnTextStyle: styles.buttonText,
+    previousBtnTextStyle: styles.buttonText,
+};
+const firstProgressStep = {
+    ...progressStep,
+    previousBtnStyle: {
+        display: 'none',
+    },
+};
 
 class CVForm extends React.Component {
 
@@ -305,9 +331,9 @@ class CVForm extends React.Component {
             hidden: true,
             linksShow: true,
             selectedLinkIcon: '',
-            showPersonalInformation: false,
+            showPersonalInformation: true,
             showExperiences: false,
-            showResultCV: true,
+            showResultCV: false,
 
             minDate: '01-01-1950',
             maxDate: '01-01-2016',
@@ -347,12 +373,6 @@ class CVForm extends React.Component {
             color: '#47ceff',
         }
     }
-
-
-
-
-
-
     ///////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////
     askPermission() {
@@ -2285,13 +2305,17 @@ class CVForm extends React.Component {
     renderProgressBar() {
         return (
             <View style={styles.progressBarView}>
-                <View style={[styles.progressBarIconContainer, this.state.showPersonalInformation && { width: 65, height: 65, borderWidth: 3, borderColor: '#fff', elevation: 20 }]}>
-                    <SImage width={this.state.showPersonalInformation ? 35 : 20} source={require('../images/userProgressBar.png')} />
+                <View style={[styles.progressBarIconContainer, this.state.showPersonalInformation ? { width: 65, height: 65, borderWidth: 3, borderColor: '#fff', elevation: 20, top: -30 } : { top: -18 }]}>
+                    <SImage width={this.state.showPersonalInformation ? 35 : 20} source={`${helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '' || this.state.showPersonalInformation ? require('../images/userProgressBar.png') : require('../images/checkIcon.png')}`} />
                 </View>
-                <View style={[styles.progressBarIconContainer, this.state.showExperiences && { width: 65, height: 65, borderWidth: 3, borderColor: '#fff', elevation: 20 }]}>
-                    <SImage width={this.state.showExperiences ? 35 : 20} source={require('../images/cvProgressBar.png')} />
+                <View style={[{ width: '50%', height: 5 }, helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '' ? { backgroundColor: '#e0e0e0' } : { backgroundColor: '#399eff' }]}>
+                </View>
+                <View style={[styles.progressBarIconContainer, this.state.showExperiences ? { width: 65, height: 65, borderWidth: 3, borderColor: '#fff', elevation: 20, top: -30, left: '40%' } : { top: -18, left: '45%' }, helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '' ? { backgroundColor: '#e0e0e0' } : {}]}>
+                    <SImage width={this.state.showExperiences ? 35 : 20} source={`${helper.userSchools.length <= 0 || helper.userAbilities.length <= 0 || this.state.showExperiences ? require('../images/cvProgressBar.png') : require('../images/checkIcon.png')}`} />
                 </View >
-                <View style={[styles.progressBarIconContainer, this.state.showResultCV && { width: 65, height: 65, borderWidth: 3, borderColor: '#fff', elevation: 20 }]}>
+
+                <View style={[{ width: '50%', height: 5 }, helper.userSchools.length <= 0 || helper.userAbilities.length <= 0 ? { backgroundColor: '#e0e0e0' } : { backgroundColor: '#399eff' }]}></View>
+                <View style={[styles.progressBarIconContainer, this.state.showResultCV ? { width: 65, height: 65, borderWidth: 3, borderColor: '#fff', elevation: 25, top: -30, right: 0 } : { top: -18, right: 0 }, helper.userSchools.length <= 0 || helper.userAbilities.length <= 0 ? { backgroundColor: '#e0e0e0' } : {}]}>
                     <SImage width={this.state.showResultCV ? 30 : 17} source={require('../images/downloadProgressBar.png')} />
                 </View>
             </View>
@@ -2311,6 +2335,19 @@ class CVForm extends React.Component {
             });
             helper.userLinks = [];
             helper.userDrivingLicencies = [];
+            helper.userBirthDay = '';
+            helper.userGender = '';
+            helper.userGithubLink = '';
+            helper.userLinkedInLink = '';
+            helper.userPinterestLink = '';
+            helper.userInstagramLink = '';
+            helper.userSkypeLink = '';
+            helper.userTwitterLink = '';
+            helper.userFacebookLink = '';
+            helper.userTelegramLink = '';
+            helper.userYoutubeLink = '';
+            helper.userPersonalLink = [];
+            linkIcon = [];
             licence = [];
         }
     }
@@ -2567,7 +2604,6 @@ class CVForm extends React.Component {
         this.setState({ userHobby: hobby })
     }
     removeDrivingLicence(v) {
-        alert(JSON.stringify(v))
         helper.userDrivingLicencies.splice(v.index, 1)
         licence = helper.userDrivingLicencies.map(el => el.licence);
         this.setState({ userDrivingLicence: '' })
@@ -2608,9 +2644,6 @@ class CVForm extends React.Component {
     }
     ///////////////////////////////////////////////////
     //////////////////////////////////////////////////
-
-
-
     ///////listeye ekleyen fonksyonlar//////////////
     controlLink() {
         if (link === '') {
@@ -2816,7 +2849,6 @@ class CVForm extends React.Component {
     }
     /////////////////////////////////////////////////
     ////////////////////////////////////////////////
-
     changeLinksShow(v, iCV) {
         this.setState({
             linksShow: !this.state.linksShow,
@@ -2899,7 +2931,7 @@ class CVForm extends React.Component {
                             placeholder='...'
                             style={[styles.inputStyle, { width: '90%', paddingLeft: 10 }]} />
                     </View>
-                    <Text>{helper.selectedCVColor}</Text>
+
                     <Text style={styles.inputTitle}>Şehir/ilçe <Text style={[styles.inputTitle, { color: '#ff4f4f' }]}>*</Text></Text>
                     <View style={[styles.inputView, { width: '90%' }]}>
                         <SImage width={20} source={require('../images/pin.png')} />
@@ -2922,7 +2954,7 @@ class CVForm extends React.Component {
                     </View>
 
                     {
-                        this.state.hidden === true &&
+                        this.state.hidden === false &&
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <Text style={styles.inputTitle}>Doğum tarihi</Text>
                             <DatePicker
@@ -3057,6 +3089,7 @@ class CVForm extends React.Component {
 
                             <Text style={styles.inputTitle}>Linkler</Text>
                             <View style={styles.linksContainer}>
+                                <Text>{linkIcon}</Text>
                                 <FlatList
                                     style={[{ width: '100%' }, helper.userLinks.length > 0 && { borderBottomColor: '#DADADA', borderBottomWidth: 1, marginBottom: 10 }]}
                                     data={helper.userLinks}
@@ -3070,41 +3103,41 @@ class CVForm extends React.Component {
                                         <View style={{ width: '100%', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
                                             {
                                                 !linkIcon.includes('github') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/github.png'), 'github')} style={{ width: 50, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/github.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/github.png'), 'github')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/github.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('linkedin') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/linkedin.png'), 'linkedin')} style={{ width: 50, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/linkedin.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/linkedin.png'), 'linkedin')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/linkedin.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('pinterest') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/pinterest.png'), 'pinterest')} style={{ width: 50, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/pinterest.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/pinterest.png'), 'pinterest')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/pinterest.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('instagram') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/instagram.png'), 'instagram')} style={{ width: 50, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/instagram.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/instagram.png'), 'instagram')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/instagram.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('skype') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/skype.png'), 'skype')} style={{ width: 50, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/skype.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/skype.png'), 'skype')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/skype.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('telegram') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/telegram.png'), 'telegram')} style={{ width: 50, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/telegram.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/telegram.png'), 'telegram')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/telegram.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('facebook') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/facebook.png'), 'facebook')} style={{ width: 50, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/facebook.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/facebook.png'), 'facebook')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/facebook.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('twitter') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/twitter.png'), 'twitter')} style={{ width: 50, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/twitter.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/twitter.png'), 'twitter')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/twitter.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('youtube') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/youtube.png'), 'youtube')} style={{ width: 50, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/youtube.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/youtube.png'), 'youtube')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/youtube.png')} /></TouchableOpacity>
                                             }
-                                            <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/link.png'), 'link')} style={{ width: 40, height: 40, borderRadius: 3, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={20} source={require('../images/plus.png')} /></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/link.png'), 'link')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={20} source={require('../images/plus.png')} /></TouchableOpacity>
 
                                         </View>
                                     }
@@ -3152,7 +3185,6 @@ class CVForm extends React.Component {
             </View >
         )
     }
-
 
     renderExperiences() {
 
@@ -3564,7 +3596,7 @@ class CVForm extends React.Component {
                 {/*Ilgi alanı kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, marginTop: 15 }}>
                     <SImage width={40} source={require('../images/heart.png')} />
-                    <Text style={styles.inputTitle}>İlgi alanı</Text>
+                    <Text style={styles.inputTitle}>İlgi alanları</Text>
                 </View>
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
@@ -3806,17 +3838,21 @@ class CVForm extends React.Component {
         return (
             <View style={{ marginTop: 100, alignItems: 'center', height: 500 }}>
 
-                <Text style={{ fontSize: 40, margin: 30, color: '#1b84a1' }}>CV'niz hazır</Text>
+                <Text style={{ fontSize: 40, margin: 40, color: '#1b84a1' }}>CV'niz hazır</Text>
 
                 <TouchableOpacity style={styles.downloadButton} onPress={this.askPermission.bind(this)}>
                     <SImage width={45} source={require('../images/download.png')} />
-                    <Text style={styles.downloadText}>Kaydet</Text>
+                    <Text style={styles.downloadText}>
+                        {
+                            this.state.filePath === '' ? 'Kaydet' : 'Tekrar kaydet'
+                        }
+                    </Text>
                 </TouchableOpacity>
                 {
                     this.state.filePath !== '' &&
                     <View style={{ alignItems: 'center', marginBottom: 130, marginTop: 30 }}>
-                        <Text>CV'niz başarılı bir şekilde oluştu.</Text>
-                        <Text> Dosya yolu: {this.state.filePath}</Text>
+                        <Text style={{ fontSize: 18, color: '#6b6b6b' }}>CV'niz başarılı bir şekilde oluştu.</Text>
+                        <Text style={{ fontSize: 15, color: '#6b6b6b' }}> Dosya yolu: {this.state.filePath}</Text>
                     </View>
                 }
 
@@ -3827,8 +3863,6 @@ class CVForm extends React.Component {
             </View>
         )
     }
-
-
 
     render() {
         return (
@@ -3873,7 +3907,7 @@ class CVForm extends React.Component {
                             color: '#545454',
                         },
                         buttonConfirm: {
-                            backgroundColor: 'green',
+                            backgroundColor: '#37cc75',
                         },
                         message: {
                             color: '#2f6478',
@@ -3881,7 +3915,6 @@ class CVForm extends React.Component {
                     }}
                 />
             </ScrollView>
-
         )
     }
 }
