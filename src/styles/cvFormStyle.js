@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         width: 120,
         height: 120,
         borderRadius: 100,
-        elevation: 15
+        elevation: 3
     },
     photoStyle: {
         flex: 1,
@@ -55,9 +55,9 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     inputTitle: {
-        color: '#6a6a6a',
+        color: '#399EFF',
         width: '90%',
-        fontSize: 25,
+        fontSize: 23,
         marginLeft: 10,
     },
 
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
     linkAddButton: {
         width: '25%',
         height: 35,
-        backgroundColor: '#4a4a4a',
+        backgroundColor: '#399eff',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -321,7 +321,7 @@ const styles = StyleSheet.create({
     selectAbilityButton: {
         width: '20%',
         height: 35,
-        backgroundColor: '#4a4a4a',
+        backgroundColor: '#399eff',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -344,7 +344,7 @@ const styles = StyleSheet.create({
     selectHobbyButton: {
         width: '25%',
         height: 35,
-        backgroundColor: '#4a4a4a',
+        backgroundColor: '#399eff',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -399,7 +399,15 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
 
-
+    upButton: {
+        width: 45,
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 100,
+        backgroundColor: '#399EFF',
+        marginRight: 50
+    }
 
 })
 
