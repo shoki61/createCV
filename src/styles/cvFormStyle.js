@@ -1,4 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Dimensions } from 'react-native';
+
+const w = Dimensions.get('window').width;
 
 
 const styles = StyleSheet.create({
@@ -41,14 +43,28 @@ const styles = StyleSheet.create({
         fontSize: 13
     },
     selectButton: {
-        width: 120,
+        width: '100%',
+        padding: 8,
+        backgroundColor: '#399EFF',
+        alignItems: 'center',
+        marginTop: 10
+    },
+    nextButton: {
+        width: '30%',
+        padding: 8,
+        backgroundColor: '#399EFF',
+        alignItems: 'center',
+        marginTop: 10
+    },
+    previousButton: {
+        width: '30%',
         padding: 8,
         backgroundColor: '#399EFF',
         alignItems: 'center',
         marginTop: 10
     },
     removeButton: {
-        width: 120,
+        width: '100%',
         padding: 8,
         backgroundColor: '#ff6969',
         alignItems: 'center',
@@ -237,7 +253,7 @@ const styles = StyleSheet.create({
     },
 
     infoContainer: {
-        width: '90%',
+        width: '95%',
         borderRadius: 10,
         elevation: 8,
         backgroundColor: '#fff',
@@ -387,7 +403,7 @@ const styles = StyleSheet.create({
     },
 
     drivingLicence: {
-        width: 70,
+        width: w / 6,
         height: 35,
         borderRadius: 100,
         borderColor: 'grey',

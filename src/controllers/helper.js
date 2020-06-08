@@ -24,9 +24,7 @@ class helper {
     userEmail = '';
     userCity = '';
     userJob = '';
-    userPhoto = {
-        uri: 'https://firebasestorage.googleapis.com/v0/b/createresume-cv.appspot.com/o/defaultPhoto.png?alt=media&token=aafeaaee-88d9-4311-8981-f01dc9b59d52'
-    };
+    userPhoto = '';
 
     userPostalCode = '';
     userBirthDay = '';
