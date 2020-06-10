@@ -11,10 +11,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     createCVButton: {
-        elevation: 10,
+        elevation: 5,
         width: w / 2,
         height: 55,
-        borderRadius: 6,
         backgroundColor: '#3088DC',
         alignItems: 'center',
         justifyContent: 'center'

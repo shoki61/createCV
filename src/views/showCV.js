@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import SImage from 'react-native-scalable-image';
+import { observer } from 'mobx-react';
 
 
 import styles from '../styles/showCVStyle';
@@ -10,12 +11,6 @@ const w = Dimensions.get('window').width;
 
 class ShowCV extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            selectedColor: '#2A2A2A'
-        }
-    }
 
     changeColorCV(v) {
         if (helper.selectedOrderCV === 1) {
@@ -174,37 +169,37 @@ class ShowCV extends React.Component {
                     <View style={{ flexDirection: 'row', marginTop: 5 }}>
                         <TouchableOpacity onPress={() => this.changeColorCV('#2A2A2A')} style={[styles.changeColorButton, { backgroundColor: '#2A2A2A' }]}>
                             {
-                                this.state.selectedColor === '#2A2A2A' &&
+                                helper.selectedCVColor === '#2A2A2A' &&
                                 <SImage width={17} source={require('../images/okIcon.png')} />
                             }
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.changeColorCV('#FFFFFF')} style={[styles.changeColorButton, { backgroundColor: '#FFFFFF' }]}>
                             {
-                                this.state.selectedColor === '#FFFFFF' &&
+                                helper.selectedCVColor === '#FFFFFF' &&
                                 <SImage width={17} source={require('../images/okIconA.png')} />
                             }
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.changeColorCV('#12A3D0')} style={[styles.changeColorButton, { backgroundColor: '#12A3D0' }]}>
                             {
-                                this.state.selectedColor === '#12A3D0' &&
+                                helper.selectedCVColor === '#12A3D0' &&
                                 <SImage width={17} source={require('../images/okIcon.png')} />
                             }
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.changeColorCV('#FF7373')} style={[styles.changeColorButton, { backgroundColor: '#FF7373' }]}>
                             {
-                                this.state.selectedColor === '#FF7373' &&
+                                helper.selectedCVColor === '#FF7373' &&
                                 <SImage width={17} source={require('../images/okIcon.png')} />
                             }
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.changeColorCV('#299BE8')} style={[styles.changeColorButton, { backgroundColor: '#299BE8' }]}>
                             {
-                                this.state.selectedColor === '#299BE8' &&
+                                helper.selectedCVColor === '#299BE8' &&
                                 <SImage width={17} source={require('../images/okIcon.png')} />
                             }
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.changeColorCV('#407F92')} style={[styles.changeColorButton, { backgroundColor: '#407F92' }]}>
                             {
-                                this.state.selectedColor === '#407F92' &&
+                                helper.selectedCVColor === '#407F92' &&
                                 <SImage width={17} source={require('../images/okIcon.png')} />
                             }
                         </TouchableOpacity>
@@ -219,4 +214,4 @@ class ShowCV extends React.Component {
     }
 };
 
-export default ShowCV;
+export default observer(ShowCV);

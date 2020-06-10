@@ -50,14 +50,14 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     nextButton: {
-        width: '30%',
+        width: w / 2.3,
         padding: 8,
         backgroundColor: '#399EFF',
         alignItems: 'center',
         marginTop: 10
     },
     previousButton: {
-        width: '30%',
+        width: w / 2.3,
         padding: 8,
         backgroundColor: '#399EFF',
         alignItems: 'center',
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         width: '90%',
         padding: 0,
         paddingLeft: 5,
-        fontSize: 18,
+        fontSize: 17,
         color: '#676767',
         marginTop: 3
     },
@@ -129,6 +129,11 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         color: '#6b6b6b'
     },
+    checkBoxText: {
+        fontSize: 17,
+        color: '#6b6b6b',
+        marginLeft: 0
+    },
 
 
 
@@ -138,7 +143,6 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#DADADA',
         height: 35,
-        padding: 0,
         paddingLeft: 10,
         marginBottom: 10,
         flexDirection: 'row',
@@ -158,9 +162,8 @@ const styles = StyleSheet.create({
         paddingTop: 5
     },
     infoInput: {
-        width: '85%',
+        width: '80%',
         padding: 0,
-        fontSize: 15,
         color: '#8D8D8D',
         paddingLeft: 10,
         marginTop: 5
@@ -228,7 +231,7 @@ const styles = StyleSheet.create({
     linkRemoveButton: {
         width: '25%',
         height: 35,
-        backgroundColor: '#FC4B4B',
+        backgroundColor: '#ff6969',
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 3
