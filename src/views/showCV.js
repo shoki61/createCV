@@ -163,7 +163,7 @@ class ShowCV extends React.Component {
                         <Text style={{ color: '#fff', fontSize: 20 }}>Renk seçenekleri</Text>
                     </View>
                     <View style={{ elevation: 5, borderWidth: 0 }}>
-                        <SImage width={w - 60} source={helper.selectedCV} />
+                        <SImage width={w - 70} source={helper.selectedCV} />
                     </View>
 
                     <View style={{ flexDirection: 'row', marginTop: 5 }}>

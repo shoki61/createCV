@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Animated, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList, SafeAreaView, } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
 import ImagePicker from 'react-native-image-picker';
@@ -95,7 +95,8 @@ let school = {
     schoolGrade: '',
     schoolCity: '',
     schoolStartDate: '',
-    schoolFinishDate: ''
+    schoolFinishDate: '',
+
 }
 let company = {
     companyName: '',
@@ -257,6 +258,8 @@ class CVForm extends React.Component {
             userCompanyStartDate: '',
             userCompanyFinishDate: '',
             userCompanyDescription: '',
+            userCompanyContinues: '',
+            userCompanyContinuesState: false,
             showCompanyInput: true,
             autoCompany: false,
 
@@ -294,6 +297,8 @@ class CVForm extends React.Component {
             userCommunityStartDate: '',
             userCommunityFinishDate: '',
             userCommunityDescription: '',
+            userCommunityContinues: '',
+            userCommunityContinuesState: false,
             showCommunityInput: true,
             autoCommunity: false,
 
@@ -307,8 +312,8 @@ class CVForm extends React.Component {
             hidden: true,
             linksShow: true,
             selectedLinkIcon: '',
-            showPersonalInformation: false,
-            showExperiences: true,
+            showPersonalInformation: true,
+            showExperiences: false,
             showResultCV: false,
 
             minDate: '01-01-1950',
@@ -387,13 +392,14 @@ class CVForm extends React.Component {
     async createPDF() {
 
         let options = '';
-
         if (helper.selectedOrderCV === 1) {
             options = {
                 base64: true,
                 width: 595,
                 height: 842,
+
                 html: `
+                
                 <style>
                   @page{
                       margin:-5px;
@@ -441,7 +447,7 @@ class CVForm extends React.Component {
                     </div>
 
                     <div style="margin: 0 15px 15px 15px;">
-                        ${hekper.userGender !== '' ? `<div style="display: flex;align-items: center">
+                        ${helper.userGender !== '' ? `<div style="display: flex;align-items: center">
                            ${helper.selectedCVColor === '#FFFFFF' ? `<img height="15px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PGc+PGc+Cgk8Zz4KCQk8cGF0aCBkPSJNNDAzLjkyMSwwdjMxLjM0N2gzNS4zNmwtNjguOTgyLDY1LjQwOWMtMjQuNDIxLTI0Ljk5LTU4LjQ3NC00MC41My05Ni4wOTItNDAuNTNjLTUwLjYwMywwLTk0Ljc1OSwyOC4xMTItMTE3LjY4Nyw2OS41MzUgICAgYy0xLjk2NC0wLjA4Ni0zLjkzOC0wLjEzOC01LjkyNC0wLjEzOGMtNzQuMTE4LDAtMTM0LjQxNyw2MC4yOTktMTM0LjQxNywxMzQuNDE4YzAsNjguODE2LDUxLjk4NCwxMjUuNzEsMTE4Ljc0MywxMzMuNDk4djQxLjY1NyAgICBIODcuOTk1djMxLjM0N2g0Ni45MjlWNTEyaDMxLjM0N3YtNDUuNDU4aDQ4Ljk3N3YtMzEuMzQ3aC00OC45Nzd2LTQxLjY1N2M0My45NDgtNS4xMjcsODEuNDg4LTMxLjUzMywxMDIuMDEzLTY4LjYxNiAgICBjMS45NjQsMC4wODYsMy45MzcsMC4xMzgsNS45MjIsMC4xMzhjNzQuMTE5LDAsMTM0LjQxOC02MC4yOTksMTM0LjQxOC0xMzQuNDE3YzAtMjUuMTg3LTYuOTY5LTQ4Ljc3NC0xOS4wNzEtNjguOTQ0ICAgIGw3NC45MTktNzEuMDM4djM4LjkzM2gzMS4zNDdWMEg0MDMuOTIxeiBNMTUwLjU5OCwzNjMuMTFjLTU2LjgzMywwLTEwMy4wNy00Ni4yMzctMTAzLjA3LTEwMy4wNzEgICAgYzAtNTQuNjE5LDQyLjcwNS05OS40NDIsOTYuNDc3LTEwMi44NTNjLTIuNzUxLDEwLjctNC4yMTUsMjEuOTEtNC4yMTUsMzMuNDU3YzAsNjAuNDY0LDQwLjEzMiwxMTEuNzI2LDk1LjE1NywxMjguNTYyICAgIEMyMTYuMjgxLDM0NS43MzgsMTg1LjQzMiwzNjMuMTEsMTUwLjU5OCwzNjMuMTF6IE0yNDkuMDQ0LDI5MC42Yy00NC43MDktMTEuMjYtNzcuOTA2LTUxLjgwMi03Ny45MDYtOTkuOTU3ICAgIGMwLTEwLjYzNiwxLjYyLTIwLjkwMSw0LjYyNS0zMC41NjFjNDQuNzA5LDExLjI2LDc3LjkwNiw1MS44MDMsNzcuOTA2LDk5Ljk1OEMyNTMuNjY5LDI3MC42NzYsMjUyLjA0OCwyODAuOTQsMjQ5LjA0NCwyOTAuNnogICAgIE0yODAuODAxLDI5My40OTVjMi43NTEtMTAuNyw0LjIxNS0yMS45MDksNC4yMTUtMzMuNDU2YzAtNjAuNDY0LTQwLjEzMi0xMTEuNzI2LTk1LjE1Ni0xMjguNTYzICAgIGMxOC42NjYtMjYuNTMyLDQ5LjUxNi00My45MDUsODQuMzQ5LTQzLjkwNWM1Ni44MzQsMCwxMDMuMDcxLDQ2LjIzNywxMDMuMDcxLDEwMy4wNzEgICAgQzM3Ny4yNzgsMjQ1LjI2MSwzMzQuNTczLDI5MC4wODUsMjgwLjgwMSwyOTMuNDk1eiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBzdHlsZT0iZmlsbDojNUU1RTVFIiBkYXRhLW9sZF9jb2xvcj0iIzAwMDAwMCI+PC9wYXRoPgoJPC9nPgo8L2c+PC9nPiA8L3N2Zz4=" />` :
                             `<img height="15px" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiB4PSIwcHgiIHk9IjBweCIgdmlld0JveD0iMCAwIDUxMiA1MTIiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTI7IiB4bWw6c3BhY2U9InByZXNlcnZlIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PGc+PGc+Cgk8Zz4KCQk8cGF0aCBkPSJNNDAzLjkyMSwwdjMxLjM0N2gzNS4zNmwtNjguOTgyLDY1LjQwOWMtMjQuNDIxLTI0Ljk5LTU4LjQ3NC00MC41My05Ni4wOTItNDAuNTNjLTUwLjYwMywwLTk0Ljc1OSwyOC4xMTItMTE3LjY4Nyw2OS41MzUgICAgYy0xLjk2NC0wLjA4Ni0zLjkzOC0wLjEzOC01LjkyNC0wLjEzOGMtNzQuMTE4LDAtMTM0LjQxNyw2MC4yOTktMTM0LjQxNywxMzQuNDE4YzAsNjguODE2LDUxLjk4NCwxMjUuNzEsMTE4Ljc0MywxMzMuNDk4djQxLjY1NyAgICBIODcuOTk1djMxLjM0N2g0Ni45MjlWNTEyaDMxLjM0N3YtNDUuNDU4aDQ4Ljk3N3YtMzEuMzQ3aC00OC45Nzd2LTQxLjY1N2M0My45NDgtNS4xMjcsODEuNDg4LTMxLjUzMywxMDIuMDEzLTY4LjYxNiAgICBjMS45NjQsMC4wODYsMy45MzcsMC4xMzgsNS45MjIsMC4xMzhjNzQuMTE5LDAsMTM0LjQxOC02MC4yOTksMTM0LjQxOC0xMzQuNDE3YzAtMjUuMTg3LTYuOTY5LTQ4Ljc3NC0xOS4wNzEtNjguOTQ0ICAgIGw3NC45MTktNzEuMDM4djM4LjkzM2gzMS4zNDdWMEg0MDMuOTIxeiBNMTUwLjU5OCwzNjMuMTFjLTU2LjgzMywwLTEwMy4wNy00Ni4yMzctMTAzLjA3LTEwMy4wNzEgICAgYzAtNTQuNjE5LDQyLjcwNS05OS40NDIsOTYuNDc3LTEwMi44NTNjLTIuNzUxLDEwLjctNC4yMTUsMjEuOTEtNC4yMTUsMzMuNDU3YzAsNjAuNDY0LDQwLjEzMiwxMTEuNzI2LDk1LjE1NywxMjguNTYyICAgIEMyMTYuMjgxLDM0NS43MzgsMTg1LjQzMiwzNjMuMTEsMTUwLjU5OCwzNjMuMTF6IE0yNDkuMDQ0LDI5MC42Yy00NC43MDktMTEuMjYtNzcuOTA2LTUxLjgwMi03Ny45MDYtOTkuOTU3ICAgIGMwLTEwLjYzNiwxLjYyLTIwLjkwMSw0LjYyNS0zMC41NjFjNDQuNzA5LDExLjI2LDc3LjkwNiw1MS44MDMsNzcuOTA2LDk5Ljk1OEMyNTMuNjY5LDI3MC42NzYsMjUyLjA0OCwyODAuOTQsMjQ5LjA0NCwyOTAuNnogICAgIE0yODAuODAxLDI5My40OTVjMi43NTEtMTAuNyw0LjIxNS0yMS45MDksNC4yMTUtMzMuNDU2YzAtNjAuNDY0LTQwLjEzMi0xMTEuNzI2LTk1LjE1Ni0xMjguNTYzICAgIGMxOC42NjYtMjYuNTMyLDQ5LjUxNi00My45MDUsODQuMzQ5LTQzLjkwNWM1Ni44MzQsMCwxMDMuMDcxLDQ2LjIzNywxMDMuMDcxLDEwMy4wNzEgICAgQzM3Ny4yNzgsMjQ1LjI2MSwzMzQuNTczLDI5MC4wODUsMjgwLjgwMSwyOTMuNDk1eiIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgY2xhc3M9ImFjdGl2ZS1wYXRoIiBzdHlsZT0iZmlsbDojRkZGRkZGIiBkYXRhLW9sZF9jb2xvcj0iIzAwMDAwMCI+PC9wYXRoPgoJPC9nPgo8L2c+PC9nPiA8L3N2Zz4=" />`}
                             <p style="color:${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'};margin:3px;font-family: Calibri">${helper.userGender}</p>
@@ -2341,6 +2347,7 @@ class CVForm extends React.Component {
 
 
         let file = await RNHTMLtoPDF.convert(options);
+
         this.setState({ filePath: file.filePath });
 
 
@@ -2526,7 +2533,7 @@ class CVForm extends React.Component {
             <View style={styles.linkContainer}>
                 <Text style={[styles.listNumber, { backgroundColor: item.item.listNumberColor }]}>{item.index + 1}</Text>
                 <View style={styles.linkIconStyle}><SImage width={25} source={item.item.linkIcon} /></View>
-                <Text style={styles.linkNameStyle} >{item.item.link}</Text>
+                <Text style={styles.linkNameStyle} numberOfLines={1} >{item.item.link}</Text>
                 <TouchableOpacity onPress={() => this.removeLink(item)} style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
             </View>
         )
@@ -2886,6 +2893,8 @@ class CVForm extends React.Component {
                 userSchoolDepartment: '',
                 userSchoolStartDate: '',
                 userSchoolFinishDate: '',
+                userSchoolContinuation: '',
+                userSchoolContinuesState: false,
                 showSchoolInput: false,
 
                 warningSchoolName: false,
@@ -2896,6 +2905,7 @@ class CVForm extends React.Component {
             school.schoolDepartment = '';
             school.schoolStartDate = '';
             school.schoolFinishDate = '';
+            school.schoolContinues = ''
 
         }
     }
@@ -2939,9 +2949,22 @@ class CVForm extends React.Component {
             userLinkIcon: iCV
         })
     }
-    continuesFunc = async () => {
-        await this.setState({ userSchoolContinuesState: !this.state.userSchoolContinuesState });
-        this.setState({ userSchoolContinues: `${this.state.userSchoolContinuesState === true ? 'Devam ediyor' : 'a'}` })
+    continuesFunc = async (v) => {
+        if (v === 'school') {
+            await this.setState({ userSchoolContinuesState: !this.state.userSchoolContinuesState });
+            await this.setState({ userSchoolContinues: `${this.state.userSchoolContinuesState === true ? 'Devam ediyor' : ''}` })
+            school.schoolFinishDate = this.state.userSchoolContinues;
+        }
+        else if (v === 'company') {
+            await this.setState({ userCompanyContinuesState: !this.state.userCompanyContinuesState });
+            await this.setState({ userCompanyContinues: `${this.state.userCompanyContinuesState === true ? 'Devam ediyor' : ''}` })
+            company.companyFinishDate = this.state.userCompanyContinues;
+        } else {
+            await this.setState({ userCommunityContinuesState: !this.state.userCommunityContinuesState });
+            await this.setState({ userCommunityContinues: `${this.state.userCommunityContinuesState === true ? 'Devam ediyor' : ''}` })
+            community.communityFinishDate = this.state.userCommunityContinues;
+        }
+
     }
 
     renderPersonalInformation() {
@@ -3242,6 +3265,7 @@ class CVForm extends React.Component {
                                                     <Text style={styles.buttonText}>Ekle</Text>
                                                 </TouchableOpacity>
                                             </View>
+
                                         </View>
                                     }
                                 </View>
@@ -3326,13 +3350,13 @@ class CVForm extends React.Component {
 
 
                             <Text style={styles.infoTitle}>{this.state.userSchoolContinuesState ? 'Başlangıç tarihi' : 'Başlangıç ve bitiş tarihi'}</Text>
-                            <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
                                 <View style={[styles.experiencesInputView, { width: 'auto', marginBottom: 0 }, this.state.warningSchoolDate && school.schoolStartDate === '' && { borderColor: 'red' }, this.state.warningSchoolDate && school.schoolFinishDate === '' && { borderColor: 'red' }]}>
                                     <SImage width={23} source={require('../images/calendar.png')} />
                                     <DatePicker
                                         androidMode='spinner'
                                         style={[styles.infoInput, { width: 50, marginBottom: 5, marginRight: this.state.userSchoolContinuesState ? 10 : 0, padding: 0 }]}
-                                        date={this.state.userSchoolStartDate}
+                                        date={school.schoolStartDate}
                                         showIcon={false}
                                         placeholder='YYYY'
                                         mode="date"
@@ -3362,7 +3386,7 @@ class CVForm extends React.Component {
                                             <DatePicker
                                                 androidMode='spinner'
                                                 style={[styles.infoInput, { width: 50, marginBottom: 5, paddingLeft: 0 }]}
-                                                date={this.state.userSchoolFinishDate}
+                                                date={school.schoolFinishDate}
                                                 showIcon={false}
                                                 placeholder='YYYY'
                                                 mode="date"
@@ -3392,9 +3416,9 @@ class CVForm extends React.Component {
                                 </View>
                                 <CheckBox
                                     style={{ flex: 1, marginLeft: 10 }}
-                                    onClick={() => this.continuesFunc()}
+                                    onClick={() => this.continuesFunc('school')}
                                     isChecked={this.state.userSchoolContinuesState}
-                                    checkBoxColor={'#078c8c'}
+                                    checkBoxColor={'#0a8fbf'}
                                     rightText={'Devam ediyorum'}
                                     rightTextStyle={styles.checkBoxText}
                                 />
@@ -3461,60 +3485,75 @@ class CVForm extends React.Component {
 
 
                             <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                            <View style={[styles.experiencesInputView, this.state.warningCompanyDate && this.state.userCompanyStartDate === '' && { borderColor: 'red' }, this.state.warningCompanyDate && this.state.userCompanyFinishDate === '' && { borderColor: 'red' }]}>
-                                <SImage width={23} source={require('../images/calendar.png')} />
-                                <DatePicker
-                                    androidMode='spinner'
-                                    style={[styles.infoInput, { width: 65, marginBottom: 5, padding: 0 }]}
-                                    date={this.state.userCompanyStartDate}
-                                    showIcon={false}
-                                    placeholder='aa.yyyy'
-                                    mode="date"
-                                    format="MM.YYYY"
-                                    confirmBtnText="Confirm"
-                                    cancelBtnText="Cancel"
-                                    customStyles={{
-                                        placeholderText: {
-                                            color: '#8D8D8D',
-                                            fontSize: 15
-                                        },
-                                        dateInput: {
-                                            borderWidth: 0
-                                        },
-                                        dateText: {
-                                            width: '100%',
-                                            color: '#8D8D8D',
-                                        }
-                                    }}
-                                    onDateChange={(date) => { company.companyStartDate = date; this.setState({ userCompanyStartDate: date }) }}
-                                />
-                                <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
-                                <DatePicker
-                                    androidMode='spinner'
-                                    style={[styles.infoInput, { width: 100, marginBottom: 5, paddingLeft: 0 }]}
-                                    date={this.state.userCompanyFinishDate}
-                                    showIcon={false}
-                                    placeholder='aa.yyyy'
-                                    mode="date"
-                                    format="MM.YYYY"
-                                    confirmBtnText="Confirm"
-                                    cancelBtnText="Cancel"
-                                    customStyles={{
-                                        placeholderText: {
-                                            color: '#8D8D8D',
-                                            fontSize: 15,
-                                            width: '100%'
-                                        },
-                                        dateInput: {
-                                            borderWidth: 0,
-                                        },
-                                        dateText: {
-                                            width: '100%',
-                                            color: '#8D8D8D',
-                                            paddingLeft: 5
-                                        }
-                                    }}
-                                    onDateChange={(date) => { company.companyFinishDate = date; this.setState({ userCompanyFinishDate: date }) }}
+                            <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
+                                <View style={[styles.experiencesInputView, { width: 'auto', marginBottom: 0 }, this.state.warningCompanyDate && company.companyStartDate === '' && { borderColor: 'red' }, this.state.warningCompanyDate && company.companyFinishDate === '' && { borderColor: 'red' }]}>
+                                    <SImage width={20} source={require('../images/calendar.png')} />
+                                    <DatePicker
+                                        androidMode='spinner'
+                                        style={[styles.infoInput, { width: 60, marginBottom: 5, marginRight: this.state.userCompanyContinuesState ? 10 : 0, padding: 0 }]}
+                                        date={company.companyStartDate}
+                                        showIcon={false}
+                                        placeholder='a.yyyy'
+                                        mode="date"
+                                        format="M.YYYY"
+                                        confirmBtnText="Confirm"
+                                        cancelBtnText="Cancel"
+                                        customStyles={{
+                                            placeholderText: {
+                                                color: '#8D8D8D',
+                                                fontSize: 15
+                                            },
+                                            dateInput: {
+                                                borderWidth: 0
+                                            },
+                                            dateText: {
+                                                width: '100%',
+                                                color: '#8D8D8D',
+                                            }
+                                        }}
+                                        onDateChange={(date) => { company.companyStartDate = date; this.setState({ userCompanyStartDate: date }) }}
+                                    />
+                                    {
+                                        !this.state.userCompanyContinuesState &&
+                                        <>
+                                            <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
+                                            <DatePicker
+                                                androidMode='spinner'
+                                                style={[styles.infoInput, { width: 60, marginBottom: 5, paddingLeft: 0 }]}
+                                                date={this.state.userCompanyFinishDate}
+                                                showIcon={false}
+                                                placeholder='a.yyyy'
+                                                mode="date"
+                                                format="M.YYYY"
+                                                confirmBtnText="Confirm"
+                                                cancelBtnText="Cancel"
+                                                customStyles={{
+                                                    placeholderText: {
+                                                        color: '#8D8D8D',
+                                                        fontSize: 15,
+                                                        width: '100%'
+                                                    },
+                                                    dateInput: {
+                                                        borderWidth: 0,
+                                                    },
+                                                    dateText: {
+                                                        width: '100%',
+                                                        color: '#8D8D8D',
+                                                        paddingLeft: 5
+                                                    }
+                                                }}
+                                                onDateChange={(date) => { company.companyFinishDate = date; this.setState({ userCompanyFinishDate: date }) }}
+                                            />
+                                        </>
+                                    }
+                                </View>
+                                <CheckBox
+                                    style={{ flex: 1, marginLeft: 10 }}
+                                    onClick={() => this.continuesFunc('company')}
+                                    isChecked={this.state.userCompanyContinuesState}
+                                    checkBoxColor={'#0a8fbf'}
+                                    rightText={'Devam ediyorum'}
+                                    rightTextStyle={[styles.checkBoxText, { fontSize: 16 }]}
                                 />
                             </View>
 
@@ -3765,60 +3804,75 @@ class CVForm extends React.Component {
                             </View>
 
                             <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
-                            <View style={[styles.experiencesInputView, this.state.warningCommunityDate && community.communityStartDate === '' && { borderColor: 'red' }, this.state.warningCommunityDate && community.communityFinishDate === '' && { borderColor: 'red' }]}>
-                                <SImage width={23} source={require('../images/calendar.png')} />
-                                <DatePicker
-                                    androidMode='spinner'
-                                    style={[styles.infoInput, { width: 65, marginBottom: 5, padding: 0 }]}
-                                    date={this.state.userCommunityStartDate}
-                                    showIcon={false}
-                                    placeholder='aa.yyyy'
-                                    mode="date"
-                                    format="MM.YYYY"
-                                    confirmBtnText="Confirm"
-                                    cancelBtnText="Cancel"
-                                    customStyles={{
-                                        placeholderText: {
-                                            color: '#8D8D8D',
-                                            fontSize: 15
-                                        },
-                                        dateInput: {
-                                            borderWidth: 0
-                                        },
-                                        dateText: {
-                                            width: '100%',
-                                            color: '#8D8D8D',
-                                        }
-                                    }}
-                                    onDateChange={(date) => { community.communityStartDate = date; this.setState({ userCommunityStartDate: date }) }}
-                                />
-                                <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
-                                <DatePicker
-                                    androidMode='spinner'
-                                    style={[styles.infoInput, { width: 100, marginBottom: 5, paddingLeft: 0 }]}
-                                    date={this.state.userCommunityFinishDate}
-                                    showIcon={false}
-                                    placeholder='aa.yyyy'
-                                    mode="date"
-                                    format="MM.YYYY"
-                                    confirmBtnText="Confirm"
-                                    cancelBtnText="Cancel"
-                                    customStyles={{
-                                        placeholderText: {
-                                            color: '#8D8D8D',
-                                            fontSize: 15,
-                                            width: '100%'
-                                        },
-                                        dateInput: {
-                                            borderWidth: 0,
-                                        },
-                                        dateText: {
-                                            width: '100%',
-                                            color: '#8D8D8D',
-                                            paddingLeft: 5
-                                        }
-                                    }}
-                                    onDateChange={(date) => { community.communityFinishDate = date; this.setState({ userCommunityFinishDate: date }) }}
+                            <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
+                                <View style={[styles.experiencesInputView, { width: 'auto', marginBottom: 0 }, this.state.warningCommunityDate && community.communityStartDate === '' && { borderColor: 'red' }, this.state.warningCommunityDate && community.communityFinishDate === '' && { borderColor: 'red' }]}>
+                                    <SImage width={23} source={require('../images/calendar.png')} />
+                                    <DatePicker
+                                        androidMode='spinner'
+                                        style={[styles.infoInput, { width: 60, marginBottom: 5, marginRight: this.state.userCommunityContinuesState ? 10 : 0, padding: 0 }]}
+                                        date={this.state.userCommunityStartDate}
+                                        showIcon={false}
+                                        placeholder='a.yyyy'
+                                        mode="date"
+                                        format="M.YYYY"
+                                        confirmBtnText="Confirm"
+                                        cancelBtnText="Cancel"
+                                        customStyles={{
+                                            placeholderText: {
+                                                color: '#8D8D8D',
+                                                fontSize: 15
+                                            },
+                                            dateInput: {
+                                                borderWidth: 0
+                                            },
+                                            dateText: {
+                                                width: '100%',
+                                                color: '#8D8D8D',
+                                            }
+                                        }}
+                                        onDateChange={(date) => { community.communityStartDate = date; this.setState({ userCommunityStartDate: date }) }}
+                                    />
+                                    {
+                                        !this.state.userCommunityContinuesState &&
+                                        <>
+                                            <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
+                                            <DatePicker
+                                                androidMode='spinner'
+                                                style={[styles.infoInput, { width: 60, marginBottom: 5, paddingLeft: 0 }]}
+                                                date={this.state.userCommunityFinishDate}
+                                                showIcon={false}
+                                                placeholder='a.yyyy'
+                                                mode="date"
+                                                format="M.YYYY"
+                                                confirmBtnText="Confirm"
+                                                cancelBtnText="Cancel"
+                                                customStyles={{
+                                                    placeholderText: {
+                                                        color: '#8D8D8D',
+                                                        fontSize: 15,
+                                                        width: '100%'
+                                                    },
+                                                    dateInput: {
+                                                        borderWidth: 0,
+                                                    },
+                                                    dateText: {
+                                                        width: '100%',
+                                                        color: '#8D8D8D',
+                                                        paddingLeft: 5
+                                                    }
+                                                }}
+                                                onDateChange={(date) => { community.communityFinishDate = date; this.setState({ userCommunityFinishDate: date }) }}
+                                            />
+                                        </>
+                                    }
+                                </View>
+                                <CheckBox
+                                    style={{ flex: 1, marginLeft: 10 }}
+                                    onClick={() => this.continuesFunc('community')}
+                                    isChecked={this.state.userCommunityContinuesState}
+                                    checkBoxColor={'#0a8fbf'}
+                                    rightText={'Devam ediyorum'}
+                                    rightTextStyle={[styles.checkBoxText, { fontSize: 16 }]}
                                 />
                             </View>
 
@@ -3957,19 +4011,18 @@ class CVForm extends React.Component {
                 {
                     this.state.filePath !== '' &&
                     <View style={{ alignItems: 'center', marginBottom: 130, marginTop: 30 }}>
-                        <Text style={{ fontSize: 18, color: '#6b6b6b', textAlign: 'center' }}>CV'niz başarılı bir şekilde telefonunuza kaydedildi.</Text>
-                        <Text style={{ fontSize: 15, color: '#6b6b6b' }}> Dosya yolu: {this.state.filePath}</Text>
+                        <Text style={{ fontSize: 18, color: '#6b6b6b', textAlign: 'center', width: w / 1.3, marginBottom: 15 }}>CV'niz başarılı bir şekilde telefonunuza kaydedildi.</Text>
+                        <Text style={{ fontSize: 13, color: '#6b6b6b' }}> Dosya yolu: {this.state.filePath}</Text>
                     </View>
                 }
 
-                <TouchableOpacity onPress={() => this.showExperiences()} style={[styles.previousButton, { position: 'absolute', bottom: 10 }]}>
+                <TouchableOpacity onPress={() => this.showExperiences()} style={[styles.previousButton, { position: 'absolute', bottom: 0 }]}>
                     <Text style={styles.buttonText}>Geri</Text>
                 </TouchableOpacity>
 
             </View>
         )
     }
-
 
     goToTop = () => {
         this.scroll.scrollTo({ x: 0, y: 0, animated: true });

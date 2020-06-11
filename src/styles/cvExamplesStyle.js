@@ -8,14 +8,8 @@ const h = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     body: {
-        width: w,
-        minHeight: h,
-        backgroundColor: '#f2f2f2',
-    },
-    backImage: {
         flex: 1,
-        alignSelf: 'stretch',
-        width: null
+        backgroundColor: '#f2f2f2',
     },
 });
 

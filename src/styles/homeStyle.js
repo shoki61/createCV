@@ -5,8 +5,7 @@ const h = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     body: {
-        width: w,
-        height: h,
+        flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },

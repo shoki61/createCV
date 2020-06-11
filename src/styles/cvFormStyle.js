@@ -206,12 +206,12 @@ const styles = StyleSheet.create({
         width: '90%',
         height: 10,
         marginBottom: 20,
-        marginTop: 10
+        marginTop: 10,
     },
     linkNameStyle: {
         borderRadius: 3,
         borderColor: '#DADADA',
-        width: '50%',
+        width: '57%',
         borderWidth: 1,
         height: 35,
         textAlignVertical: 'center',
@@ -234,7 +234,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#ff6969',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 3
     },
     linkAddButton: {
         width: '25%',
@@ -246,7 +245,7 @@ const styles = StyleSheet.create({
     linkInputStyle: {
         borderRadius: 3,
         borderColor: '#DADADA',
-        width: '50%',
+        width: '55%',
         height: 35,
         paddingLeft: 10,
         padding: 0,
