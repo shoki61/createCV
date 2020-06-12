@@ -3366,14 +3366,14 @@ class CVForm extends React.Component {
                                         customStyles={{
                                             placeholderText: {
                                                 color: '#8D8D8D',
-                                                fontSize: 15
+                                                fontSize: h / 50
                                             },
                                             dateInput: {
                                                 borderWidth: 0
                                             },
                                             dateText: {
                                                 width: '100%',
-                                                fontSize: 17,
+                                                fontSize: h / 50,
                                                 color: '#8D8D8D',
                                             }
                                         }}
@@ -3396,7 +3396,7 @@ class CVForm extends React.Component {
                                                 customStyles={{
                                                     placeholderText: {
                                                         color: '#8D8D8D',
-                                                        fontSize: 15,
+                                                        fontSize: h / 50,
                                                         width: '100%'
                                                     },
                                                     dateInput: {
@@ -3405,7 +3405,7 @@ class CVForm extends React.Component {
                                                     dateText: {
                                                         color: '#8D8D8D',
                                                         paddingLeft: 3,
-                                                        fontSize: 17
+                                                        fontSize: h / 50
                                                     }
                                                 }}
                                                 onDateChange={(date) => { school.schoolFinishDate = date; this.setState({ userSchoolFinishDate: date }) }}
@@ -3501,7 +3501,7 @@ class CVForm extends React.Component {
                                         customStyles={{
                                             placeholderText: {
                                                 color: '#8D8D8D',
-                                                fontSize: 15
+                                                fontSize: h / 50
                                             },
                                             dateInput: {
                                                 borderWidth: 0
@@ -3509,6 +3509,7 @@ class CVForm extends React.Component {
                                             dateText: {
                                                 width: '100%',
                                                 color: '#8D8D8D',
+                                                fontSize: h / 50
                                             }
                                         }}
                                         onDateChange={(date) => { company.companyStartDate = date; this.setState({ userCompanyStartDate: date }) }}
@@ -3530,16 +3531,14 @@ class CVForm extends React.Component {
                                                 customStyles={{
                                                     placeholderText: {
                                                         color: '#8D8D8D',
-                                                        fontSize: 15,
-                                                        width: '100%'
+                                                        fontSize: h / 50,
                                                     },
                                                     dateInput: {
                                                         borderWidth: 0,
                                                     },
                                                     dateText: {
-                                                        width: '100%',
                                                         color: '#8D8D8D',
-                                                        paddingLeft: 5
+                                                        fontSize: h / 50
                                                     }
                                                 }}
                                                 onDateChange={(date) => { company.companyFinishDate = date; this.setState({ userCompanyFinishDate: date }) }}
@@ -3548,12 +3547,12 @@ class CVForm extends React.Component {
                                     }
                                 </View>
                                 <CheckBox
-                                    style={{ flex: 1, marginLeft: 10 }}
+                                    style={{ flex: 1, marginLeft: 0 }}
                                     onClick={() => this.continuesFunc('company')}
                                     isChecked={this.state.userCompanyContinuesState}
                                     checkBoxColor={'#0a8fbf'}
                                     rightText={'Devam ediyorum'}
-                                    rightTextStyle={[styles.checkBoxText, { fontSize: 16 }]}
+                                    rightTextStyle={[styles.checkBoxText, { fontSize: h / 65 }]}
                                 />
                             </View>
 

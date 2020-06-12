@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     body: {
         flex: 1,
         alignItems: 'center',
-        paddingBottom: 20
     },
     changeColorButton: {
         width: 35,

@@ -1,6 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 
 const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 
 const styles = StyleSheet.create({
@@ -130,7 +131,7 @@ const styles = StyleSheet.create({
         color: '#6b6b6b'
     },
     checkBoxText: {
-        fontSize: 17,
+        fontSize: h / 60,
         color: '#6b6b6b',
         marginLeft: 0
     },
