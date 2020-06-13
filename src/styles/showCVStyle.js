@@ -5,7 +5,6 @@ const w = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     body: {
         flex: 1,
-        alignItems: 'center',
     },
     changeColorButton: {
         width: 35,
@@ -18,12 +17,11 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     buttonContainer: {
-        flex: 1,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        marginTop: 7
+        marginBottom: 10
     },
     buttonStyle: {
         width: w / 1.3,

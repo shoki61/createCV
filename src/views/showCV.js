@@ -8,6 +8,7 @@ import styles from '../styles/showCVStyle';
 import helper from '../controllers/helper';
 
 const w = Dimensions.get('window').width;
+const h = Dimensions.get('window').height;
 
 class ShowCV extends React.Component {
 
@@ -155,7 +156,7 @@ class ShowCV extends React.Component {
     render() {
         return (
             <View style={styles.body}>
-                <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+                <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", justifyContent: 'space-between' }}>
                     <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', marginBottom: 15, alignItems: 'center', justifyContent: 'center' }}>
                         <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ position: 'absolute', left: 15 }}>
                             <SImage width={20} source={require('../images/backIcon.png')} />

@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
         zIndex: 100
     },
     photoContainer: {
-        width: 120,
-        height: 120,
+        width: 130,
+        height: 130,
         borderRadius: 100,
         elevation: 3
     },
@@ -44,6 +44,8 @@ const styles = StyleSheet.create({
         fontSize: 13
     },
     selectButton: {
+        elevation: 5,
+        borderRadius: 2,
         width: '100%',
         padding: 8,
         backgroundColor: '#399EFF',
@@ -52,6 +54,8 @@ const styles = StyleSheet.create({
     },
     nextButton: {
         width: w / 2.3,
+        elevation: 5,
+        borderRadius: 2,
         padding: 8,
         backgroundColor: '#399EFF',
         alignItems: 'center',
@@ -59,12 +63,16 @@ const styles = StyleSheet.create({
     },
     previousButton: {
         width: w / 2.3,
+        elevation: 5,
+        borderRadius: 2,
         padding: 8,
         backgroundColor: '#399EFF',
         alignItems: 'center',
         marginTop: 10
     },
     removeButton: {
+        elevation: 5,
+        borderRadius: 2,
         width: '100%',
         padding: 8,
         backgroundColor: '#ff6969',
@@ -74,7 +82,7 @@ const styles = StyleSheet.create({
     inputTitle: {
         color: '#399EFF',
         width: '90%',
-        fontSize: 23,
+        fontSize: 20,
         marginLeft: 10,
     },
 
@@ -131,7 +139,6 @@ const styles = StyleSheet.create({
         color: '#6b6b6b'
     },
     checkBoxText: {
-        fontSize: h / 60,
         color: '#6b6b6b',
         marginLeft: 0
     },
@@ -230,6 +237,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     linkRemoveButton: {
+        elevation: 5,
+        borderRadius: 2,
         width: '25%',
         height: 35,
         backgroundColor: '#ff6969',
@@ -237,6 +246,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     linkAddButton: {
+        elevation: 5,
+        borderRadius: 2,
         width: '25%',
         height: 35,
         backgroundColor: '#399eff',
@@ -303,6 +314,8 @@ const styles = StyleSheet.create({
     },
     removeAbilityButton: {
         width: '20%',
+        elevation: 5,
+        borderRadius: 2,
         height: 35,
         backgroundColor: '#ff6969',
         justifyContent: 'center',
@@ -310,9 +323,6 @@ const styles = StyleSheet.create({
     },
     chooseTalentContainer: {
         width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-end',
         marginTop: 20
     },
     abilityInput: {
@@ -338,7 +348,9 @@ const styles = StyleSheet.create({
         padding: 0
     },
     selectAbilityButton: {
-        width: '20%',
+        width: '30%',
+        elevation: 5,
+        borderRadius: 2,
         height: 35,
         backgroundColor: '#399eff',
         justifyContent: 'center',
@@ -366,6 +378,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#399eff',
         justifyContent: 'center',
         alignItems: 'center',
+        elevation: 5,
+        borderRadius: 2,
     },
     referansText: {
         width: '38%',

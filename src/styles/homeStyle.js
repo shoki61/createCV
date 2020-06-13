@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
     createCVButton: {
         elevation: 5,
         width: w / 1.5,
+        borderRadius: 100,
         height: 55,
         backgroundColor: '#3088DC',
         alignItems: 'center',

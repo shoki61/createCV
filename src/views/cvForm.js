@@ -127,12 +127,12 @@ function Ability() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
     ability.level = selectedValue;
     return (
-        <View style={[styles.abilityInput, { paddingLeft: 0 }]}>
+        <View style={[styles.abilityInput, { paddingLeft: 0, width: '65%' }]}>
             <Picker
                 selectedValue={selectedValue}
                 itemStyle={{ color: 'green', fontSize: 10 }}
                 style={{
-                    width: 150, height: 35, color: 'grey', transform: [
+                    width: '100%', height: 35, color: 'grey', transform: [
                         { scaleX: 0.9 },
                         { scaleY: 0.9 },
                     ],
@@ -153,12 +153,12 @@ function Language() {
     const [selectedValue, setSelectedValue] = useState("Başlangıç");
     language.level = selectedValue
     return (
-        <View style={[styles.abilityInput, { paddingLeft: 0 }]}>
+        <View style={[styles.abilityInput, { paddingLeft: 0, width: '65%' }]}>
             <Picker
                 selectedValue={selectedValue}
                 itemStyle={{ color: 'green', fontSize: 10 }}
                 style={{
-                    width: 140, height: 35, color: 'grey', transform: [
+                    width: '100%', height: 35, color: 'grey', transform: [
                         { scaleX: 0.9 },
                         { scaleY: 0.9 },
                     ],
@@ -179,11 +179,11 @@ function SchoolGrade() {
     const [selectedValue, setSelectedValue] = useState("Lisans");
     school.schoolGrade = selectedValue
     return (
-        <View >
+        <View style={{ width: '100%' }}>
             <Picker
                 selectedValue={selectedValue}
                 itemStyle={{ color: 'green', fontSize: 10 }}
-                style={{ width: w / 1.5, height: 35, color: 'grey' }}
+                style={{ width: '90%', height: 35, color: 'grey' }}
                 onValueChange={(text) => setSelectedValue(text)}
                 mode='dropdown'
             >
@@ -2952,16 +2952,16 @@ class CVForm extends React.Component {
     continuesFunc = async (v) => {
         if (v === 'school') {
             await this.setState({ userSchoolContinuesState: !this.state.userSchoolContinuesState });
-            await this.setState({ userSchoolContinues: `${this.state.userSchoolContinuesState === true ? 'Devam ediyor' : ''}` })
+            await this.setState({ userSchoolContinues: `${this.state.userSchoolContinuesState === true ? 'Devam ediyor' : ''}`, userSchoolFinishDate: '' })
             school.schoolFinishDate = this.state.userSchoolContinues;
         }
         else if (v === 'company') {
             await this.setState({ userCompanyContinuesState: !this.state.userCompanyContinuesState });
-            await this.setState({ userCompanyContinues: `${this.state.userCompanyContinuesState === true ? 'Devam ediyor' : ''}` })
+            await this.setState({ userCompanyContinues: `${this.state.userCompanyContinuesState === true ? 'Devam ediyor' : ''}`, userCompanyFinishDate: '' })
             company.companyFinishDate = this.state.userCompanyContinues;
         } else {
             await this.setState({ userCommunityContinuesState: !this.state.userCommunityContinuesState });
-            await this.setState({ userCommunityContinues: `${this.state.userCommunityContinuesState === true ? 'Devam ediyor' : ''}` })
+            await this.setState({ userCommunityContinues: `${this.state.userCommunityContinuesState === true ? 'Devam ediyor' : ''}`, userCommunityFinishDate: '' })
             community.communityFinishDate = this.state.userCommunityContinues;
         }
 
@@ -2970,9 +2970,9 @@ class CVForm extends React.Component {
     renderPersonalInformation() {
         return (
 
-            <View style={{ width: '100%', marginTop: 80 }}>
-                <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                    <View>
+            <View style={{ width: '100%', marginTop: 80, height: '30%' }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15 }}>
+                    <View style={{ width: '35%', height: '100%', alignItems: 'center' }}>
                         <View style={styles.photoContainer}>
                             <Image style={styles.photoStyle} source={helper.userPhoto === '' ? require('../images/defaultPhoto.png') : helper.userPhoto} />
                         </View>
@@ -3294,7 +3294,7 @@ class CVForm extends React.Component {
     renderExperiences() {
 
         return (
-            <View style={{ width: '100%', marginTop: 100, alignItems: 'center' }}>
+            <View style={{ width: '100%', marginTop: 80, alignItems: 'center' }}>
 
                 {/*Eğitim kısmı*/}
                 <View style={{ flexDirection: 'row', alignItems: 'center', width: '90%', marginBottom: 5, }}>
@@ -3344,18 +3344,17 @@ class CVForm extends React.Component {
                             <Text style={styles.infoTitle}>Derece</Text>
                             <View style={[styles.experiencesInputView, this.state.warningSchoolGrade && school.schoolGrade === '' && { borderColor: 'red' }]}>
                                 <SImage width={23} source={require('../images/degree.png')} />
-
                                 <SchoolGrade />
                             </View>
 
 
                             <Text style={styles.infoTitle}>{this.state.userSchoolContinuesState ? 'Başlangıç tarihi' : 'Başlangıç ve bitiş tarihi'}</Text>
                             <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                                <View style={[styles.experiencesInputView, { width: 'auto', marginBottom: 0 }, this.state.warningSchoolDate && school.schoolStartDate === '' && { borderColor: 'red' }, this.state.warningSchoolDate && school.schoolFinishDate === '' && { borderColor: 'red' }]}>
+                                <View style={[styles.experiencesInputView, this.state.warningSchoolDate && school.schoolStartDate === '' && { borderColor: 'red' }, this.state.warningSchoolDate && school.schoolFinishDate === '' && { borderColor: 'red' }]}>
                                     <SImage width={23} source={require('../images/calendar.png')} />
                                     <DatePicker
                                         androidMode='spinner'
-                                        style={[styles.infoInput, { width: 50, marginBottom: 5, marginRight: this.state.userSchoolContinuesState ? 10 : 0, padding: 0 }]}
+                                        style={[styles.infoInput, { width: 50, marginBottom: 5, }]}
                                         date={school.schoolStartDate}
                                         showIcon={false}
                                         placeholder='YYYY'
@@ -3366,14 +3365,14 @@ class CVForm extends React.Component {
                                         customStyles={{
                                             placeholderText: {
                                                 color: '#8D8D8D',
-                                                fontSize: h / 50
+                                                width: '100%',
                                             },
                                             dateInput: {
-                                                borderWidth: 0
+                                                borderWidth: 0,
+
                                             },
                                             dateText: {
                                                 width: '100%',
-                                                fontSize: h / 50,
                                                 color: '#8D8D8D',
                                             }
                                         }}
@@ -3382,11 +3381,11 @@ class CVForm extends React.Component {
                                     {
                                         !this.state.userSchoolContinuesState &&
                                         <>
-                                            <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
+                                            <Text style={{ fontSize: 18, color: '#737373', marginRight: 10 }}>/</Text>
                                             <DatePicker
                                                 androidMode='spinner'
                                                 style={[styles.infoInput, { width: 50, marginBottom: 5, paddingLeft: 0 }]}
-                                                date={school.schoolFinishDate}
+                                                date={this.state.userSchoolFinishDate}
                                                 showIcon={false}
                                                 placeholder='YYYY'
                                                 mode="date"
@@ -3396,16 +3395,14 @@ class CVForm extends React.Component {
                                                 customStyles={{
                                                     placeholderText: {
                                                         color: '#8D8D8D',
-                                                        fontSize: h / 50,
-                                                        width: '100%'
+                                                        width: '100%',
                                                     },
                                                     dateInput: {
                                                         borderWidth: 0,
                                                     },
                                                     dateText: {
                                                         color: '#8D8D8D',
-                                                        paddingLeft: 3,
-                                                        fontSize: h / 50
+                                                        width: '100%',
                                                     }
                                                 }}
                                                 onDateChange={(date) => { school.schoolFinishDate = date; this.setState({ userSchoolFinishDate: date }) }}
@@ -3414,8 +3411,10 @@ class CVForm extends React.Component {
                                     }
 
                                 </View>
+                            </View>
+                            <View style={{ width: '100%' }}>
                                 <CheckBox
-                                    style={{ flex: 1, marginLeft: 10 }}
+                                    style={{ flex: 1 }}
                                     onClick={() => this.continuesFunc('school')}
                                     isChecked={this.state.userSchoolContinuesState}
                                     checkBoxColor={'#0a8fbf'}
@@ -3423,16 +3422,12 @@ class CVForm extends React.Component {
                                     rightTextStyle={styles.checkBoxText}
                                 />
                             </View>
-                            <Text>{this.state.userSchoolContinuation}</Text>
                             <View style={{ width: '100%', alignItems: 'flex-end' }}>
                                 <TouchableOpacity onPress={() => this.controlSchool()} style={[styles.linkAddButton, { marginTop: 10, right: 0 }]}>
                                     <Text style={styles.buttonText}>Ekle</Text>
                                 </TouchableOpacity>
                             </View>
                         </View>
-
-
-
 
                     }
 
@@ -3486,22 +3481,22 @@ class CVForm extends React.Component {
 
                             <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
                             <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                                <View style={[styles.experiencesInputView, { width: 'auto', marginBottom: 0 }, this.state.warningCompanyDate && company.companyStartDate === '' && { borderColor: 'red' }, this.state.warningCompanyDate && company.companyFinishDate === '' && { borderColor: 'red' }]}>
+                                <View style={[styles.experiencesInputView, this.state.warningCompanyDate && company.companyStartDate === '' && { borderColor: 'red' }, this.state.warningCompanyDate && company.companyFinishDate === '' && { borderColor: 'red' }]}>
                                     <SImage width={20} source={require('../images/calendar.png')} />
                                     <DatePicker
                                         androidMode='spinner'
-                                        style={[styles.infoInput, { width: 60, marginBottom: 5, marginRight: this.state.userCompanyContinuesState ? 10 : 0, padding: 0 }]}
+                                        style={[styles.infoInput, { width: 70, marginBottom: 5, }]}
                                         date={company.companyStartDate}
                                         showIcon={false}
-                                        placeholder='a.yyyy'
+                                        placeholder='AA.YYYY'
                                         mode="date"
-                                        format="M.YYYY"
+                                        format="MM.YYYY"
                                         confirmBtnText="Confirm"
                                         cancelBtnText="Cancel"
                                         customStyles={{
                                             placeholderText: {
                                                 color: '#8D8D8D',
-                                                fontSize: h / 50
+                                                width: '100%',
                                             },
                                             dateInput: {
                                                 borderWidth: 0
@@ -3509,7 +3504,6 @@ class CVForm extends React.Component {
                                             dateText: {
                                                 width: '100%',
                                                 color: '#8D8D8D',
-                                                fontSize: h / 50
                                             }
                                         }}
                                         onDateChange={(date) => { company.companyStartDate = date; this.setState({ userCompanyStartDate: date }) }}
@@ -3517,28 +3511,26 @@ class CVForm extends React.Component {
                                     {
                                         !this.state.userCompanyContinuesState &&
                                         <>
-                                            <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
+                                            <Text style={{ fontSize: 18, color: '#737373', marginRight: 10 }}>/</Text>
                                             <DatePicker
                                                 androidMode='spinner'
-                                                style={[styles.infoInput, { width: 60, marginBottom: 5, paddingLeft: 0 }]}
+                                                style={[styles.infoInput, { width: 70, marginBottom: 5, paddingLeft: 0 }]}
                                                 date={this.state.userCompanyFinishDate}
                                                 showIcon={false}
-                                                placeholder='a.yyyy'
+                                                placeholder='AA.YYYY'
                                                 mode="date"
-                                                format="M.YYYY"
+                                                format="MM.YYYY"
                                                 confirmBtnText="Confirm"
                                                 cancelBtnText="Cancel"
                                                 customStyles={{
                                                     placeholderText: {
                                                         color: '#8D8D8D',
-                                                        fontSize: h / 50,
                                                     },
                                                     dateInput: {
                                                         borderWidth: 0,
                                                     },
                                                     dateText: {
                                                         color: '#8D8D8D',
-                                                        fontSize: h / 50
                                                     }
                                                 }}
                                                 onDateChange={(date) => { company.companyFinishDate = date; this.setState({ userCompanyFinishDate: date }) }}
@@ -3546,13 +3538,16 @@ class CVForm extends React.Component {
                                         </>
                                     }
                                 </View>
+
+                            </View>
+                            <View style={{ width: '100%', marginBottom: 10 }} >
                                 <CheckBox
                                     style={{ flex: 1, marginLeft: 0 }}
                                     onClick={() => this.continuesFunc('company')}
                                     isChecked={this.state.userCompanyContinuesState}
                                     checkBoxColor={'#0a8fbf'}
                                     rightText={'Devam ediyorum'}
-                                    rightTextStyle={[styles.checkBoxText, { fontSize: h / 65 }]}
+                                    rightTextStyle={styles.checkBoxText}
                                 />
                             </View>
 
@@ -3661,14 +3656,14 @@ class CVForm extends React.Component {
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
                         <FlatList
-                            style={{ width: '100%', marginTop: 10 }}
+                            style={[, helper.userAbilities.length > 0 && { width: '100%', marginTop: 10 }]}
                             data={helper.userAbilities}
                             renderItem={data => this.setAbilities(data)}
                             showsVerticalScrollIndicator={false}
                         />
 
                         <View style={styles.chooseTalentContainer}>
-                            <View style={{ width: '35%' }}>
+                            <View style={{ width: '100%' }}>
                                 <Text style={styles.chooseTalentTitle}>Yetenek gir</Text>
                                 <TextInput
                                     placeholder='...'
@@ -3678,14 +3673,16 @@ class CVForm extends React.Component {
 
 
                             </View>
-                            <View style={{ width: '40%', }}>
+                            <View style={{ width: '100%', }}>
                                 <Text style={styles.chooseTalentTitle}>Seviye seç</Text>
-                                <Ability />
-
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Ability />
+                                    <TouchableOpacity onPress={() => this.controlAbility()} style={styles.selectAbilityButton}>
+                                        <Text style={styles.buttonText}>Ekle</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                            <TouchableOpacity onPress={() => this.controlAbility()} style={styles.selectAbilityButton}>
-                                <Text style={styles.buttonText}>Ekle</Text>
-                            </TouchableOpacity>
+
                         </View>
                     </View>
                 </View>
@@ -3698,7 +3695,7 @@ class CVForm extends React.Component {
                 <View style={styles.infoContainer}>
                     <View style={{ width: '100%', alignItems: 'center' }}>
                         <FlatList
-                            style={{ width: '100%', marginTop: 10 }}
+                            style={helper.UserLanguages.length > 0 && { width: '100%', marginTop: 10 }}
                             data={helper.UserLanguages}
                             renderItem={data => this.setLanguage(data)}
                             showsVerticalScrollIndicator={false}
@@ -3706,7 +3703,7 @@ class CVForm extends React.Component {
 
 
                         <View style={styles.chooseTalentContainer}>
-                            <View style={{ width: '35%' }}>
+                            <View style={{ width: '100%' }}>
                                 <Text style={styles.chooseTalentTitle}>Dil gir</Text>
                                 <TextInput
                                     value={this.state.userLanguage}
@@ -3715,14 +3712,16 @@ class CVForm extends React.Component {
                                     style={[styles.abilityInput, this.state.warningLanguage && language.name === '' && { borderColor: 'red' }]} />
 
                             </View>
-                            <View style={{ width: '40%' }}>
+                            <View style={{ width: '100%' }}>
                                 <Text style={styles.chooseTalentTitle}>Seviye seç</Text>
-                                <Language />
-
+                                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                    <Language />
+                                    <TouchableOpacity onPress={() => this.controlLanguage()} style={styles.selectAbilityButton}>
+                                        <Text style={styles.buttonText}>Ekle</Text>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
-                            <TouchableOpacity onPress={() => this.controlLanguage()} style={styles.selectAbilityButton}>
-                                <Text style={styles.buttonText}>Ekle</Text>
-                            </TouchableOpacity>
+
                         </View>
                     </View>
                 </View>
@@ -3743,12 +3742,12 @@ class CVForm extends React.Component {
                             showsVerticalScrollIndicator={false}
                         />
 
-                        <View style={styles.chooseTalentContainer}>
+                        <View style={[styles.chooseTalentContainer, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-end', }]}>
                             <View style={{ width: '72%' }}>
                                 <Text style={styles.chooseTalentTitle}>İlgi alanı gir</Text>
                                 <TextInput
                                     value={this.state.userHobby}
-                                    placeholder='...'
+                                    placeholder='tek tek ekleyiniz...'
                                     onChangeText={(text) => { hobby = text; this.setState({ userHobby: text }) }}
                                     style={[styles.abilityInput, this.state.warningHobby && hobby === '' && { borderColor: 'red' }]} />
 
@@ -3804,22 +3803,22 @@ class CVForm extends React.Component {
 
                             <Text style={styles.infoTitle}>Başlangıç ve bitiş tarihi</Text>
                             <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                                <View style={[styles.experiencesInputView, { width: 'auto', marginBottom: 0 }, this.state.warningCommunityDate && community.communityStartDate === '' && { borderColor: 'red' }, this.state.warningCommunityDate && community.communityFinishDate === '' && { borderColor: 'red' }]}>
+                                <View style={[styles.experiencesInputView, this.state.warningCommunityDate && community.communityStartDate === '' && { borderColor: 'red' }, this.state.warningCommunityDate && community.communityFinishDate === '' && { borderColor: 'red' }]}>
                                     <SImage width={23} source={require('../images/calendar.png')} />
                                     <DatePicker
                                         androidMode='spinner'
-                                        style={[styles.infoInput, { width: 60, marginBottom: 5, marginRight: this.state.userCommunityContinuesState ? 10 : 0, padding: 0 }]}
+                                        style={[styles.infoInput, { width: 70, marginBottom: 5 }]}
                                         date={this.state.userCommunityStartDate}
                                         showIcon={false}
-                                        placeholder='a.yyyy'
+                                        placeholder='AA.YYYY'
                                         mode="date"
-                                        format="M.YYYY"
+                                        format="MM.YYYY"
                                         confirmBtnText="Confirm"
                                         cancelBtnText="Cancel"
                                         customStyles={{
                                             placeholderText: {
                                                 color: '#8D8D8D',
-                                                fontSize: 15
+                                                width: '100%'
                                             },
                                             dateInput: {
                                                 borderWidth: 0
@@ -3834,21 +3833,20 @@ class CVForm extends React.Component {
                                     {
                                         !this.state.userCommunityContinuesState &&
                                         <>
-                                            <Text style={{ fontSize: 20, color: '#737373' }}>/</Text>
+                                            <Text style={{ fontSize: 18, marginRight: 10, color: '#737373' }}>/</Text>
                                             <DatePicker
                                                 androidMode='spinner'
-                                                style={[styles.infoInput, { width: 60, marginBottom: 5, paddingLeft: 0 }]}
+                                                style={[styles.infoInput, { width: 70, marginBottom: 5, paddingLeft: 0 }]}
                                                 date={this.state.userCommunityFinishDate}
                                                 showIcon={false}
-                                                placeholder='a.yyyy'
+                                                placeholder='AA.YYYY'
                                                 mode="date"
-                                                format="M.YYYY"
+                                                format="MM.YYYY"
                                                 confirmBtnText="Confirm"
                                                 cancelBtnText="Cancel"
                                                 customStyles={{
                                                     placeholderText: {
                                                         color: '#8D8D8D',
-                                                        fontSize: 15,
                                                         width: '100%'
                                                     },
                                                     dateInput: {
@@ -3857,7 +3855,6 @@ class CVForm extends React.Component {
                                                     dateText: {
                                                         width: '100%',
                                                         color: '#8D8D8D',
-                                                        paddingLeft: 5
                                                     }
                                                 }}
                                                 onDateChange={(date) => { community.communityFinishDate = date; this.setState({ userCommunityFinishDate: date }) }}
@@ -3865,13 +3862,16 @@ class CVForm extends React.Component {
                                         </>
                                     }
                                 </View>
+
+                            </View>
+                            <View style={{ width: '100%', marginBottom: 10 }}>
                                 <CheckBox
-                                    style={{ flex: 1, marginLeft: 10 }}
+                                    style={{ flex: 1 }}
                                     onClick={() => this.continuesFunc('community')}
                                     isChecked={this.state.userCommunityContinuesState}
                                     checkBoxColor={'#0a8fbf'}
                                     rightText={'Devam ediyorum'}
-                                    rightTextStyle={[styles.checkBoxText, { fontSize: 16 }]}
+                                    rightTextStyle={styles.checkBoxText}
                                 />
                             </View>
 
@@ -3995,9 +3995,9 @@ class CVForm extends React.Component {
 
     renderResultCV() {
         return (
-            <View style={{ marginTop: 100, alignItems: 'center', height: h / 1.5 }}>
+            <View style={{ marginTop: 100, alignItems: 'center', width: '100%', height: h / 1.5 }}>
 
-                <Text style={{ fontSize: 40, margin: 40, color: '#1b84a1' }}>CV'niz hazır</Text>
+                <Text style={{ fontSize: 40, marginBottom: 50, color: '#1b84a1' }}>CV'niz hazır</Text>
 
                 <TouchableOpacity style={styles.downloadButton} onPress={this.askPermission.bind(this)}>
                     <SImage width={45} source={require('../images/save.png')} />
