@@ -138,6 +138,15 @@ const styles = StyleSheet.create({
         textAlignVertical: 'center',
         color: '#6b6b6b'
     },
+    descriptionText: {
+        width: '90%',
+        borderRadius: 3,
+        borderWidth: 1,
+        borderColor: '#DADADA',
+        padding: 10,
+        marginBottom: 10,
+        color: '#6b6b6b'
+    },
     checkBoxText: {
         color: '#6b6b6b',
         marginLeft: 0
@@ -211,7 +220,7 @@ const styles = StyleSheet.create({
     linkInputContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '90%',
+        width: '100%',
         height: 10,
         marginBottom: 20,
         marginTop: 10,

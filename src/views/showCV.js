@@ -158,7 +158,7 @@ class ShowCV extends React.Component {
             <View style={styles.body}>
                 <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", justifyContent: 'space-between' }}>
                     <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', marginBottom: 15, alignItems: 'center', justifyContent: 'center' }}>
-                        <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ position: 'absolute', left: 15 }}>
+                        <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ position: 'absolute', left: 5,width:40,height:30,alignItems:'center',justifyContent:'center' }}>
                             <SImage width={20} source={require('../images/backIcon.png')} />
                         </TouchableOpacity>
                         <Text style={{ color: '#fff', fontSize: 20 }}>Renk seçenekleri</Text>
