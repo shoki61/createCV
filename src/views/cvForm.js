@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, TextInput, Image, Picker, ScrollView, Dimensions, PermissionsAndroid, Platform, FlatList } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
 import ImagePicker from 'react-native-image-picker';
@@ -169,7 +169,7 @@ class CVForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            saveDate:new Date().toLocaleDateString()+'-'+new Date().toLocaleTimeString(),
             photoSource: null,
             filePath: '',
 
@@ -255,8 +255,8 @@ class CVForm extends React.Component {
             hidden: true,
             linksShow: true,
             selectedLinkIcon: '',
-            showPersonalInformation: false,
-            showExperiences: true,
+            showPersonalInformation: true,
+            showExperiences: false,
             showResultCV: false,
 
             minDate: '01-01-1950',
@@ -293,7 +293,7 @@ class CVForm extends React.Component {
             warningReferenceEmail: false,
 
 
-            color: '#47ceff',
+            color: '#47ceff'
         }
     }
     ///////////////////////////////////////////////////////////////////////
@@ -335,6 +335,7 @@ class CVForm extends React.Component {
 
         let options = '';
         if (helper.selectedOrderCV === 1) {
+           let saveDate = this.state.saveDate.toString();
            options = {
             base64: true,
             width: 595,
@@ -348,12 +349,12 @@ class CVForm extends React.Component {
                 
                 <div style="display:flex;width:100%;height: 836pt;background-color: ${helper.selectedCVColor};box-sizing: border-box">
 
-                     <div style="flex:1;width:100%;">
-                          <div style="width: 100%; box-sizing: border-box;display: flex;border-bottom: 2px solid ${helper.selectedCVColor === '#2A2A2A' ? '#707070' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'}`}">
+                     <div style="flex:1;width:100%">
+                          <div style="width: 100%;min-height:18%;box-sizing: border-box;display: flex;border-bottom: 2px solid ${helper.selectedCVColor === '#2A2A2A' ? '#707070' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'}`}">
                                ${helper.userPhoto !== '' ? `<div style="width: 35%;display: flex;justify-content: center;align-items: center">
                               <div style="width: 170px;height: 170px;border:3px solid ${helper.selectedCVColor === '#2A2A2A' ? '#707070' : `${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'}`};border-radius: 1000px;background: url(${helper.userPhoto.uri}) no-repeat center;background-size: cover"></div>
                           </div>` : ``}
-                               <div style="width: ${helper.userPhoto !== '' ? '65%' : '90%'};height: inherit">
+              <div style="width: ${helper.userPhoto !== '' ? '65%' : '90%'};height: inherit">
                 <p style="font-family: Calibri;font-size: 28px;text-align: center;color:${helper.selectedCVColor === '#FFFFFF' ? '#5E5E5E' : '#fff'};margin: 15px 0 10px;">${helper.userJob}</p>
                 <div style="display: flex;width: 90%;justify-content: ${helper.userPhoto !== '' ? 'space-between' : 'space-around'};margin-bottom:20px">
                     <div style="margin-left:30px">
@@ -665,7 +666,7 @@ class CVForm extends React.Component {
                      </div>
                      
                 </div>`,
-            fileName: 'deneme1',
+            fileName: 'myCV',
             directory: 'docs'
            };
         }
@@ -3185,7 +3186,7 @@ class CVForm extends React.Component {
                                     {
                                         !this.state.linksShow &&
                                         <View>
-                                            <TouchableOpacity onPress={() => this.setState({ linksShow: true })}>
+                                            <TouchableOpacity style={{width:30}} onPress={() => this.setState({ linksShow: true })}>
                                                 <SImage width={25} source={require('../images/backLink.png')} />
                                             </TouchableOpacity>
                                             <View style={styles.linkInputContainer}>
@@ -3949,6 +3950,7 @@ class CVForm extends React.Component {
 
                 <TouchableOpacity style={styles.downloadButton} onPress={this.askPermission.bind(this)}>
                     <SImage width={45} source={require('../images/save.png')} />
+                    <Text>{this.state.saveDate}</Text>
                     <Text style={styles.downloadText}>
                         {
                             this.state.filePath === '' ? 'Kaydet' : 'Tekrar kaydet'
