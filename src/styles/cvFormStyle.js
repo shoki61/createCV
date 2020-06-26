@@ -59,7 +59,9 @@ const styles = StyleSheet.create({
         padding: 8,
         backgroundColor: '#399EFF',
         alignItems: 'center',
-        marginTop: 10
+        marginTop: 10,
+        flexDirection:'row',
+        justifyContent:'center'
     },
     previousButton: {
         width: w / 2.3,
@@ -211,9 +213,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
-        height: 10,
-        marginBottom: 35,
-        padding: 10,
+        marginBottom:10,
         paddingLeft: 20,
         paddingRight: 20
     },
@@ -294,10 +294,9 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 10,
-        paddingTop: 10,
         paddingLeft: 10,
-        paddingRight: 10
+        paddingRight: 10,
+        marginBottom:15
     },
     abilityText: {
         width: '35%',
@@ -332,7 +331,6 @@ const styles = StyleSheet.create({
     },
     chooseTalentContainer: {
         width: '100%',
-        marginTop: 20
     },
     abilityInput: {
         width: '100%',
@@ -404,29 +402,6 @@ const styles = StyleSheet.create({
         marginTop: 7
     },
 
-    listNumber: {
-        position: 'absolute',
-        width: 20,
-        height: 20,
-        borderRadius: 100,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        color: '#fff',
-        left: 10,
-        zIndex: 100
-    },
-    SchoolListNumber: {
-        position: 'absolute',
-        width: 25,
-        height: 25,
-        borderRadius: 100,
-        textAlign: 'center',
-        textAlignVertical: 'center',
-        color: '#fff',
-        left: 3,
-        top: -10,
-        zIndex: 100
-    },
 
     drivingLicence: {
         width: w / 6,
@@ -442,13 +417,17 @@ const styles = StyleSheet.create({
     },
 
     upButton: {
-        width: 45,
-        height: 45,
+        elevation: 5,
+        width: 60,
+        height:60,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 100,
         backgroundColor: '#399EFF',
-        marginRight: 50
+        position: 'absolute',
+        right:30,
+        bottom:30,
+        zIndex: 1000
     }
 
 })

@@ -47,6 +47,8 @@ class helper {
 
     selectedOrderCV = ''
 
+    saveDate=''
+
     setSelectedOrderCV(v) {
         this.selectedCV = v
     }
@@ -204,6 +206,7 @@ decorate(
         userPostalCode: observable,
         userBirthDay: observable,
         userGender: observable,
+        saveDate:observable,
 
         setUserAbilities: action,
         setUserLanguages: action,

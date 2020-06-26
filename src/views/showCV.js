@@ -207,7 +207,7 @@ class ShowCV extends React.Component {
 
                     </View>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => this.props.navigation.navigate('cvForm')} style={styles.buttonStyle}><Text style={styles.buttonText}>İleri</Text></TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('personalInformation')} style={styles.buttonStyle}><Text style={styles.buttonText}>İleri</Text></TouchableOpacity>
                     </View>
                 </ScrollView>
             </View >
