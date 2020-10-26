@@ -4,20 +4,10 @@ import { observer } from 'mobx-react';
 
 
 import styles from '../styles/homeStyle';
-import helper from '../controllers/helper';
 
 
-class Home extends React.Component {
+const Home = () => {
 
-
-
-    logoutFunc() {
-        AsyncStorage.removeItem('userToken')
-        helper.setToken();
-    }
-
-
-    render() {
         return (
             <View style={styles.body}>
                 <Image style={styles.backImage} source={require('../images/homeBackImage.png')} />
@@ -30,7 +20,7 @@ class Home extends React.Component {
                 </View>
             </View>
         )
-    }
+    
 }
 
 

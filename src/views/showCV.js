@@ -10,10 +10,10 @@ import helper from '../controllers/helper';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 
-class ShowCV extends React.Component {
+const ShowCV = () => {
 
 
-    changeColorCV(v) {
+    const changeColorCV = (v) => {
         if (helper.selectedOrderCV === 1) {
             switch (v) {
                 case '#2A2A2A':
@@ -153,7 +153,6 @@ class ShowCV extends React.Component {
     }
 
 
-    render() {
         return (
             <View style={styles.body}>
                 <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", justifyContent: 'space-between' }}>
@@ -212,7 +211,7 @@ class ShowCV extends React.Component {
                 </ScrollView>
             </View >
         )
-    }
+    
 };
 
 export default observer(ShowCV);

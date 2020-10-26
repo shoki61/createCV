@@ -135,7 +135,7 @@ function SchoolGrade() {
 }
 
 
-class Experiences extends React.Component {
+const Experiences = () => {
 
     constructor(props) {
         super(props);
@@ -252,7 +252,7 @@ class Experiences extends React.Component {
     /////////////////////////////////////////////////////////////////////
 
 
-    renderProgressBar() {
+    const renderProgressBar = () => {
         return (
             <View style={styles.progressBarView}>
                 <View style={[styles.progressBarIconContainer, this.state.showPersonalInformation ? { width: 65, height: 65, borderWidth: 3, borderColor: '#fff', elevation: 20, top: -30 } : { top: -18 }]}>
@@ -273,7 +273,7 @@ class Experiences extends React.Component {
         )
     }
     ///////listelenecek eklentiler//////////////////////////
-    setReferences(item) {
+    const setReferences = (item) => {
         return (
             <View style={{ width: '100%', borderBottomColor: 'lightgrey', borderBottomWidth: 1, paddingBottom: 10, marginBottom: 10, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 10, paddingLeft: 15, paddingRight: 15 }}>
                 <View style={{ width: '100%' }}>
@@ -296,7 +296,7 @@ class Experiences extends React.Component {
             </View>
         )
     }
-    setHobbies(item) {
+    const setHobbies = (item) => {
         return (
             <Animatable.View animation="fadeInUp" duration={300} style={styles.abilityContainer}>
                 <Text style={styles.hobbyText} numberOfLines={1}>{item.item.hobby}</Text>
@@ -306,7 +306,7 @@ class Experiences extends React.Component {
             </Animatable.View>
         )
     }
-    setAbilities(v) {
+    const setAbilities = (v) => {
         return (
             <Animatable.View animation="fadeInUp" duration={300}  style={styles.abilityContainer}>
                 <Text style={styles.abilityText} numberOfLines={1}>{v.item.name}</Text>
@@ -317,7 +317,7 @@ class Experiences extends React.Component {
             </Animatable.View>
         )
     }
-    setLanguage(v) {
+    const setLanguage = (v) => {
         return (
             <Animatable.View animation="fadeInUp" duration={300}  style={styles.abilityContainer}>
                 <Text style={styles.abilityText} numberOfLines={1}>{v.item.name}</Text>
@@ -328,7 +328,7 @@ class Experiences extends React.Component {
             </Animatable.View>
         )
     }
-    setSchools(item) {
+    const setSchools = (item) => {
         return (
             <View style={[{ width: '100%', justifyContent: 'center', alignItems: 'center' }, helper.userSchools && { marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, }]}>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.schoolName}</Text>
@@ -343,7 +343,7 @@ class Experiences extends React.Component {
             </View>
         )
     }
-    setCompanies(item) {
+    const setCompanies = (item) => {
         return (
             <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, alignItems: 'center' }}>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.companyName}</Text>
@@ -361,7 +361,7 @@ class Experiences extends React.Component {
             </View>
         )
     }
-    setProjects(item) {
+    const setProjects = (item) => {
         return (
             <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, alignItems: 'center' }}>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.projectName}</Text>
@@ -389,7 +389,7 @@ class Experiences extends React.Component {
             </View>
         )
     }
-    setCommunities(item) {
+    const setCommunities = (item) => {
         return (
             <View style={{ width: '100%', marginBottom: 10, marginTop: 10, borderBottomColor: 'lightgrey', borderBottomWidth: 1, alignItems: 'center' }}>
                 <Text style={styles.schoolInfoText} numberOfLines={1}>{item.item.communityName}</Text>
@@ -418,35 +418,35 @@ class Experiences extends React.Component {
     ///////////////////////////////////////////////////////
 
     ////////listeleri çıkaran fonksyonlar////////////////////////
-    removeHobby(v) {
+    const removeHobby = (v) => {
         helper.userHobbies.splice(v.index, 1)
         this.setState({ userHobby: hobby })
     }
-    removeReference(v) {
+    const removeReference = (v) => {
         helper.userReferences.splice(v.index, 1)
         this.setState({ userReferenceName: reference.name })
     }
-    removeLanguage(v) {
+    const removeLanguage = (v) => {
         helper.UserLanguages.splice(v.index, 1)
         this.setState({ userLanguage: language })
     }
-    removeAbility(v) {
+    const removeAbility = (v) => {
         helper.userAbilities.splice(v.index, 1)
         this.setState({ userAbility: ability })
     }
-    removeSchool(v) {
+    const removeSchool = (v) => {
         helper.userSchools.splice(v.index, 1)
         this.setState({ userSchoolName: school.schoolName })
     }
-    removeCommunity(v) {
+    const removeCommunity = (v) => {
         helper.userCommunities.splice(v.index, 1)
         this.setState({ userCommunityName: community.communityName })
     }
-    removeProject(v) {
+    const removeProject = (v) => {
         helper.userProjects.splice(v.index, 1)
         this.setState({ userProjectName: project.projectName })
     }
-    removeCompany(v) {
+    const removeCompany = (v) => {
         helper.userCompanies.splice(v.index, 1)
         this.setState({ userCompanyName: company.companyName })
     }
@@ -454,7 +454,7 @@ class Experiences extends React.Component {
     //////////////////////////////////////////////////
     ///////listeye ekleyen fonksyonlar//////////////
 
-    controlAbility() {
+    const controlAbility = () => {
         if (ability.name === '') {
             this.setState({ warningAbility: true })
         } else {
@@ -467,7 +467,7 @@ class Experiences extends React.Component {
 
         }
     }
-    controlLanguage() {
+    const controlLanguage = () => {
         if (language.name === '') {
             this.setState({ warningLanguage: true })
         } else {
@@ -479,7 +479,7 @@ class Experiences extends React.Component {
             language.name = ''
         }
     }
-    controlHobby() {
+    const controlHobby = () => {
         if (hobby === '') {
             this.setState({ warningHobby: true })
         } else {
@@ -492,7 +492,7 @@ class Experiences extends React.Component {
 
         }
     }
-    controlReference() {
+    const controlReference = () => {
         if (reference.name === '' || reference.tel === '' || reference.email === '') {
             if (reference.name === '') this.setState({ warningReferenceName: true });
             if (reference.tel === '') this.setState({ warningReferenceTel: true });
@@ -516,7 +516,7 @@ class Experiences extends React.Component {
             reference.companyName = '';
         }
     }
-    controlProject() {
+    const controlProject = () => {
         if (project.projectName === '' || project.projectDescription === '') {
             if (project.projectName === '') this.setState({ warningProjectName: true });
             if (project.projectDescription === '') this.setState({ warningProjectDescription: true })
@@ -538,7 +538,7 @@ class Experiences extends React.Component {
             project.projectDescription = '';
         }
     }
-    controlCompany() {
+    const controlCompany = () => {
         if (company.companyName === '' || company.companyJob === '' || company.companyStartDate === '' || company.companyFinishDate === '' ) {
             if (company.companyName === '') this.setState({ warningCompanyName: true })
             if (company.companyJob === '') this.setState({ warningCompanyJob: true })
@@ -564,7 +564,7 @@ class Experiences extends React.Component {
             company.companyDescription = '';
         }
     }
-    controlSchool() {
+    const controlSchool = () => {
         if (school.schoolName === '' || school.schoolDepartment === '' || school.schoolGrade === '' || school.schoolStartDate === '' || school.schoolFinishDate === '') {
             if (school.schoolName === '') this.setState({ warningSchoolName: true })
             if (school.schoolDepartment === '') this.setState({ warningSchoolDepartment: true })
@@ -593,7 +593,7 @@ class Experiences extends React.Component {
 
         }
     }
-    controlCommunity() {
+    const controlCommunity = () => {
         if (community.communityName === '' || community.communityTitle === '' || community.communityStartDate === '' || community.communityFinishDate === '') {
             if (community.communityName === '') this.setState({ warningCommunityName: true })
             if (community.communityTitle === '') this.setState({ warningCommunityTitle: true })
@@ -621,7 +621,7 @@ class Experiences extends React.Component {
     }
     /////////////////////////////////////////////////
     ////////////////////////////////////////////////
-    continuesFunc = async (v) => {
+    const continuesFunc = async (v) => {
         if (v === 'school') {
             await this.setState({ userSchoolContinuesState: !this.state.userSchoolContinuesState });
             await this.setState({ userSchoolContinues: `${this.state.userSchoolContinuesState === true ? 'Devam ediyor' : ''}`, userSchoolFinishDate: '' })
@@ -639,12 +639,12 @@ class Experiences extends React.Component {
 
     }
 
-    controlNavigation(){
+    const controlNavigation = () => {
         if(helper.userSchools.length <= 0 || helper.userAbilities.length <= 0) this.AlertPro.open()
         else this.props.navigation.navigate('saveCV')
     }
 
-    renderExperiences() {
+    const renderExperiences = () => {
 
         return (
             <View style={{ width: '100%', marginTop: 80, alignItems: 'center' }}>
@@ -1339,12 +1339,6 @@ class Experiences extends React.Component {
                 </View>
 
 
-                <View style={{ width: '100%', alignItems: 'flex-end' }}>
-                    <TouchableOpacity  style={styles.upButton}>
-                        <SImage width={20} source={require('../images/upIcon.png')} />
-                    </TouchableOpacity>
-                </View>
-
                 <View style={{ width: '100%', marginBottom: 20, flexDirection: 'row', justifyContent: 'space-evenly' }}>
                     <TouchableOpacity onPress={() => this.controlNavigation()} style={styles.nextButton}>
                         <Text style={styles.buttonText}>İleri</Text>
@@ -1355,18 +1349,17 @@ class Experiences extends React.Component {
         )
     }
 
-    goToTop = () => {
+    const goToTop = () => {
         this.scroll.scrollTo({ x: 0, y: 0, animated: true });
         this.setState({sayi:this.scroll.y})
 
     }
-    handleScroll(event){
+    const handleScroll = (event) => {
         this.setState({
             scrollY : event.nativeEvent.contentOffset.y,
         })
     }
 
-    render() {
         return (
             <View style={{flex:1}}>
                 <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', alignItems: 'center', justifyContent: 'center' }}>
@@ -1421,15 +1414,15 @@ class Experiences extends React.Component {
             </ScrollView>
                 {   this.state.scrollY > 300 &&
 
-                  <TouchableOpacity  onPress={this.goToTop} style={styles.upButton} >
-                      <SImage width={25} source={require('../images/upIcon.png')} />
-                  </TouchableOpacity>
+                          <TouchableOpacity  onPress={this.goToTop} style={styles.upButton} >
+                              <SImage width={25} source={require('../images/upIcon.png')} />
+                          </TouchableOpacity>
                 }
 
 
             </View>
         )
-    }
+    
 }
 
 

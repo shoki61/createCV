@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
         width: w / 2.3,
         elevation: 5,
         borderRadius: 2,
-        padding: 8,
+        padding: 10,
         backgroundColor: '#399EFF',
         alignItems: 'center',
         marginTop: 10,
@@ -426,8 +426,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#399EFF',
         position: 'absolute',
         right:30,
-        bottom:30,
-        zIndex: 1000
+        bottom:30
     }
 
 })

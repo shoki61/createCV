@@ -7,9 +7,9 @@ import helper from "../controllers/helper";
 
 const w = Dimensions.get('window').width;
 
-class CVExamples extends React.Component {
+const CVExamples = () => {
 
-    goSelectedColor(v, n, c) {
+    const goSelectedColor = (v, n, c) => {
         helper.selectedCV = v
         helper.selectedOrderCV = n
         helper.selectedCVColor = c
@@ -18,7 +18,6 @@ class CVExamples extends React.Component {
 
 
 
-    render() {
         return (
             <View style={styles.body}>
                 <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', alignItems: 'center', justifyContent: 'center' }}>
@@ -39,9 +38,8 @@ class CVExamples extends React.Component {
 
             </View>
         )
-    }
+    
 };
 
 export default CVExamples;
 
-/* */

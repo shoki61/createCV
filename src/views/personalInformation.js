@@ -19,7 +19,7 @@ let licence = ''
 let linkIcon = ''
 
 
-class PersonalInformation extends React.Component {
+const PersonalInformation = () => {
 
     componentWillMount() {
         linkIcon = helper.userLinks.map(el => el.linkIconCV);
@@ -79,7 +79,7 @@ class PersonalInformation extends React.Component {
     //////////////////////////////////////////////////////////////////////
 
 
-    renderProgressBar() {
+    const renderProgressBar = () => {
         return (
             <View style={styles.progressBarView}>
                 <View style={[styles.progressBarIconContainer, { width: 65, height: 65, borderWidth: 3, borderColor: '#fff', elevation: 20, top: -30 }]}>
@@ -100,7 +100,7 @@ class PersonalInformation extends React.Component {
 
         )
     }
-    deleteMore() {
+    const deleteMore = () => {
         this.setState({ hidden: !this.state.hidden });
         if (this.state.hidden) this.setState({userGender: 'Erkek'})
         else {
@@ -126,7 +126,7 @@ class PersonalInformation extends React.Component {
             licence = [];
         }
     }
-    getFoto = async () => {
+    const getFoto = async () => {
 
         try {
             const sonuc1 = await PermissionsAndroid.request(
@@ -184,7 +184,7 @@ class PersonalInformation extends React.Component {
             }
         });
     }
-    setLinks(item) {
+    const setLinks = (item) => {
         return (
             <Animatable.View duration={500} animation="fadeInUp" onTransitionEnd='fadeInUp' style={styles.linkContainer}>
                 <View style={styles.linkIconStyle}><SImage width={25} source={item.item.linkIcon} /></View>
@@ -193,7 +193,7 @@ class PersonalInformation extends React.Component {
             </Animatable.View>
         )
     }
-    setDrivingLicencies(item) {
+    const setDrivingLicencies = (item) => {
         return (
             <Animatable.View duration={600} animation="fadeInUp">
                 <TouchableOpacity onPress={() => this.removeDrivingLicence(item)}>
@@ -207,13 +207,13 @@ class PersonalInformation extends React.Component {
 
     ////////listeleri çıkaran fonksyonlar////////////////////////
 
-    removeDrivingLicence(v) {
+    const removeDrivingLicence = (v) => {
         helper.userDrivingLicencies.splice(v.index, 1)
         licence = helper.userDrivingLicencies.map(el => el.licence);
         this.setState({ userDrivingLicence: '' })
     }
 
-    removeLink(v) {
+    const removeLink = (v) => {
         //uygulamada gösterilen kısım
         helper.userLinks.splice(v.index, 1)
         linkIcon = helper.userLinks.map(el => el.linkIconCV);
@@ -235,7 +235,7 @@ class PersonalInformation extends React.Component {
     ///////////////////////////////////////////////////
     //////////////////////////////////////////////////
     ///////listeye ekleyen fonksyonlar//////////////
-    controlLink() {
+    const controlLink = () => {
             if (link === '') this.setState({ warningLink: true })
             else {
                if (this.state.userLinkIcon === 'github') helper.userGithubLink = this.state.userLink
@@ -260,14 +260,14 @@ class PersonalInformation extends React.Component {
     }
 
 
-    pushDrivingLicence(v, color) {
+    const pushDrivingLicence = (v, color) => {
         helper.setUserDrivingLicencies(v, color);
         this.setState({ userDrivingLicence: v })
         licence = helper.userDrivingLicencies.map(el => el.licence);
     }
     /////////////////////////////////////////////////
     ////////////////////////////////////////////////
-    changeLinksShow(v, iCV) {
+    const changeLinksShow = (v, iCV) => {
         this.setState({
             linksShow: !this.state.linksShow,
             selectedLinkIcon: v,
@@ -275,12 +275,12 @@ class PersonalInformation extends React.Component {
         })
     }
 
-    controlNavigation(){
+    const controlNavigation = () => {
         if(helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '') this.AlertPro.open()
         else this.props.navigation.navigate('experiences')
     }
 
-    renderPersonalInformation() {
+    const renderPersonalInformation = () => {
         return (
 
             <View style={{ width: '100%', marginTop: 80 }}>
@@ -610,7 +610,6 @@ class PersonalInformation extends React.Component {
     }
 
 
-    render() {
         return (
             <View style={{flex:1}}>
                 <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', alignItems: 'center', justifyContent: 'center' }}>
@@ -666,7 +665,7 @@ class PersonalInformation extends React.Component {
             </ScrollView>
             </View>
         )
-    }
+    
 }
 
 
