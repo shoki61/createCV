@@ -21,11 +21,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        marginBottom: 10
+        marginBottom: 15
     },
     buttonStyle: {
         width: w / 1.3,
-        height: 45,
+        height: 55,
         backgroundColor: '#ff9157',
         alignItems: 'center',
         justifyContent: 'center',

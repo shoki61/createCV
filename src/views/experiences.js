@@ -137,121 +137,8 @@ function SchoolGrade() {
 
 const Experiences = () => {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            scrollY:'',
-
-            userSchoolName: '',
-            userSchoolDepartment: '',
-            userSchoolStartDate: '',
-            userSchoolFinishDate: '',
-            userSchoolContinues: '',
-            userSchoolContinuesState: false,
-            showSchoolInput: true,
-            autoSchool: false,
-
-            userJob: '',
-
-            userCompanyName: '',
-            userCompanyJob: '',
-            userCompanyStartDate: '',
-            userCompanyFinishDate: '',
-            userCompanyDescription: '',
-            userCompanyContinues: '',
-            userCompanyContinuesState: false,
-            showCompanyInput: true,
-            autoCompany: false,
-
-            userProjectName: '',
-            userProjectTools: '',
-            userProjectLink: '',
-            userProjectDescription: '',
-            showProjectInput: true,
-            autoProject: false,
-
-            userAbility: '',
-            userAbilityLevel: '',
-            optionsAbilityLevel: [
-                { value: 'Başlangıç', label: 'Başlangıç' },
-                { value: 'Orta', label: 'Orta' },
-                { value: 'İyi', label: 'İyi' },
-                { value: 'Çok iyi', label: 'Çok iyi' },
-                { value: 'Profesyonel', label: 'Profesyonel' }
-            ],
-
-            userLanguage: '',
-            userLanguageLevel: '',
-            optionsLanguageLevel: [
-                { value: 'Başlangıç', label: 'Başlangıç' },
-                { value: 'Orta', label: 'Orta' },
-                { value: 'İyi', label: 'İyi' },
-                { value: 'Çok iyi', label: 'Çok iyi' },
-                { value: 'Profesyonel', label: 'Profesyonel' }
-            ],
-
-            userHobby: '',
-
-            userCommunityName: '',
-            userCommunityTitle: '',
-            userCommunityStartDate: '',
-            userCommunityFinishDate: '',
-            userCommunityDescription: '',
-            userCommunityContinues: '',
-            userCommunityContinuesState: false,
-            showCommunityInput: true,
-            autoCommunity: false,
-
-            userReferenceName: '',
-            userReferenceNumber: '',
-            userReferenceEmail: '',
-            userReferenceCompanyName: '',
-            showReferenceInput: true,
-            autoReference: false,
-
-
-            minDate: '01-01-1950',
-            maxDate: '01-01-2016',
-
-
-            ////////////uyarılar kısmı//////////////////////////////
-
-
-            warningSchoolName: false,
-            warningSchoolDepartment: false,
-            warningSchoolCity: false,
-            warningSchoolDate: false,
-
-            warningCompanyName: false,
-            warningCompanyJob: false,
-            warningCompanyDate: false,
-
-            warningProjectName: false,
-            warningProjectDescription: false,
-
-            warningAbility: false,
-
-            warningLanguage: false,
-
-            warningHobby: false,
-
-            warningCommunityName: false,
-            warningCommunityTitle: false,
-            warningCommunityDate: false,
-
-            warningReferenceName: false,
-            warningReferenceTel: false,
-            warningReferenceEmail: false,
-
-
-            color: '#47ceff'
-        }
-    }
-
-    //////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////
-
-
+    
+    
     const renderProgressBar = () => {
         return (
             <View style={styles.progressBarView}>
@@ -272,7 +159,7 @@ const Experiences = () => {
 
         )
     }
-    ///////listelenecek eklentiler//////////////////////////
+    
     const setReferences = (item) => {
         return (
             <View style={{ width: '100%', borderBottomColor: 'lightgrey', borderBottomWidth: 1, paddingBottom: 10, marginBottom: 10, justifyContent: 'space-between', flexDirection: 'row', alignItems: 'flex-end', marginTop: 10, paddingLeft: 15, paddingRight: 15 }}>
@@ -414,10 +301,8 @@ const Experiences = () => {
             </View>
         )
     }
-    ////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////
+    
 
-    ////////listeleri çıkaran fonksyonlar////////////////////////
     const removeHobby = (v) => {
         helper.userHobbies.splice(v.index, 1)
         this.setState({ userHobby: hobby })
@@ -450,9 +335,6 @@ const Experiences = () => {
         helper.userCompanies.splice(v.index, 1)
         this.setState({ userCompanyName: company.companyName })
     }
-    ///////////////////////////////////////////////////
-    //////////////////////////////////////////////////
-    ///////listeye ekleyen fonksyonlar//////////////
 
     const controlAbility = () => {
         if (ability.name === '') {
@@ -619,8 +501,7 @@ const Experiences = () => {
             community.communityDescription = '';
         }
     }
-    /////////////////////////////////////////////////
-    ////////////////////////////////////////////////
+    
     const continuesFunc = async (v) => {
         if (v === 'school') {
             await this.setState({ userSchoolContinuesState: !this.state.userSchoolContinuesState });

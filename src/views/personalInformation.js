@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, TouchableOpacity, TextInput, Image, Picker, ScrollView,PermissionsAndroid, FlatList } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import DatePicker from 'react-native-datepicker';
@@ -19,66 +19,26 @@ let licence = ''
 let linkIcon = ''
 
 
-const PersonalInformation = () => {
-
-    componentWillMount() {
-        linkIcon = helper.userLinks.map(el => el.linkIconCV);
-        licence = helper.userDrivingLicencies.map(el => el.licence);
-        setInterval(() => {
-            let color = Math.floor(Math.random() * 5)
-            switch (color) {
-                case 0:
-                    this.setState({ color: '#47ceff' });
-                    break;
-                case 1:
-                    this.setState({ color: '#ff5cb6' });
-                    break;
-                case 2:
-                    this.setState({ color: '#f133ff' });
-                    break;
-                case 3:
-                    this.setState({ color: '#ffda47' });
-                    break;
-                case 4:
-                    this.setState({ color: '#40e685' });
-                    break;
-            }
-        }, 3000)
-    }
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            photoSource: null,
-            filePath: '',
-
-            userName: '',
-            userNumber: '',
-            userEmail: '',
-            userAddress: '',
-            userCity: '',
-            userPostalCode: '',
-            userBirthDay: '',
-            userGender: '',
-            userDrivingLicence: '',
-            userLink: '',
-            userLinkIcon: '',
-
-            hidden: true,
-            linksShow: true,
-            selectedLinkIcon: '',
-
-            minDate: '01-01-1950',
-            maxDate: '01-01-2016',
-            ////////////uyarılar kısmı//////////////////////////////
-            warningLink: false,
-            color: '#47ceff'
-        }
-    }
-    ///////////////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////////////
+const PersonalInformation = (props) => {
 
 
+    const [hidden, setHidden] = useState(false);
+    const [userGender, setUserGender] = useState('');
+    const [userBirthDay, setUserBirthDay] = useState('');
+    const [photoSource, setPhotoSource] = useState('');
+    const [userDrivingLicence, setUserDrivingLicence] = ('');
+    const [warningLink, setWarningLink] = useState(false);
+    const [linksShow, setLinksShow] = useState(false);
+    const [userLinks, setUserLinks] = useState('');
+    const [userLink, setUserLink] = useState('');
+    const [selectedLinkIcon, setSelectedLinkIcon] = useState('');
+    const [userLinkIcon, setUserLinkIcon] = useState('')
+    const [showExperiences, setShowExperiences] = useState(false)
+
+    linkIcon = helper.userLinks.map(el => el.linkIconCV);
+    licence = helper.userDrivingLicencies.map(el => el.licence);
+        
+ 
     const renderProgressBar = () => {
         return (
             <View style={styles.progressBarView}>
@@ -88,12 +48,12 @@ const PersonalInformation = () => {
                 <View style={[{ width: '50%', height: 5 }, helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '' ? { backgroundColor: '#e0e0e0' } : { backgroundColor: '#399eff' }]}>
                 </View>
                 <View style={[styles.progressBarIconContainer, { top: -18, left: '45%' }, helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '' ? { backgroundColor: '#e0e0e0' } : {}]}>
-                    <SImage width={20} source={`${helper.userSchools.length <= 0 || helper.userAbilities.length <= 0 || this.state.showExperiences ? require('../images/cvProgressBar.png') : require('../images/checkIcon.png')}`} />
+                    <SImage width={20} source={`${helper.userSchools.length <= 0 || helper.userAbilities.length <= 0 || showExperiences ? require('../images/cvProgressBar.png') : require('../images/checkIcon.png')}`} />
                 </View >
 
                 <View style={[{ width: '50%', height: 5 }, helper.userSchools.length <= 0 || helper.userAbilities.length <= 0 ||helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === ''  ? { backgroundColor: '#e0e0e0' } : { backgroundColor: '#399eff' }]}></View>
                 <View
-                                  style={[styles.progressBarIconContainer, { top: -18, right: 0 }, helper.userSchools.length <= 0 || helper.userAbilities.length <= 0 ||helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '' ? { backgroundColor: '#e0e0e0' } : {}]}>
+                    style={[styles.progressBarIconContainer, { top: -18, right: 0 }, helper.userSchools.length <= 0 || helper.userAbilities.length <= 0 ||helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '' ? { backgroundColor: '#e0e0e0' } : {}]}>
                     <SImage width={17} source={require('../images/downloadProgressBar.png')} />
                 </View>
             </View>
@@ -101,13 +61,11 @@ const PersonalInformation = () => {
         )
     }
     const deleteMore = () => {
-        this.setState({ hidden: !this.state.hidden });
-        if (this.state.hidden) this.setState({userGender: 'Erkek'})
+        setHidden(!hidden)
+        if (hidden) setUserGender('Erkek')
         else {
-            this.setState({
-                userGender: '',
-                userBirthDay: ''
-            });
+            setUserGender('');
+            setUserBirthDay('');
             helper.userLinks = [];
             helper.userDrivingLicencies = [];
             helper.userBirthDay = '';
@@ -129,7 +87,7 @@ const PersonalInformation = () => {
     const getFoto = async () => {
 
         try {
-            const sonuc1 = await PermissionsAndroid.request(
+            const result1 = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
                 {
                     title: 'Dosya Okuma İzni',
@@ -141,7 +99,7 @@ const PersonalInformation = () => {
             );
 
 
-            const sonuc2 = await PermissionsAndroid.request(
+            const result2 = await PermissionsAndroid.request(
                 PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
                 {
                     title: 'Dosya Yazma İzni',
@@ -153,7 +111,7 @@ const PersonalInformation = () => {
             );
 
 
-            if ((sonuc1 === PermissionsAndroid.RESULTS.GRANTED) && (sonuc2 === PermissionsAndroid.RESULTS.GRANTED)) console.log('İZİN VERİLDİ');
+            if ((result1 === PermissionsAndroid.RESULTS.GRANTED) && (result2 === PermissionsAndroid.RESULTS.GRANTED)) console.log('İZİN VERİLDİ');
             else console.log('İZİN VERİLMEDİ');
         }
         catch (err) { console.warn(err); }
@@ -179,7 +137,7 @@ const PersonalInformation = () => {
             else if (response.customButton)console.log('User tapped custom button: ', response.customButton)
             else {
                 const source = { uri: response.uri };
-                this.setState({photoSource: source});
+                setPhotoSource(source)
                 helper.userPhoto = source;
             }
         });
@@ -189,28 +147,25 @@ const PersonalInformation = () => {
             <Animatable.View duration={500} animation="fadeInUp" onTransitionEnd='fadeInUp' style={styles.linkContainer}>
                 <View style={styles.linkIconStyle}><SImage width={25} source={item.item.linkIcon} /></View>
                 <Text style={styles.linkNameStyle} numberOfLines={1} >{item.item.link}</Text>
-                <TouchableOpacity onPress={() => this.removeLink(item)} style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => removeLink(item)} style={styles.linkRemoveButton}><Text style={styles.buttonText}>Çıkar</Text></TouchableOpacity>
             </Animatable.View>
         )
     }
     const setDrivingLicencies = (item) => {
         return (
             <Animatable.View duration={600} animation="fadeInUp">
-                <TouchableOpacity onPress={() => this.removeDrivingLicence(item)}>
+                <TouchableOpacity onPress={() => removeDrivingLicence(item)}>
                     <Text style={[styles.drivingLicence, { borderColor: item.item.color, color: item.item.color }]}>{item.item.licence}</Text>
                 </TouchableOpacity>
             </Animatable.View>
         )
     }
-    ////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////
 
-    ////////listeleri çıkaran fonksyonlar////////////////////////
 
     const removeDrivingLicence = (v) => {
         helper.userDrivingLicencies.splice(v.index, 1)
         licence = helper.userDrivingLicencies.map(el => el.licence);
-        this.setState({ userDrivingLicence: '' })
+        setUserDrivingLicence('')
     }
 
     const removeLink = (v) => {
@@ -228,32 +183,31 @@ const PersonalInformation = () => {
         else if (v.item.linkIconCV === 'facebook') helper.userFacebookLink = ''
         else if (v.item.linkIconCV === 'twitter') helper.userTwitterLink = ''
         else if (v.item.linkIconCV === 'link') helper.userPersonalLink.splice(v.index, 1)
-        else helper.userYoutubeLink = ''
-        this.setState({ userLinks: link })
+        else helper.userYoutubeLink = '';
+
+        setUserLinks(link);
     }
 
     ///////////////////////////////////////////////////
     //////////////////////////////////////////////////
     ///////listeye ekleyen fonksyonlar//////////////
     const controlLink = () => {
-            if (link === '') this.setState({ warningLink: true })
+        if (link === '') setWarningLink(true);
             else {
-               if (this.state.userLinkIcon === 'github') helper.userGithubLink = this.state.userLink
-               else if (this.state.userLinkIcon === 'linkedin') helper.userLinkedInLink = this.state.userLink
-               else if (this.state.userLinkIcon === 'pinterest') helper.userPinterestLink = this.state.userLink
-               else if (this.state.userLinkIcon === 'instagram') helper.userInstagramLink = this.state.userLink
-               else if (this.state.userLinkIcon === 'skype') helper.userSkypeLink = this.state.userLink
-               else if (this.state.userLinkIcon === 'telegram') helper.userTelegramLink = this.state.userLink
-               else if (this.state.userLinkIcon === 'facebook') helper.userFacebookLink = this.state.userLink
-               else if (this.state.userLinkIcon === 'twitter') helper.userTwitterLink = this.state.userLink
-               else if (this.state.userLinkIcon === 'youtube') helper.userYoutubeLink = this.state.userLink
-               else helper.userPersonalLink.push({link: this.state.userLink})
-               helper.setUserLinks(link, this.state.color, this.state.selectedLinkIcon, this.state.userLinkIcon);
-               this.setState({
-                   userLink: '',
-                   warningLink: false,
-                   linksShow: !this.state.linksShow
-               });
+               if (userLink === 'github') helper.userGithubLink = userLink
+               else if (userLink === 'linkedin') helper.userLinkedInLink = userLink
+               else if (userLink === 'pinterest') helper.userPinterestLink = userLink
+               else if (userLink === 'instagram') helper.userInstagramLink = userLink
+               else if (userLink === 'skype') helper.userSkypeLink = userLink
+               else if (userLink === 'telegram') helper.userTelegramLink = userLink
+               else if (userLink === 'facebook') helper.userFacebookLink = userLink
+               else if (userLink === 'twitter') helper.userTwitterLink = userLink
+               else if (userLink === 'youtube') helper.userYoutubeLink = userLink
+               else helper.userPersonalLink.push({link: userLink})
+               helper.setUserLinks(link, selectedLinkIcon, userLinkIcon);
+                setUserLink(''),
+                setWarningLink(false),
+                setLinksShow(!linksShow)
                link = ''
                linkIcon = helper.userLinks.map(el => el.linkIconCV);
             }
@@ -262,22 +216,20 @@ const PersonalInformation = () => {
 
     const pushDrivingLicence = (v, color) => {
         helper.setUserDrivingLicencies(v, color);
-        this.setState({ userDrivingLicence: v })
+        setUserDrivingLicence(v)
         licence = helper.userDrivingLicencies.map(el => el.licence);
     }
     /////////////////////////////////////////////////
     ////////////////////////////////////////////////
     const changeLinksShow = (v, iCV) => {
-        this.setState({
-            linksShow: !this.state.linksShow,
-            selectedLinkIcon: v,
-            userLinkIcon: iCV
-        })
+        setLinksShow(!linksShow);
+        setSelectedLinkIcon(v);
+        setUserLinkIcon(iCV);
     }
 
     const controlNavigation = () => {
-        if(helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '') this.AlertPro.open()
-        else this.props.navigation.navigate('experiences')
+        if(helper.userName === '' || helper.userTel === '' || helper.userEmail === '' || helper.userJob === '' || helper.userCity === '') alert('hata')  //AlertPro.open()
+        else props.navigation.navigate('experiences')
     }
 
     const renderPersonalInformation = () => {
@@ -290,7 +242,7 @@ const PersonalInformation = () => {
                             <Image style={styles.photoStyle} source={helper.userPhoto === '' ? require('../images/defaultPhoto.png') : helper.userPhoto} />
                         </View>
 
-                        <TouchableOpacity onPress={() => this.getFoto()} style={styles.selectButton}>
+                        <TouchableOpacity onPress={() => getFoto()} style={styles.selectButton}>
                             <Text style={styles.photoButtonText}>{helper.userPhoto === '' ? 'Fotograf yükle' : 'Fotografı değiştir'}</Text>
                         </TouchableOpacity>
 
@@ -375,7 +327,7 @@ const PersonalInformation = () => {
                     </View>
 
                     {
-                        this.state.hidden === false &&
+                        hidden === false &&
                         <View style={{ width: '100%', alignItems: 'center' }}>
                             <Text style={styles.inputTitle}>Doğum tarihi</Text>
                             <DatePicker
@@ -386,8 +338,6 @@ const PersonalInformation = () => {
                                 mode="date"
                                 placeholder='gg-aa-yyyy'
                                 format="DD-MM-YYYY"
-                                minDate={this.state.minDate}
-                                maxDate={this.state.maxDate}
                                 confirmBtnText="Confirm"
                                 cancelBtnText="Cancel"
                                 customStyles={{
@@ -446,7 +396,7 @@ const PersonalInformation = () => {
                                     contentContainerStyle={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', }}
                                     style={[licence.length > 0 && { marginBottom: 10, paddingBottom: 10, width: '100%' }, licence.length !== 12 && { borderBottomColor: 'lightgrey', borderBottomWidth: 1 }]}
                                     data={helper.userDrivingLicencies}
-                                    renderItem={data => this.setDrivingLicencies(data)}
+                                    renderItem={data => setDrivingLicencies(data)}
                                     showsVerticalScrollIndicator={false}
                                 />
 
@@ -458,52 +408,52 @@ const PersonalInformation = () => {
                                     <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' }}>
                                         {
                                             !licence.includes('A') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('A', this.state.color)} disabled={licence.includes('A')}><Text style={styles.drivingLicence}>A</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('A')} disabled={licence.includes('A')}><Text style={styles.drivingLicence}>A</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('AM') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('AM', this.state.color)} disabled={licence.includes('AM')}><Text style={styles.drivingLicence}>AM</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('AM')} disabled={licence.includes('AM')}><Text style={styles.drivingLicence}>AM</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('B') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('B', this.state.color)} disabled={licence.includes('B')}><Text style={styles.drivingLicence} >B</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('B')} disabled={licence.includes('B')}><Text style={styles.drivingLicence} >B</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('BE') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('BE', this.state.color)} disabled={licence.includes('BE')}><Text style={styles.drivingLicence} >BE</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('BE')} disabled={licence.includes('BE')}><Text style={styles.drivingLicence} >BE</Text></TouchableOpacity>
                                         }
 
                                         {
                                             !licence.includes('C') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('C', this.state.color)} disabled={licence.includes('C')}><Text style={styles.drivingLicence}>C</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('C')} disabled={licence.includes('C')}><Text style={styles.drivingLicence}>C</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('CE') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('CE', this.state.color)} disabled={licence.includes('CE')}><Text style={styles.drivingLicence} >CE</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('CE')} disabled={licence.includes('CE')}><Text style={styles.drivingLicence} >CE</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('C1') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('C1', this.state.color)} disabled={licence.includes('C1')}><Text style={styles.drivingLicence} >C1</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('C1')} disabled={licence.includes('C1')}><Text style={styles.drivingLicence} >C1</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('C1E') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('C1E', this.state.color)} disabled={licence.includes('C1E')}><Text style={styles.drivingLicence} >C1E</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('C1E')} disabled={licence.includes('C1E')}><Text style={styles.drivingLicence} >C1E</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('D') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('D', this.state.color)} disabled={licence.includes('D')}><Text style={styles.drivingLicence} >D</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('D')} disabled={licence.includes('D')}><Text style={styles.drivingLicence} >D</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('DE') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('DE', this.state.color)} disabled={licence.includes('DE')}><Text style={styles.drivingLicence}>DE</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('DE')} disabled={licence.includes('DE')}><Text style={styles.drivingLicence}>DE</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('D1') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('D1', this.state.color)} disabled={licence.includes('D1')}><Text style={styles.drivingLicence} >D1</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('D1')} disabled={licence.includes('D1')}><Text style={styles.drivingLicence} >D1</Text></TouchableOpacity>
                                         }
                                         {
                                             !licence.includes('D1E') &&
-                                            <TouchableOpacity onPress={() => this.pushDrivingLicence('D1E', this.state.color)} disabled={licence.includes('D1E')}><Text style={styles.drivingLicence} >D1E</Text></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => pushDrivingLicence('D1E')} disabled={licence.includes('D1E')}><Text style={styles.drivingLicence} >D1E</Text></TouchableOpacity>
                                         }
                                     </View>
                                 </View>
@@ -514,72 +464,72 @@ const PersonalInformation = () => {
                                 <FlatList
                                     style={[{ width: '100%' }, helper.userLinks.length > 0 && { borderBottomColor: '#DADADA', borderBottomWidth: 1, marginBottom: 10 }]}
                                     data={helper.userLinks}
-                                    renderItem={data => this.setLinks(data)}
+                                    renderItem={data => setLinks(data)}
                                     showsVerticalScrollIndicator={false}
                                 />
 
                                 <View style={{ width: '100%', alignItems: 'center' }}>
                                     {
-                                        this.state.linksShow &&
+                                        linksShow &&
                                         <View style={{ width: '100%', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'center' }}>
                                             {
                                                 !linkIcon.includes('github') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/github.png'), 'github')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/github.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => changeLinksShow(require('../images/github.png'), 'github')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/github.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('linkedin') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/linkedin.png'), 'linkedin')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/linkedin.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => changeLinksShow(require('../images/linkedin.png'), 'linkedin')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/linkedin.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('pinterest') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/pinterest.png'), 'pinterest')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/pinterest.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => changeLinksShow(require('../images/pinterest.png'), 'pinterest')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/pinterest.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('instagram') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/instagram.png'), 'instagram')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/instagram.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => changeLinksShow(require('../images/instagram.png'), 'instagram')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/instagram.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('skype') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/skype.png'), 'skype')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/skype.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => changeLinksShow(require('../images/skype.png'), 'skype')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/skype.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('telegram') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/telegram.png'), 'telegram')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/telegram.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => changeLinksShow(require('../images/telegram.png'), 'telegram')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/telegram.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('facebook') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/facebook.png'), 'facebook')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/facebook.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => changeLinksShow(require('../images/facebook.png'), 'facebook')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/facebook.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('twitter') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/twitter.png'), 'twitter')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/twitter.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => changeLinksShow(require('../images/twitter.png'), 'twitter')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/twitter.png')} /></TouchableOpacity>
                                             }
                                             {
                                                 !linkIcon.includes('youtube') &&
-                                                <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/youtube.png'), 'youtube')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/youtube.png')} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={() => changeLinksShow(require('../images/youtube.png'), 'youtube')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={30} source={require('../images/youtube.png')} /></TouchableOpacity>
                                             }
-                                            <TouchableOpacity onPress={() => this.changeLinksShow(require('../images/link.png'), 'link')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={20} source={require('../images/plus.png')} /></TouchableOpacity>
+                                            <TouchableOpacity onPress={() => changeLinksShow(require('../images/link.png'), 'link')} style={{ width: 50, height: 40, borderRadius: 7, borderColor: '#DADADA', borderWidth: 1, alignItems: 'center', justifyContent: 'center', margin: 5 }}><SImage width={20} source={require('../images/plus.png')} /></TouchableOpacity>
 
                                         </View>
                                     }
 
 
                                     {
-                                        !this.state.linksShow &&
+                                        linksShow &&
                                         <View>
-                                            <TouchableOpacity style={{width:30}} onPress={() => this.setState({ linksShow: true })}>
+                                            <TouchableOpacity style={{width:30}} onPress={() => setLinksShow(true)}>
                                                 <SImage width={25} source={require('../images/backLink.png')} />
                                             </TouchableOpacity>
                                             <View style={styles.linkInputContainer}>
-                                                <View style={styles.linkIconStyle}><SImage width={25} source={this.state.selectedLinkIcon} /></View>
+                                                <View style={styles.linkIconStyle}><SImage width={25} source={selectedLinkIcon} /></View>
                                                 <TextInput
-                                                    value={this.state.userLink}
-                                                    placeholder={this.state.userLinkIcon === 'link' ? 'link...' : 'kullanıcı adınız...'}
+                                                    value={userLink}
+                                                    placeholder={userLinkIcon === 'link' ? 'link...' : 'kullanıcı adınız...'}
                                                     autoFocus
                                                     autoCapitalize='none'
-                                                    onChangeText={text => { link = text; this.setState({ userLink: text }) }}
-                                                    style={[styles.linkInputStyle,{fontSize:14}, this.state.warningLink && link === '' && { borderColor: 'red' }]} />
-                                                <TouchableOpacity onPress={() => this.controlLink()} style={styles.linkAddButton}>
+                                                    onChangeText={text => { link = text; setUserLink(text) }}
+                                                    style={[styles.linkInputStyle,{fontSize:14}, warningLink && link === '' && { borderColor: 'red' }]} />
+                                                <TouchableOpacity onPress={() => controlLink()} style={styles.linkAddButton}>
                                                     <Text style={styles.buttonText}>Ekle</Text>
                                                 </TouchableOpacity>
                                             </View>
@@ -592,13 +542,13 @@ const PersonalInformation = () => {
                     }
                 </View>
 
-                <TouchableOpacity onPress={() => this.deleteMore()} style={styles.moreButton}>
-                    <SImage width={35} source={this.state.hidden ? require('../images/plusIcon.png') : require('../images/minusIcon.png')} />
-                    <Text style={{ color: '#B0B0B0' }}>{this.state.hidden ? 'Daha fazla...' : 'Daha az...'}</Text>
+                <TouchableOpacity onPress={() => deleteMore()} style={styles.moreButton}>
+                    <SImage width={35} source={hidden ? require('../images/plusIcon.png') : require('../images/minusIcon.png')} />
+                    <Text style={{ color: '#B0B0B0' }}>{hidden ? 'Daha fazla...' : 'Daha az...'}</Text>
                 </TouchableOpacity>
 
                 <View style={{ width: '100%', alignItems: 'center', marginBottom: 20 }}>
-                    <TouchableOpacity onPress={() => this.controlNavigation()} style={styles.nextButton}>
+                    <TouchableOpacity onPress={() => controlNavigation()} style={styles.nextButton}>
                         <Text style={styles.buttonText}>İleri</Text>
                     </TouchableOpacity>
                 </View>
@@ -613,27 +563,27 @@ const PersonalInformation = () => {
         return (
             <View style={{flex:1}}>
                 <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={{ position: 'absolute', left: 5,width:40,height:30,alignItems:'center',justifyContent:'center' }}>
+                    <TouchableOpacity onPress={() => props.navigation.goBack()} style={{ position: 'absolute', left: 5,width:40,height:30,alignItems:'center',justifyContent:'center' }}>
                         <SImage width={20} source={require('../images/backIcon.png')} />
                     </TouchableOpacity>
                     <Text style={{ color: '#fff', fontSize: 20 }}>Kişisel bilgiler</Text>
                 </View>
 
             <ScrollView
-                ref={(c) => { this.scroll = c }}
+                //ref={(c) => { this.scroll = c }}
                 showsVerticalScrollIndicator={false}
                 style={{ backgroundColor: '#fff' }}>
                 <View style={{ alignItems: 'center' }}>
 
-                    {this.renderProgressBar()}
-                    {this.renderPersonalInformation()}
+                    {renderProgressBar()}
+                    {renderPersonalInformation()}
                 </View>
 
-                <AlertPro
+                    {/*<AlertPro
                     ref={ref => {
-                        this.AlertPro = ref;
+                        AlertPro = ref;
                     }}
-                    onConfirm={() => this.AlertPro.close()}
+                    onConfirm={() => AlertPro.close()}
                     title="Hata"
                     message={'Lütfen zorunlu(*) olan yerleri doldurunuz'}
                     textConfirm='TAMAM'
@@ -660,7 +610,7 @@ const PersonalInformation = () => {
                             color: '#2f6478',
                         }
                     }}
-                />
+                />*/}
 
             </ScrollView>
             </View>
