@@ -6,6 +6,7 @@ import { observer } from 'mobx-react';
 
 import styles from '../styles/showCVStyle';
 import helper from '../controllers/helper';
+import Button from '../components/Button/Button';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;

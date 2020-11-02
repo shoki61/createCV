@@ -9,12 +9,19 @@ const w = Dimensions.get('window').width;
 
 const CVExamples = (props) => {
 
-    const goSelectedColor = (v, n, c) => {
-        helper.selectedCV = v
-        helper.selectedOrderCV = n
-        helper.selectedCVColor = c
-        props.navigation.navigate('showCV')
+    const goSelectedColor = (source, id, color) => {
+        helper.selectedCV = source;
+        helper.selectedOrderCV = id;
+        helper.selectedCVColor = color;
+        props.navigation.navigate('showCV');
     }
+
+    const templates = [
+        { id: 1, color: '#407F92', source: require('../images/cvExamplesImg/templateCV1E.png') },
+        { id: 2, color: '#FFFFFF', source: require('../images/cvExamplesImg/templateCV2A.png') },
+        { id: 3, color: '#299BE8', source: require('../images/cvExamplesImg/templateCV3D.png') },
+        { id: 4, color: '#FFFFFF', source: require('../images/cvExamplesImg/templateCV4A.png') }
+    ]
 
 
 
@@ -28,10 +35,16 @@ const CVExamples = (props) => {
             </View>
             <ScrollView style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginBottom: 40, marginTop: 5 }}>
-                    <TouchableOpacity onPress={() => goSelectedColor(require('../images/cvExamplesImg/templateCV1E.png'), 1, '#407F92')}><SImage width={w / 2.4} style={{ margin: 10 }} source={require('../images/cvExamplesImg/templateCV1E.png')} /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => goSelectedColor(require('../images/cvExamplesImg/templateCV2A.png'), 2, '#FFFFFF')}><SImage width={w / 2.4} style={{ margin: 10 }} source={require('../images/cvExamplesImg/templateCV2A.png')} /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => goSelectedColor(require('../images/cvExamplesImg/templateCV3D.png'), 3, '#299BE8')}><SImage width={w / 2.4} style={{ margin: 10 }} source={require('../images/cvExamplesImg/templateCV3D.png')} /></TouchableOpacity>
-                    <TouchableOpacity onPress={() => goSelectedColor(require('../images/cvExamplesImg/templateCV4A.png'), 4, '#FFFFFF')}><SImage width={w / 2.4} style={{ margin: 10 }} source={require('../images/cvExamplesImg/templateCV4A.png')} /></TouchableOpacity>
+                    {
+                        templates.map(cv => {
+                            return (
+                                <TouchableOpacity onPress={() => goSelectedColor(cv.source, cv.id, cv.color)}>
+                                    <SImage width={w / 2.4} style={{ margin: 10 }} source={cv.source} />
+                                </TouchableOpacity>
+                            )
+                        })
+                    }
+                    
                     <SImage style={{ margin: 10 }} source={require('../images/yakındaResim.png')} width={w / 2.4} />
                 </View>
             </ScrollView>

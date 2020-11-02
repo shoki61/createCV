@@ -1,22 +1,32 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Image, AsyncStorage } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Dimensions } from 'react-native';
 import { observer } from 'mobx-react';
 
 
 import styles from '../styles/homeStyle';
+import Button from '../components/Button/Button';
 
+
+const w = Dimensions.get('window').width;
 
 const Home = (props) => {
+
+    const nextCreateCV = () => {
+        props.navigation.navigate('cvExamples')
+    }
 
         return (
             <View style={styles.body}>
                 <Image style={styles.backImage} source={require('../images/homeBackImage.png')} />
                 <View style={{ position: 'absolute', alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => props.navigation.navigate('cvExamples')} style={styles.createCVButton}>
+                    <Button
+                        style={{width:w/1.5, height:55,backgroundColor:'#3088DC',borderRadius:100}}
+                        clicked={nextCreateCV}
+                    >
                         <Text style={styles.createText}>
                             CV'nizi oluşturun
                         </Text>
-                    </TouchableOpacity>
+                    </Button>
                 </View>
             </View>
         )

@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native';
-import styles from '../Home/style';
-
 
 const styles = StyleSheet.create({
-
+    button: {
+        elevation: 5,
+        alignItems: 'center',
+        justifyContent: 'center'
+    }
 });
 
 export default styles;
