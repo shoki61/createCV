@@ -1,6 +1,13 @@
 import * as actionType from '../actions/actionType';
 
 const initiolState = {
+    name: '',
+    telNumber: '',
+    email: '',
+    gender: '',
+    city: '',
+    job: '',
+    postalCode: '',
     drivingLicences: [],
     links: [],
     hobbies: [],
