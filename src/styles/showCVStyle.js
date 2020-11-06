@@ -7,10 +7,10 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     changeColorButton: {
-        width: 35,
-        height: 35,
+        width: 50,
+        height: 50,
         margin: 5,
-        borderRadius: 100,
+        borderRadius:100,
         borderColor: '#dedede',
         borderWidth: 1,
         justifyContent: 'center',
@@ -24,11 +24,9 @@ const styles = StyleSheet.create({
         marginBottom: 15
     },
     buttonStyle: {
-        width: w / 1.3,
-        height: 55,
+        width: w / 1.5,
+        height: 50,
         backgroundColor: '#ff9157',
-        alignItems: 'center',
-        justifyContent: 'center',
         borderRadius: 100
     },
     buttonText: {

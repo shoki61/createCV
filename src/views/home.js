@@ -11,9 +11,7 @@ const w = Dimensions.get('window').width;
 
 const Home = (props) => {
 
-    const nextCreateCV = () => {
-        props.navigation.navigate('cvExamples')
-    }
+
 
         return (
             <View style={styles.body}>
@@ -21,7 +19,7 @@ const Home = (props) => {
                 <View style={{ position: 'absolute', alignItems: 'center' }}>
                     <Button
                         style={{width:w/1.5, height:55,backgroundColor:'#3088DC',borderRadius:100}}
-                        clicked={nextCreateCV}
+                        clicked={()=>props.navigation.navigate('cvExamples')}
                     >
                         <Text style={styles.createText}>
                             CV'nizi oluşturun

@@ -4,6 +4,7 @@ import { createStackNavigator, TransitionSpecs, HeaderStyleInterpolators } from 
 import Home from './views/home';
 import CVExamples from './views/cvExamples';
 import ShowCV from './views/showCV';
+import CVForm from './views/cvForm';
 import PersonalInformation from './views/personalInformation';
 import Experiences from './views/experiences';
 import SaveCV from './views/saveCV';
@@ -53,8 +54,9 @@ const settings = {
 const pages = createStackNavigator(
     {
         home: { screen: Home, navigationOptions: settings },
-        cvExamples: { screen: CVExamples, navigationOptions: settings },
-        showCV: { screen: ShowCV, navigationOptions: settings },
+        cvExamples: { screen: CVExamples,navigationOptions:{title:'CV örnekleri', headerTintColor:'#fff',headerTitleAlign:'center', headerStyle:{backgroundColor:'#235F98'}} },
+        showCV: { screen: ShowCV, navigationOptions: { title: 'CV örnekleri', headerTintColor: '#fff', headerTitleAlign: 'center', headerStyle: { backgroundColor: '#235F98' } } },
+        cvForm: {screen: CVForm, navigationOptions: settings},
         personalInformation: { screen: PersonalInformation, navigationOptions: settings },
         experiences: { screen: Experiences, navigationOptions: settings },
         saveCV: { screen: SaveCV, navigationOptions: settings },

@@ -129,61 +129,42 @@ const ShowCV = (props) => {
         }
     }
 
+    const buttons = [
+        {color: '#2A2A2A'},
+        {color: '#FFFFFF'},
+        {color: '#12A3D0'},
+        {color: '#FF7373'},
+        {color: '#299BE8'},
+        {color: '#407F92'}
+    ]
+
 
         return (
             <View style={styles.body}>
                 <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", justifyContent: 'space-between' }}>
-                    <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', marginBottom: 15, alignItems: 'center', justifyContent: 'center' }}>
-                        <TouchableOpacity onPress={() => props.navigation.goBack()} style={{ position: 'absolute', left: 5,width:40,height:30,alignItems:'center',justifyContent:'center' }}>
-                            <SImage width={20} source={require('../images/backIcon.png')} />
-                        </TouchableOpacity>
-                        <Text style={{ color: '#fff', fontSize: 20 }}>Renk seçenekleri</Text>
-                    </View>
-                    <View style={{ elevation: 5, borderWidth: 0 }}>
+                    <View style={{ elevation: 5, marginTop:35 }}>
                         <SImage width={w - 70} source={helper.selectedCV} />
                     </View>
 
                     <View style={{ flexDirection: 'row', marginTop: 5 }}>
-                        <TouchableOpacity onPress={() => changeColorCV('#2A2A2A')} style={[styles.changeColorButton, { backgroundColor: '#2A2A2A' }]}>
-                            {
-                                helper.selectedCVColor === '#2A2A2A' &&
-                                <SImage width={17} source={require('../images/okIcon.png')} />
-                            }
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => changeColorCV('#FFFFFF')} style={[styles.changeColorButton, { backgroundColor: '#FFFFFF' }]}>
-                            {
-                                helper.selectedCVColor === '#FFFFFF' &&
-                                <SImage width={17} source={require('../images/okIconA.png')} />
-                            }
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => changeColorCV('#12A3D0')} style={[styles.changeColorButton, { backgroundColor: '#12A3D0' }]}>
-                            {
-                                helper.selectedCVColor === '#12A3D0' &&
-                                <SImage width={17} source={require('../images/okIcon.png')} />
-                            }
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => changeColorCV('#FF7373')} style={[styles.changeColorButton, { backgroundColor: '#FF7373' }]}>
-                            {
-                                helper.selectedCVColor === '#FF7373' &&
-                                <SImage width={17} source={require('../images/okIcon.png')} />
-                            }
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => changeColorCV('#299BE8')} style={[styles.changeColorButton, { backgroundColor: '#299BE8' }]}>
-                            {
-                                helper.selectedCVColor === '#299BE8' &&
-                                <SImage width={17} source={require('../images/okIcon.png')} />
-                            }
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={() => changeColorCV('#407F92')} style={[styles.changeColorButton, { backgroundColor: '#407F92' }]}>
-                            {
-                                helper.selectedCVColor === '#407F92' &&
-                                <SImage width={17} source={require('../images/okIcon.png')} />
-                            }
-                        </TouchableOpacity>
+                        {
+                            buttons.map(btn => {
+                                return (
+                                    <Button clicked={() => changeColorCV(btn.color)} style={{...styles.changeColorButton, backgroundColor: btn.color}}>
+                                    {
+                                        helper.selectedCVColor === btn.color &&
+                                        <SImage width={17} source={btn.color === '#FFFFFF' ? require('../images/okIconA.png') : require('../images/okIcon.png')} />
+                                    }
+                                    </Button>
+                                )
+                            })
+                        }
 
                     </View>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => props.navigation.navigate('personalInformation')} style={styles.buttonStyle}><Text style={styles.buttonText}>İleri</Text></TouchableOpacity>
+                        <Button clicked={() => props.navigation.navigate('cvForm')} style={{ ...styles.buttonStyle }}>
+                            <Text style={styles.buttonText}>İleri</Text>
+                        </Button>
                     </View>
                 </ScrollView>
             </View >

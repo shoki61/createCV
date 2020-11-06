@@ -27,12 +27,6 @@ const CVExamples = (props) => {
 
     return (
         <View style={styles.body}>
-            <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', alignItems: 'center', justifyContent: 'center' }}>
-                <TouchableOpacity onPress={() => props.navigation.goBack()} style={{ position: 'absolute', left: 5,width:40,height:30,alignItems:'center',justifyContent:'center' }}>
-                    <SImage width={20} source={require('../images/backIcon.png')} />
-                </TouchableOpacity>
-                <Text style={{ color: '#fff', fontSize: 20 }}>CV örnekleri</Text>
-            </View>
             <ScrollView style={{ flex: 1 }}>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', marginBottom: 40, marginTop: 5 }}>
                     {

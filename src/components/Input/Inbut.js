@@ -3,17 +3,17 @@ import { TextInput } from 'react-native';
 
 
 const input = props => {
-    const {
-        onChangeText,
-        placeholder
-    } = props;
+    let inputElement  = null
+    switch (props.inputType) {
+        case 'normal':
+            inputElement = <TextInput />;
+            break;
+        case 'comment':
+            inputElement = <TextInput />;
+    }
 
     return (
-        <TextInput
-            style={{}}
-            placeholder={{ placeholder }}
-            onChangeText={onChangeText} />
-            
+        {inputElement} 
     )
 };
 

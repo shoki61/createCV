@@ -169,11 +169,9 @@ const PersonalInformation = (props) => {
     }
 
     const removeLink = (v) => {
-        //uygulamada gösterilen kısım
         helper.userLinks.splice(v.index, 1)
         linkIcon = helper.userLinks.map(el => el.linkIconCV);
 
-        //cv de bastırılacak kısmı
         if (v.item.linkIconCV === 'github') helper.userGithubLink = ''
         else if (v.item.linkIconCV === 'linkedin') helper.userLinkedInLink = ''
         else if (v.item.linkIconCV === 'pinterest') helper.userPinterestLink = ''
@@ -188,9 +186,7 @@ const PersonalInformation = (props) => {
         setUserLinks(link);
     }
 
-    ///////////////////////////////////////////////////
-    //////////////////////////////////////////////////
-    ///////listeye ekleyen fonksyonlar//////////////
+
     const controlLink = () => {
         if (link === '') setWarningLink(true);
             else {
@@ -219,8 +215,7 @@ const PersonalInformation = (props) => {
         setUserDrivingLicence(v)
         licence = helper.userDrivingLicencies.map(el => el.licence);
     }
-    /////////////////////////////////////////////////
-    ////////////////////////////////////////////////
+
     const changeLinksShow = (v, iCV) => {
         setLinksShow(!linksShow);
         setSelectedLinkIcon(v);
@@ -562,12 +557,7 @@ const PersonalInformation = (props) => {
 
         return (
             <View style={{flex:1}}>
-                <View style={{ width: '100%', height: 50, backgroundColor: '#235F98', alignItems: 'center', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => props.navigation.goBack()} style={{ position: 'absolute', left: 5,width:40,height:30,alignItems:'center',justifyContent:'center' }}>
-                        <SImage width={20} source={require('../images/backIcon.png')} />
-                    </TouchableOpacity>
-                    <Text style={{ color: '#fff', fontSize: 20 }}>Kişisel bilgiler</Text>
-                </View>
+                
 
             <ScrollView
                 //ref={(c) => { this.scroll = c }}

@@ -137,9 +137,42 @@ function SchoolGrade() {
 
 const Experiences = () => {
 
+    const [userHobby, setUserHobby] = useState('');
+    const [userReferenceName, setUserReferenceName] = useState('');
+    const [userReferenceNumber, setUserReferenceNumber] = useState('');
+    const [userReferenceEmail, setUserReferenceEmail] = useState('');
+    const [userReferenceCompanyName, setUserReferenceCompanyName] = useState(''); showReferenceInput
+    const [showReferenceInput, setShowReferenceInput] = useState(true);
+    const [userLanguage, setUserLanguage] = useState('')
+    const [userAbility, setUserAbility] = useState('')
+    const [userSchoolName, setUserSchoolName] = useState('')
+    const [userCommunityName, setUserCommunityName] = useState('')
+    const [userProjectName, setUserProjectName] = useState('')
+    const [userCompanyName, setuserCompanyName] = useState('')
+    const [warningAbility, setWarningAbility] = useState(false)
+    const [warningLanguage, setWarningLanguage] = useState(false)
+    const [warningHobby, setWarningHobby] = useState(false)
+    const [warningReferenceName, setWarningReferenceName] = useState(false)
+    const [warningReferenceTel, setWarningReferenceTel] = useState(false)
+    const [warningReferenceEmail, setWarningReferenceEmail] = useState(false)
+    const [warningProjectName, setWarningProjectName] = useState(false);
+    const [warningProjectDescription, setWarningProjectDescription] = useState(false);
+    const [userProjectName, setUserProjectName] = useState('');
+    const [userProjectLink, setUserProjectLink] = useState('');
+    const [userProjectTools, setUserProjectTools] = useState('');
+    const [userProjectDescription, setUserProjectDescription] = useState('');
+    const [showProjectInput, setShowProjectInput] = useState('');
+    const [warningProjectName, setWarningProjectName] = useState(false);
+    const [] = useState();
+    const [] = useState();
+    const [] = useState();
+    const [] = useState();
+    const [] = useState();
+    const [] = useState();
+    const [] = useState();
     
     
-    const renderProgressBar = () => {
+    /*const renderProgressBar = () => {
         return (
             <View style={styles.progressBarView}>
                 <View style={[styles.progressBarIconContainer, this.state.showPersonalInformation ? { width: 65, height: 65, borderWidth: 3, borderColor: '#fff', elevation: 20, top: -30 } : { top: -18 }]}>
@@ -158,7 +191,7 @@ const Experiences = () => {
             </View>
 
         )
-    }
+    }*/
     
     const setReferences = (item) => {
         return (
@@ -305,83 +338,108 @@ const Experiences = () => {
 
     const removeHobby = (v) => {
         helper.userHobbies.splice(v.index, 1)
-        this.setState({ userHobby: hobby })
+        //this.setState({ userHobby: hobby })
+        setUserHobby(hobby);
     }
     const removeReference = (v) => {
         helper.userReferences.splice(v.index, 1)
-        this.setState({ userReferenceName: reference.name })
+        //this.setState({ userReferenceName: reference.name })
+        setUserReferenceName(reference.name);
     }
     const removeLanguage = (v) => {
         helper.UserLanguages.splice(v.index, 1)
-        this.setState({ userLanguage: language })
+        //this.setState({ userLanguage: language })
+        setUserLanguage(language);
     }
     const removeAbility = (v) => {
         helper.userAbilities.splice(v.index, 1)
-        this.setState({ userAbility: ability })
+        //this.setState({ userAbility: ability })
+        setUserAbility(ability);
     }
     const removeSchool = (v) => {
         helper.userSchools.splice(v.index, 1)
-        this.setState({ userSchoolName: school.schoolName })
+        //this.setState({ userSchoolName: school.schoolName })
+        setUserSchoolName(school.schoolName);
     }
     const removeCommunity = (v) => {
         helper.userCommunities.splice(v.index, 1)
-        this.setState({ userCommunityName: community.communityName })
+        //this.setState({ userCommunityName: community.communityName })
+        setUserCommunityName(community.communityName);
     }
     const removeProject = (v) => {
         helper.userProjects.splice(v.index, 1)
-        this.setState({ userProjectName: project.projectName })
+        //this.setState({ userProjectName: project.projectName })
+        setUserProjectName(project.projectName);
     }
     const removeCompany = (v) => {
         helper.userCompanies.splice(v.index, 1)
-        this.setState({ userCompanyName: company.companyName })
+        //this.setState({ userCompanyName: company.companyName })
+        setuserCompanyName(company.companyName);
     }
 
     const controlAbility = () => {
         if (ability.name === '') {
-            this.setState({ warningAbility: true })
+            //this.setState({ warningAbility: true })
+            setWarningAbility(true);
         } else {
-            helper.setUserAbilities(ability, this.state.color);
-            this.setState({
+            helper.setUserAbilities(ability);
+            /*this.setState({
                 userAbility: '',
                 warningAbility: false
-            });
+            });*/
+            setUserAbility('');
+            warningAbility(false);
             ability.name = ''
 
         }
     }
     const controlLanguage = () => {
         if (language.name === '') {
-            this.setState({ warningLanguage: true })
+            //this.setState({ warningLanguage: true })
+            setWarningLanguage(true)
         } else {
-            helper.setUserLanguages(language, this.state.color);
-            this.setState({
+            helper.setUserLanguages(language);
+            /*this.setState({
                 userLanguage: '',
                 warningLanguage: false
-            });
+            });*/
+            setUserLanguage('');
+            setWarningLanguage(false);
             language.name = ''
         }
     }
     const controlHobby = () => {
         if (hobby === '') {
-            this.setState({ warningHobby: true })
+            //this.setState({ warningHobby: true })
+            setWarningHobby(true);
+            
         } else {
-            helper.setUserHobbies(hobby, this.state.color);
-            this.setState({
+            helper.setUserHobbies(hobby);
+            /*this.setState({
                 userHobby: '',
                 warningHobby: false
-            });
+            });*/
+            setUserHobby('');
+            setWarningHobby(false);
             hobby = '';
-
         }
     }
     const controlReference = () => {
         if (reference.name === '' || reference.tel === '' || reference.email === '') {
-            if (reference.name === '') this.setState({ warningReferenceName: true });
-            if (reference.tel === '') this.setState({ warningReferenceTel: true });
-            if (reference.email === '') this.setState({ warningReferenceEmail: true });
+            if (reference.name === '') setWarningReferenceName(true) //this.setState({ warningReferenceName: true });
+            if (reference.tel === '') setWarningReferenceTel(true) //this.setState({ warningReferenceTel: true });
+            if (reference.email === '') setWarningReferenceEmail(true) //this.setState({ warningReferenceEmail: true });
         } else {
-            helper.setUserReferences(reference, this.state.color);
-            this.setState({
+            helper.setUserReferences(reference);
+            setUserReferenceName('');
+            setUserReferenceNumber('');
+            setUserReferenceEmail('');
+            setUserReferenceCompanyName('');
+            setShowReferenceInput(false);
+            setWarningReferenceName(false);
+            setWarningReferenceEmail(false);
+            setWarningReferenceTel(false);
+            /*this.setState({
                 userReferenceName: '',
                 userReferenceNumber: '',
                 userReferenceEmail: '',
@@ -391,7 +449,7 @@ const Experiences = () => {
                 warningReferenceName: false,
                 warningReferenceTel: false,
                 warningReferenceEmail: false,
-            });
+            });*/
             reference.name = '';
             reference.tel = '';
             reference.email = '';
@@ -400,11 +458,11 @@ const Experiences = () => {
     }
     const controlProject = () => {
         if (project.projectName === '' || project.projectDescription === '') {
-            if (project.projectName === '') this.setState({ warningProjectName: true });
-            if (project.projectDescription === '') this.setState({ warningProjectDescription: true })
+            if (project.projectName === '') setWarningProjectName(true) // this.setState({ warningProjectName: true });
+            if (project.projectDescription === '') setWarningProjectDescription(true) //this.setState({ warningProjectDescription: true })
         } else {
-            helper.setUserProjects(project, this.state.color)
-            this.setState({
+            helper.setUserProjects(project)
+            /*this.setState({
                 userProjectName: '',
                 userProjectLink: '',
                 userProjectTools: '',
@@ -413,7 +471,13 @@ const Experiences = () => {
 
                 warningProjectName: false,
                 warningProjectDescription: false
-            });
+            });*/
+            setUserProjectName('');
+            setUserProjectLink('');
+            setUserProjectTools('');
+            setUserProjectDescription('');
+            setWarningProjectName(false);
+            setWarningProjectDescription(false);
             project.projectName = '';
             project.projectTools = '';
             project.projectLink = '';
@@ -426,7 +490,7 @@ const Experiences = () => {
             if (company.companyJob === '') this.setState({ warningCompanyJob: true })
             if (company.companyStartDate === '' || company.companyFinishDate === '') this.setState({ warningCompanyDate: true })
         } else {
-            helper.setUserCompanies(company, this.state.color);
+            helper.setUserCompanies(company);
             this.setState({
                 userCompanyName: '',
                 userCompanyJob: '',
@@ -1255,7 +1319,7 @@ const Experiences = () => {
                 showsVerticalScrollIndicator={false}
                 style={{ backgroundColor: '#fff' }}>
                 <View style={{ alignItems: 'center' }}>
-                    {this.renderProgressBar()}
+                    {/*this.renderProgressBar()*/}
                     {this.renderExperiences()}
                 </View>
 
