@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Dimensions, ScrollView } from 'react-native';
 import SImage from 'react-native-scalable-image';
 import { observer } from 'mobx-react';
+import { connect } from 'react-redux';
 
 
 import styles from '../styles/showCVStyle';
@@ -143,7 +144,7 @@ const ShowCV = (props) => {
             <View style={styles.body}>
                 <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", justifyContent: 'space-between' }}>
                     <View style={{ elevation: 5, marginTop:35 }}>
-                        <SImage width={w - 70} source={helper.selectedCV} />
+                        <SImage width={w - 70} source={props.CV} />
                     </View>
 
                     <View style={{ flexDirection: 'row', marginTop: 5 }}>
@@ -152,7 +153,7 @@ const ShowCV = (props) => {
                                 return (
                                     <Button clicked={() => changeColorCV(btn.color)} style={{...styles.changeColorButton, backgroundColor: btn.color}}>
                                     {
-                                        helper.selectedCVColor === btn.color &&
+                                        props.CVColor === btn.color &&
                                         <SImage width={17} source={btn.color === '#FFFFFF' ? require('../images/okIconA.png') : require('../images/okIcon.png')} />
                                     }
                                     </Button>
@@ -172,4 +173,17 @@ const ShowCV = (props) => {
     
 };
 
-export default observer(ShowCV);
+const mapStateToProps = state => {
+    return {
+        CV: state.selectedCV,
+        CVColor: state.selectedCVColor
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(observer(ShowCV));

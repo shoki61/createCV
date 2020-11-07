@@ -1,9 +1,12 @@
 import React from "react";
 import { View, Text, Image, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 import SImage from 'react-native-scalable-image';
+import { connect } from 'react-redux';
 
 import styles from '../styles/cvExamplesStyle';
 import helper from "../controllers/helper";
+import { setCVType, setCVColor } from '../store/actions';
+import * as actionType from '../store/actions/actionType';
 
 const w = Dimensions.get('window').width;
 
@@ -32,7 +35,7 @@ const CVExamples = (props) => {
                     {
                         templates.map(cv => {
                             return (
-                                <TouchableOpacity onPress={() => goSelectedColor(cv.source, cv.id, cv.color)}>
+                                <TouchableOpacity onPress={() => { props.selectedCV(cv.id, cv.source);goSelectedColor(cv.source, cv.id, cv.color) }}>
                                     <SImage width={w / 2.4} style={{ margin: 10 }} source={cv.source} />
                                 </TouchableOpacity>
                             )
@@ -48,5 +51,11 @@ const CVExamples = (props) => {
     
 };
 
-export default CVExamples;
+const mapDispatchToProps = dispatch => {
+    return {
+        selectedCV:(cvId, cvType)=>dispatch(setCVType(actionType.SELECTED_CV,cvId, cvType ))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(CVExamples);
 

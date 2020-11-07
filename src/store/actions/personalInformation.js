@@ -1,4 +1,3 @@
-import { asCreateObservableOptions } from 'mobx/lib/internal';
 import * as actionType from './actionType';
 
 export const setName = name => {
