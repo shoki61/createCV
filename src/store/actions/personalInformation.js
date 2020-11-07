@@ -44,8 +44,15 @@ export const setJob = job => {
 
 export const setPostalCode = code => {
     return {
-        type: actionType.POSTALCODE,
+        type: actionType.POSTAL_CODE,
         code: code
+    }
+};
+
+export const setPhotoSource = photoSource => {
+    return {
+        type: actionType.PHOTO_SOURCE,
+        photoSource: photoSource
     }
 };
 

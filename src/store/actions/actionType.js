@@ -15,7 +15,9 @@ export const EMAIL = 'EMAIL';
 export const CITY = 'CITY';
 export const JOB = 'JOB';
 export const GENDER = 'GENDER';
-export const POSTALCODE = 'POSTALCODE';
+export const POSTAL_CODE = 'POSTAL_CODE';
+export const BIRTHDAY = 'BIRTHDAY';
+export const PHOTO_SOURCE = 'PHOTO_SOURCE'
 
 
 export const REMOVE_DRIVING_LICENCES = 'REMOVE_DRIVING_LICENCES';

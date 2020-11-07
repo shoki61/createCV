@@ -8,9 +8,10 @@ import { connect } from 'react-redux';
 import styles from '../styles/showCVStyle';
 import helper from '../controllers/helper';
 import Button from '../components/Button/Button';
+import { setCVType, setCVColor } from '../store/actions';
+import * as actionType from '../store/actions/actionType';
 
 const w = Dimensions.get('window').width;
-const h = Dimensions.get('window').height;
 
 const ShowCV = (props) => {
 
@@ -201,7 +202,7 @@ const ShowCV = (props) => {
                                 return (
                                     <Button clicked={() => changeColorCV(btn.color)} style={{...styles.changeColorButton, backgroundColor: btn.color}}>
                                     {
-                                        props.CVColor === btn.color &&
+                                        props.cvColor === btn.color &&
                                         <SImage width={17} source={btn.color === '#FFFFFF' ? require('../images/okIconA.png') : require('../images/okIcon.png')} />
                                     }
                                     </Button>
@@ -224,15 +225,15 @@ const ShowCV = (props) => {
 const mapStateToProps = state => {
     return {
         CV: state.selectedCV,
-        CVColor: state.selectedCVColor,
+        cvColor: state.selectedCVColor,
         cvId: state.cvId
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        setCVType: (cvType) => dispatch(),
-        setCVColor: (cvColor) => dispatch()
+        setCVType: (cvType) => dispatch(setCVType(actionType.SELECTED_CV, cvType)),
+        setCVColor: (cvColor) => dispatch(setCVColor(actionType.SELECTED_CV_COLOR, cvColor))
     }
 };
 

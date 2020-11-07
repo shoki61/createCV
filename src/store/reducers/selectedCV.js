@@ -11,12 +11,13 @@ const reducer = (state = initialState, action) => {
         case actionType.SELECTED_CV:
             return {
                 ...state,
-                selectedCVType: value
+                selectedCVType: action.cvType,
+                cvId: action.cvId
             };
         case actionType.SELECTED_CV_COLOR:
             return {
                 ...state,
-                selectedCVColor: value
+                selectedCVColor: action.cvColor
             };
     }
 };

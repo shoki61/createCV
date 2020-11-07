@@ -6,10 +6,13 @@ import ImagePicker from 'react-native-image-picker';
 import { observer } from 'mobx-react';
 import AlertPro from "react-native-alert-pro";
 import * as Animatable from 'react-native-animatable';
+import { connect } from 'react-redux';
 
 
 import styles from '../styles/cvFormStyle';
 import helper from '../controllers/helper';
+import { setName, setEmail, setGender, setJob, setCity, setPostalCode, setTelNumber } from '../store/actions/index';
+import { setPhotoSource } from '../store/actions/personalInformation';
 
 
 
@@ -19,7 +22,7 @@ let licence = ''
 let linkIcon = ''
 
 
-const PersonalInformation = (props) => {
+const PersonalInformation = props => {
 
 
     const [hidden, setHidden] = useState(false);
@@ -234,18 +237,18 @@ const PersonalInformation = (props) => {
                 <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 15 }}>
                     <View style={{ width: '35%', height: '100%', alignItems: 'center' }}>
                         <View style={styles.photoContainer}>
-                            <Image style={styles.photoStyle} source={helper.userPhoto === '' ? require('../images/defaultPhoto.png') : helper.userPhoto} />
+                            <Image style={styles.photoStyle} source={props.photoSource ? require('../images/defaultPhoto.png') : props.photoSource} />
                         </View>
 
                         <TouchableOpacity onPress={() => getFoto()} style={styles.selectButton}>
-                            <Text style={styles.photoButtonText}>{helper.userPhoto === '' ? 'Fotograf yükle' : 'Fotografı değiştir'}</Text>
+                            <Text style={styles.photoButtonText}>{props.photoSource ? 'Fotograf yükle' : 'Fotografı değiştir'}</Text>
                         </TouchableOpacity>
 
                         {
-                            helper.userPhoto !== '' &&
+                            props.photoSource ?
                             <TouchableOpacity onPress={() => helper.userPhoto = ''} style={styles.removeButton}>
                                 <Text style={styles.photoButtonText}>Fotografı çıkar</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity> : null
                         }
                     </View>
 
@@ -609,5 +612,33 @@ const PersonalInformation = (props) => {
 }
 
 
+const mapStateToProps = state => {
+    return {
+        name: state.name,
+        telNumber: state.telNumber,
+        email: state.email,
+        gender: state.gender,
+        birthDay: state.birthDay,
+        city: state.city,
+        job: state.job,
+        postalCode: state.postalCode,
+        photoSource: state.photoSource
+    };
+};
 
-export default observer(PersonalInformation);
+const mapDispatchToProps = dispatch => {
+    return {
+        setName: name => dispatch(setName(name)),
+        setEmail: email => dispatch(setEmail(email)),
+        setTelNumber: number => dispatch(setNumber(number)),
+        setGender: gender => dispatch(setGender(gender)),
+        setJob: job => dispatch(setJob(job)),
+        setCity: city => dispatch(setCity(city)),
+        setPostalCode: code => dispatch(setPostalCode(code)),
+        setPhotoSource: photoSource => dispatch(setPhotoSource(photoSource)),
+    };
+};
+
+
+
+export default  connect(mapStateToProps, mapDispatchToProps)(observer(PersonalInformation));
