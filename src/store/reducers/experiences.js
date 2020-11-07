@@ -1,13 +1,8 @@
 import * as actionType from '../actions/actionType';
 
-const initiolState = {
-    name: '',
-    telNumber: '',
-    email: '',
-    gender: '',
-    city: '',
-    job: '',
-    postalCode: '',
+
+
+const initialState = {
     drivingLicences: [],
     links: [],
     hobbies: [],
@@ -20,7 +15,7 @@ const initiolState = {
     references: [],
 };
 
-const reducer = (state = initiolState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case actionType.ADD_ABILITIES: return {...state};
         case actionType.ADD_COMMUNITIES: return {...state};
@@ -44,7 +39,7 @@ const reducer = (state = initiolState, action) => {
         case actionType.REMOVE_REFERENCES: return {...state};
         case actionType.REMOVE_SCHOOLS: return {...state};
         default: return state;
-    }
+
 };
 
 export default reducer;

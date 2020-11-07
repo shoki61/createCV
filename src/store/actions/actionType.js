@@ -9,6 +9,14 @@ export const ADD_COMMUNITIES = 'ADD_COMMUNITIES';
 export const ADD_COMPANIES = 'ADD_COMPANIES';
 export const ADD_REFERENCES = 'ADD_REFERENCES';
 
+export const NAME = 'NAME';
+export const TEL_NUMBER = 'TEL_NUMBER';
+export const EMAIL = 'EMAIL';
+export const CITY = 'CITY';
+export const JOB = 'JOB';
+export const GENDER = 'GENDER';
+export const POSTALCODE = 'POSTALCODE';
+
 
 export const REMOVE_DRIVING_LICENCES = 'REMOVE_DRIVING_LICENCES';
 export const REMOVE_LINKS = 'REMOVE_LINKS';
