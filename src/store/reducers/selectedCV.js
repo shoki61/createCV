@@ -2,7 +2,8 @@ import * as actionType from '../actions/actionType';
 
 const initialState = {
     selectedCVType:'',
-    selectedCVColor:''
+    selectedCVColor: '',
+    cvId: null,
 };
 
 const reducer = (state = initialState, action) => {

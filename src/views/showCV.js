@@ -16,113 +16,161 @@ const ShowCV = (props) => {
 
 
     const changeColorCV = (v) => {
-        if (helper.selectedOrderCV === 1) {
+        if (props.cvId === 1) {
             switch (v) {
                 case '#2A2A2A':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV1.png'))
+                    props.setCVColor('#2A2A2A')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1.png'))
                     helper.selectedCVColor = '#2A2A2A'
                     break;
                 case '#FFFFFF':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV1A.png'))
+                    props.setCVColor('#FFFFFF')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1A.png'))
                     helper.selectedCVColor = '#FFFFFF'
                     break;
                 case '#12A3D0':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV1B.png'))
+                    props.setCVColor('#12A3D0')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1B.png'))
                     helper.selectedCVColor = '#12A3D0'
                     break;
                 case '#FF7373':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV1C.png'))
+                    props.setCVColor('#FF7373')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1C.png'))
                     helper.selectedCVColor = '#FF7373'
                     break;
                 case '#299BE8':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV1D.png'))
+                    props.setCVColor('#299BE8')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1D.png'))
                     helper.selectedCVColor = '#299BE8'
                     break;
                 case '#407F92':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV1E.png'))
+                    props.setCVColor('#407F92')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV1E.png'))
                     helper.selectedCVColor = '#407F92'
                     break;
             }
         }
-        else if (helper.selectedOrderCV === 2) {
+        else if (props.cvId === 2) {
             switch (v) {
                 case '#2A2A2A':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV2.png'))
+                    props.setCVColor('#2A2A2A')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2.png'))
                     helper.selectedCVColor = '#2A2A2A'
                     break;
                 case '#FFFFFF':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV2A.png'))
+                    props.setCVColor('#FFFFFF')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2A.png'))
                     helper.selectedCVColor = '#FFFFFF'
                     break;
                 case '#12A3D0':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV2B.png'))
+                    props.setCVColor('#12A3D0')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2B.png'))
                     helper.selectedCVColor = '#12A3D0'
                     break;
                 case '#FF7373':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV2C.png'))
+                    props.setCVColor('#FF7373')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2C.png'))
                     helper.selectedCVColor = '#FF7373'
                     break;
                 case '#299BE8':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV2D.png'))
+                    props.setCVColor('#299BE8')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2D.png'))
                     helper.selectedCVColor = '#299BE8'
                     break;
                 case '#407F92':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV2E.png'))
+                    props.setCVColor('#407F92')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV2E.png'))
                     helper.selectedCVColor = '#407F92'
                     break;
             }
         }
-        else if (helper.selectedOrderCV === 3) {
+        else if (props.cvId === 3) {
             switch (v) {
                 case '#2A2A2A':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV3.png'))
+                    props.setCVColor('#2A2A2A')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3.png'))
                     helper.selectedCVColor = '#2A2A2A'
                     break;
                 case '#FFFFFF':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV3A.png'))
+                    props.setCVColor('#FFFFFF')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3A.png'))
                     helper.selectedCVColor = '#FFFFFF'
                     break;
                 case '#12A3D0':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV3B.png'))
+                    props.setCVColor('#12A3D0')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3B.png'))
                     helper.selectedCVColor = '#12A3D0'
                     break;
                 case '#FF7373':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV3C.png'))
+                    props.setCVColor('#FF7373')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3C.png'))
                     helper.selectedCVColor = '#FF7373'
                     break;
                 case '#299BE8':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV3D.png'))
+                    props.setCVColor('#299BE8')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3D.png'))
                     helper.selectedCVColor = '#299BE8'
                     break;
                 case '#407F92':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV3E.png'))
+                    props.setCVColor('#407F92')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV3E.png'))
                     helper.selectedCVColor = '#407F92'
                     break;
             }
         }
-        else if (helper.selectedOrderCV === 4) {
+        else if (props.cvId === 4) {
             switch (v) {
                 case '#2A2A2A':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV4.png'))
+                    props.setCVColor('#2A2A2A')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4.png'))
                     helper.selectedCVColor = '#2A2A2A'
                     break;
                 case '#FFFFFF':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV4A.png'))
+                    props.setCVColor('#FFFFFF')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4A.png'))
                     helper.selectedCVColor = '#FFFFFF'
                     break;
                 case '#12A3D0':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV4B.png'))
+                    props.setCVColor('#12A3D0')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4B.png'))
                     helper.selectedCVColor = '#12A3D0'
                     break;
                 case '#FF7373':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV4C.png'))
+                    props.setCVColor('#FF7373')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4C.png'))
                     helper.selectedCVColor = '#FF7373'
                     break;
                 case '#299BE8':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV4D.png'))
+                    props.setCVColor('#299BE8')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4D.png'))
                     helper.selectedCVColor = '#299BE8'
                     break;
                 case '#407F92':
+                    props.setCVType(require('../images/cvExamplesImg/templateCV4E.png'))
+                    props.setCVColor('#407F92')
                     helper.setSelectedOrderCV(require('../images/cvExamplesImg/templateCV4E.png'))
                     helper.selectedCVColor = '#407F92'
                     break;
@@ -176,13 +224,15 @@ const ShowCV = (props) => {
 const mapStateToProps = state => {
     return {
         CV: state.selectedCV,
-        CVColor: state.selectedCVColor
+        CVColor: state.selectedCVColor,
+        cvId: state.cvId
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-
+        setCVType: (cvType) => dispatch(),
+        setCVColor: (cvColor) => dispatch()
     }
 };
 
