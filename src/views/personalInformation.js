@@ -142,6 +142,7 @@ const PersonalInformation = props => {
                 const source = { uri: response.uri };
                 setPhotoSource(source)
                 helper.userPhoto = source;
+                props.setPhotoSource(source);
             }
         });
     }
@@ -230,6 +231,10 @@ const PersonalInformation = props => {
         else props.navigation.navigate('experiences')
     }
 
+    const removePhoto = () => {
+        props.setPhotoSource(null);
+    };
+
     const renderPersonalInformation = () => {
         return (
 
@@ -246,7 +251,7 @@ const PersonalInformation = props => {
 
                         {
                             props.photoSource ?
-                            <TouchableOpacity onPress={() => helper.userPhoto = ''} style={styles.removeButton}>
+                            <TouchableOpacity onPress={() => removePhoto()} style={styles.removeButton}>
                                 <Text style={styles.photoButtonText}>Fotografı çıkar</Text>
                             </TouchableOpacity> : null
                         }
@@ -258,7 +263,7 @@ const PersonalInformation = props => {
                             <SImage width={20} source={require('../images/userForm.png')} />
                             <TextInput
                                 value={helper.userName}
-                                onChangeText={(text) => helper.userName = text}
+                                onChangeText={text => props.setName(text)}
                                 placeholder='...'
                                 autoCapitalize='words'
                                 style={styles.inputStyle} />
@@ -269,7 +274,7 @@ const PersonalInformation = props => {
                             <SImage width={20} source={require('../images/phone.png')} />
                             <TextInput
                                 value={helper.userTel}
-                                onChangeText={(text) => helper.userTel = text}
+                                onChangeText={text => props.setTelNumber(text)}
                                 placeholder='...'
                                 keyboardType='numeric'
                                 style={styles.inputStyle} />
@@ -281,7 +286,7 @@ const PersonalInformation = props => {
                             <SImage width={20} source={require('../images/mail.png')} />
                             <TextInput
                                 value={helper.userEmail}
-                                onChangeText={(text) => helper.userEmail = text}
+                                onChangeText={text => props.setEmail(text)}
                                 placeholder='...'
                                 autoCapitalize='none'
                                 keyboardType='email-address'
@@ -296,7 +301,7 @@ const PersonalInformation = props => {
                         <SImage width={20} source={require('../images/manager.png')} />
                         <TextInput
                             value={helper.userJob}
-                            onChangeText={(text) => helper.userJob = text}
+                            onChangeText={text => props.setJob(text)}
                             placeholder='...'
                             autoCapitalize='words'
                             style={[styles.inputStyle, { width: '90%', paddingLeft: 10 }]} />
@@ -307,7 +312,7 @@ const PersonalInformation = props => {
                         <SImage width={20} source={require('../images/pin.png')} />
                         <TextInput
                             value={helper.userCity}
-                            onChangeText={(text) => helper.userCity = text}
+                            onChangeText={text => props.setCity(text)}
                             placeholder='...'
                             autoCapitalize='words'
                             style={[styles.inputStyle, { width: '90%' }]} />
@@ -318,7 +323,7 @@ const PersonalInformation = props => {
                         <SImage width={20} source={require('../images/post.png')} />
                         <TextInput
                             value={helper.userPostalCode}
-                            onChangeText={(text) => helper.userPostalCode = text}
+                            onChangeText={text => props.setPostalCode(text)}
                             placeholder='...'
                             keyboardType='numeric'
                             style={[styles.inputStyle, { width: '90%' }]} />
@@ -362,7 +367,7 @@ const PersonalInformation = props => {
                                         paddingBottom: 5
                                     }
                                 }}
-                                onDateChange={(date) => helper.userBirthDay = date}
+                                onDateChange={(date) => props.setUserBirthDay}
                             />
 
                             <Text style={styles.inputTitle}>Cinsiyet</Text>

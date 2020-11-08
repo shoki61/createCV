@@ -5,7 +5,8 @@ export {
     setGender,
     setJob,
     setPostalCode,
-    setTelNumber
+    setTelNumber,
+    setBirthDay
 } from './personalInformation';
  
 export {

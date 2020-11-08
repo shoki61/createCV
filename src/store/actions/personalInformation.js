@@ -14,6 +14,13 @@ export const setTelNumber = number => {
     }
 };
 
+export const setBirthDay = birthDay => {
+    return {
+        type: actionType.BIRTHDAY,
+        birthDay: birthDay
+    }
+};
+
 export const setGender = gender => {
     return {
         type: actionType.GENDER,
